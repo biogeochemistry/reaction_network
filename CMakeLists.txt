@@ -35,35 +35,36 @@ endif()
 # as ${gtest_SOURCE_DIR} and to the root binary directory as
 # ${gtest_BINARY_DIR}.
 # Language "C" is required for find_package(Threads).
-project(pde CXX)
+project(reaction_network CXX)
 cmake_minimum_required(VERSION 2.6.2)
 
 if (COMMAND set_up_hermetic_build)
   set_up_hermetic_build()
 endif()
 
+
+# Change this
+set(reaction_network "./")
+
+
+set(GTEST_DIR "${reaction_network}/libs/gtest/")
+set(EIGEN_DIR "${reaction_network}/libs/eigen/")
+
 # Define helper functions and macros used by Google Test.
-include($ENV{GTEST_DIR}/cmake/internal_utils.cmake)
+include(${GTEST_DIR}/cmake/internal_utils.cmake)
 
 config_compiler_and_linker()  # Defined in internal_utils.cmake.
 
-
-# Change this
-set(pde "./")
-
-
-set(GTEST_DIR "${pde}/libs/gtest/")
-set(EIGEN_DIR "${pde}/libs/eigen/")
 # Where Google Test's .h files can be found.
 include_directories(
-  $ENV{GTEST_DIR}/include
-  $ENV{GTEST_DIR}
-  $ENV{EIGEN_DIR}
-  ${pde})
+  ${GTEST_DIR}/include
+  ${GTEST_DIR}
+  ${EIGEN_DIR}
+  ${reaction_network})
 # Where Google Test's libraries can be found.
-link_directories($ENV{GTEST_DIR}/src)
-set(HEADER_FILES BoundaryConditions.hpp SecondOrderOde.hpp FiniteDifferenceGrid.hpp BvpOde.hpp Node.hpp)
-set(SOURCES_FILES BoundaryConditions.cpp BvpOde.cpp)
+link_directories(${GTEST_DIR}/src)
+set(HEADER_FILES OdeSolver.h Runge-Kutta.h)
+set(SOURCES_FILES OdeSolver.cpp Runge-Kutta.cpp)
 
 add_definitions("-stdlib=libc++ -std=c++11 -lc++ -g -Wall -Wextra -pthread -Wno-missing-field-initializers")
 
