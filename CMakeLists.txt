@@ -63,8 +63,8 @@ include_directories(
   ${reaction_network})
 # Where Google Test's libraries can be found.
 link_directories(${GTEST_DIR}/src)
-set(HEADER_FILES OdeSolver.h Runge-Kutta.h)
-set(SOURCES_FILES OdeSolver.cpp Runge-Kutta.cpp)
+set(HEADER_FILES OdeSolver.hpp Runge-Kutta.hpp BoundaryConditions.hpp SecondOrderOde.hpp FiniteDifferenceGrid.hpp BvpOde.hpp Node.hpp)
+set(SOURCES_FILES OdeSolver.cpp Runge-Kutta.cpp BoundaryConditions.cpp BvpOde.cpp)
 
 add_definitions("-stdlib=libc++ -std=c++11 -lc++ -g -Wall -Wextra -pthread -Wno-missing-field-initializers")
 
@@ -86,10 +86,10 @@ target_link_libraries(gtest_main gtest)
 # from the given source files.  dir/name.cc is implicitly included in
 # the source file list.
 
-# ADD_EXECUTABLE(main main.cpp ${SOURCES_FILES} ${HEADER_FILES})
+ADD_EXECUTABLE(main main.cpp ${SOURCES_FILES} ${HEADER_FILES})
 
-# add_executable(test tests/test.cpp ${SOURCES_FILES} ${HEADER_FILES})
-# target_link_libraries(test gtest gtest_main)
+add_executable(test tests/test.cpp ${SOURCES_FILES} ${HEADER_FILES})
+target_link_libraries(test gtest gtest_main)
 
 
 
