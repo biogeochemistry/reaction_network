@@ -44,7 +44,7 @@ endif()
 
 
 # Change this
-set(reaction_network "./")
+set(reaction_network "/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network")
 
 
 set(GTEST_DIR "${reaction_network}/libs/gtest/")
@@ -86,10 +86,10 @@ target_link_libraries(gtest_main gtest)
 # from the given source files.  dir/name.cc is implicitly included in
 # the source file list.
 
-ADD_EXECUTABLE(main main.cpp ${SOURCES_FILES} ${HEADER_FILES})
+# ADD_EXECUTABLE(main main.cpp ${SOURCES_FILES} ${HEADER_FILES})
 
-add_executable(test tests/test.cpp ${SOURCES_FILES} ${HEADER_FILES})
-target_link_libraries(test gtest gtest_main)
+# add_executable(test tests/test.cpp ${SOURCES_FILES} ${HEADER_FILES})
+# target_link_libraries(test gtest gtest_main)
 
 
 
