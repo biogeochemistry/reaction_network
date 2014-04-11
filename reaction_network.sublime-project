@@ -1,9 +1,35 @@
 {
+	"build_systems":
+	[
+		{
+			"cmd":
+			[
+				"make && ./test && ./main",
+				"-f",
+				"Makefile",
+				"VERBOSE=1",
+				"all"
+			],
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"name": "reaction_network",
+			"working_dir": "${project_path}",
+			"path": "/usr/bin:/usr/local/bin:/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network:/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/tests",
+	    "shell": true
+		}
+	],
 	"folders":
 	[
 		{
 			"follow_symlinks": true,
 			"path": "/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network"
 		}
-	]
+	],
+    "settings":
+    {
+			  "sublimegdb_workingdir": "/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network",
+  "sublimegdb_commandline": "/usr/local/bin/gdb --interpreter=mi ./main",
+      "sublimegdb_close_views": true
+		}
 }
+
+

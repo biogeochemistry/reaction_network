@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"mp",
+				"mpGrid"
+			],
+			[
 				"RE",
 				"RE_ENZYMES"
 			],
@@ -336,15 +340,27 @@
 	"buffers":
 	[
 	],
-	"build_system": "",
+	"build_system": "Packages/Makefile Improved/Make.sublime-build",
 	"command_palette":
 	{
-		"height": 375.0,
+		"height": 159.0,
 		"selected_items":
 		[
 			[
+				"gdbde",
+				"Preferences: SublimeGDB Settings – Default"
+			],
+			[
+				"gdb",
+				"SublimeGDB: Start Debugging"
+			],
+			[
 				"packa",
 				"Package Control: Enable Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
 			],
 			[
 				"git lo",
@@ -385,10 +401,6 @@
 			[
 				":w",
 				":w - Save"
-			],
-			[
-				"pac",
-				"Package Control: Enable Package"
 			],
 			[
 				"gitlo",
@@ -491,7 +503,7 @@
 				"Preferences: Browse Packages"
 			]
 		],
-		"width": 588.0
+		"width": 516.0
 	},
 	"console":
 	{
@@ -512,6 +524,26 @@
 	},
 	"file_history":
 	[
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/reaction_network.sublime-project",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/doc/snippets/MatrixBase_computeInverseWithCheck.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/doc/examples/DenseBase_middleRows_int.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/Eigen/src/Geometry/AlignedBox.h",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/gtest/src/gtest-death-test.cc",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/Eigen/Geometry",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/doc/snippets/FullPivLU_image.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/unsupported/test/sparse_extra.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/SecondOrderOde.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/CMakeFiles/progress.marks",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/bench/benchVecAdd.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BoundaryConditions.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BoundaryConditions.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BvpOde.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/main",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Makefile",
+		"/Users/MarkelovIgor/.zshrc",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/CMakeLists.txt",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/doc/snippets/MatrixBase_adjoint.cpp",
 		"/Users/MarkelovIgor/Documents/git/printchomp/app/models/order.rb",
 		"/Users/MarkelovIgor/Documents/git/printchomp/db/migrate/20121102034637_change_printers_with_invisible_status_to_inactive_and_invisible_property.rb",
 		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/printers/quotes.html.erb",
@@ -619,27 +651,7 @@
 		"/Users/MarkelovIgor/Documents/git/printchomp/spec/models/job_estimator_spec.rb",
 		"/Users/MarkelovIgor/Documents/git/printchomp/lib/ab_tests/create_account.rb",
 		"/Users/MarkelovIgor/Documents/git/printchomp/spec/routing/contracts_routing_spec.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/quotes/show/_quote_details.html.erb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/models/identity.rb",
-		"/Users/MarkelovIgor/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
-		"/Users/MarkelovIgor/Documents/git/printchomp/.jhw-cache/spec_file_analysis/Users/MarkelovIgor/Documents/git/printchomp/spec/javascripts/printers/PrinterBranchesSelect.spec.js.js",
-		"/Users/MarkelovIgor/Documents/git/printchomp/db/migrate/20121115212518_add_available_at_to_quote_responses.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/db/migrate/20130911005409_add_depth_options_to_canvas_print_product.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/shared/_advanced_email_template.html.erb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/db/migrate/20120810030306_add_identity_id_to_users.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/controllers/organizations_controller.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/spec/controllers/organizations_controller_spec.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/spec/controllers/orders_controller_spec.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/spec/controllers/specials_controller_spec.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/db/migrate/20120629043232_add_branch_to_job.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/helpers/application_helper.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/orders/show/_order_activity.html.erb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/spec/models/order_spec.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/mailers/order_mailer.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/helpers/order_helper.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/spec/factories/orders.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/branches/new.html.erb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/spec/controllers/order_builder_controller_spec.rb"
+		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/quotes/show/_quote_details.html.erb"
 	],
 	"find":
 	{
@@ -662,6 +674,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"lib",
 			"Km_HE_ENZYMES",
 			"AVALIABLE_ENERGY",
 			"5,",
@@ -788,8 +801,7 @@
 			"H",
 			"2",
 			"1",
-			"= ",
-			".^"
+			"= "
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -900,6 +912,34 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"finite",
+				"FiniteDifferenceGrid.hpp"
+			],
+			[
+				"secon",
+				"SecondOrderOde.hpp"
+			],
+			[
+				"bvp",
+				"BvpOde.hpp"
+			],
+			[
+				"bounda",
+				"BoundaryConditions.hpp"
+			],
+			[
+				"boundar",
+				"BoundaryConditions.cpp"
+			],
+			[
+				"maincpp",
+				"main.cpp"
+			],
+			[
+				"make",
+				"Makefile"
+			],
 			[
 				"order_service_spec.rb",
 				"spec/z_api/chomp/payments/order_service_spec.rb"
