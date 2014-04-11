@@ -22,27 +22,29 @@ private:
   SparseMatrix<double> *mpLhsMat;
   string mFilename;
 
-  
+  void PopulateMatrix();
   void PopulateVector();
   void ApplyBoundaryConditions();
 
 public:
-    void PopulateMatrix();
     BvpOde(SecondOrderOde *pOde, BoundaryConditions *pBcs, int numNodes) {
       mpOde = pOde;
       mpBconds = pBcs;
       mNumNodes = numNodes;
+      mpLhsMat = new SparseMatrix<double>;
+      mpGrid = new FiniteDifferenceGrid(numNodes, mpOde->mXmin, mpOde->mXmax);
+      PopulateMatrix();
     };
     ~BvpOde(){
-      delete &mpOde;
-      delete &mpBconds;
+      delete mpLhsMat;
+      delete mpGrid;
     };
 
     void SetFileName(const string& name){
       mFilename = name;
     }
     void Solve();
-    void WriteSolutionFile();
+    // void WriteSolutionFile();
 };
 
 #endif // BVP_ODE_HPP

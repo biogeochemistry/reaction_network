@@ -13,8 +13,8 @@ using namespace std;
 class FiniteDifferenceGrid {
   
 private:
+  friend class BvpOde;
   FRIEND_TEST(FiniteDifferenceGrid, mesh_formation);
-  std::vector<Node> VecNod;
   VectorXd mNodes;
 public:
   FiniteDifferenceGrid(int numNodes, double xMin, double xMax){
