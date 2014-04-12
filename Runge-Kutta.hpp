@@ -4,8 +4,8 @@
 #include "OdeSolver.hpp"
 
 class RungeKutta : public OdeSolver {
-public:
-  double SolveEquation();
+    public:
+        double SolveEquation();
 };
 
 

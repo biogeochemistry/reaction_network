@@ -2,9 +2,8 @@
 #define NODE_HPP
 
 class Node {
-  
-  public:
-    double coordinate;
+    public:
+        double coordinate;
 };
 
 #endif // NODE_HPP
