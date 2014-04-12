@@ -6,3 +6,4 @@
 /libgtest_main.a
 /main
 /test
+*.dat

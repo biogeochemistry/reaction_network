@@ -21,26 +21,41 @@ void BvpOde::Solve(){
     PopulateVector();
     ApplyBoundaryConditions();
     Solve_sldlt();
+    WriteSolution();
+    // cout << (*mpRhsVec)<< endl;
+    // cout << mpSolVec << endl;
 }
 
+void BvpOde::WriteSolution(){
+    std::ofstream output_file(mFilename.c_str()); 
+    assert(output_file.is_open()); 
+    for (int i=0; i<mNumNodes; i++) {
+        double x = mpGrid->mNodes[i]; 
+        output_file << x << " " << mpSolVec(i) << "\n"; 
+    }
+    output_file.flush(); 
+    output_file.close();
+    std::cout<<"Solution written to "<<mFilename<<"\n";
+}
+    
 
 void BvpOde::PopulateMatrix(){
     // (*mpLhsMat).resize(mNumNodes, mNumNodes);
-    double diffusion_coef = (*mpOde).mCoeffOfUxx;
-    double advection_coef = (*mpOde).mCoeffOfUx;
-    double function_coef = (*mpOde).mCoeffOfU;
+    double diffusion_coef = mpOde->mCoeffOfUxx;
+    double advection_coef = mpOde->mCoeffOfUx;
+    double function_coef = mpOde->mCoeffOfU;
     double diffusionLeft, diffusionCenter, diffusionRight, xLeft, xCenter, xRight, advection;
-    cout << diffusion_coef << advection_coef << function_coef << endl;
+    // cout << diffusion_coef << advection_coef << function_coef << endl;
 
     // Formation of inner part of the matrix without BC
     for (int i = 1; i < mNumNodes-1; ++i)    {
-        xLeft = (*mpGrid).mNodes(i-1);
-        xCenter = (*mpGrid).mNodes(i);
-        xRight = (*mpGrid).mNodes(i+1);
-        diffusionLeft   = 2.f * diffusion_coef / (xRight - xLeft) / (xCenter - xLeft);
-        diffusionCenter = - 2.f * diffusion_coef / (xRight - xCenter) / (xCenter - xLeft);
-        diffusionRight  = 2.f * diffusion_coef /  (xRight - xLeft) / (xRight - xCenter);
-        advection = advection_coef / (xRight - xLeft);
+        xLeft = mpGrid->mNodes(i-1);
+        xCenter = mpGrid->mNodes(i);
+        xRight = mpGrid->mNodes(i+1);
+        diffusionLeft   = 2.0 * diffusion_coef / (xRight - xLeft) / (xCenter - xLeft);
+        diffusionCenter = - 2.0 * diffusion_coef / (xRight - xCenter) / (xCenter - xLeft);
+        diffusionRight  = 2.0 * diffusion_coef /  (xRight - xLeft) / (xRight - xCenter);
+        advection = 1.0 * advection_coef / (xRight - xLeft);
         mpLhsMat->insert(i,i-1) = (diffusionLeft - advection) ;
         mpLhsMat->insert(i,i) = (diffusionCenter + function_coef);
         mpLhsMat->insert(i,i+1) = (diffusionRight + advection) ;
@@ -49,61 +64,64 @@ void BvpOde::PopulateMatrix(){
 
 void BvpOde::PopulateVector() {
     for (int i = 1; i < mNumNodes-1; ++i)   {
-        (*mpRhsVec)(i) = mpOde->mpRhsFunc(mpGrid->mNodes(i));
+        double x = mpGrid->mNodes(i);
+        (*mpRhsVec)(i) = mpOde->mpRhsFunc(x);
     }
-    (*mpRhsVec)(0) = (*mpBconds).mLhsBcValue;
-    (*mpRhsVec)(mNumNodes-1) = (*mpBconds).mRhsBcValue;
-    cout << (*mpRhsVec) << endl << endl;
+    // cout << (*mpRhsVec) << endl << endl;
 }
 
 void BvpOde::ApplyBoundaryConditions(){
+    bool left_bc_applied = false; 
+    bool right_bc_applied = false;
+    
     // Formation of left BC
-    if ((*mpBconds).mLhsBcIsNeumann == 1) {
-        mpLhsMat->insert(0,0) = - 1.f / ((*mpGrid).mNodes(1) - (*mpGrid).mNodes(0));
-        mpLhsMat->insert(0,1) = 1.f / ((*mpGrid).mNodes(1) - (*mpGrid).mNodes(0));
+    if (mpBconds->mLhsBcIsNeumann) {
+        assert(left_bc_applied == false);
+        mpLhsMat->insert(0,0) = - 1.f / (mpGrid->mNodes(1) - mpGrid->mNodes(0));
+        mpLhsMat->insert(0,1) = 1.f / (mpGrid->mNodes(1) - mpGrid->mNodes(0));
+        left_bc_applied = true;
     }
-    else if ((*mpBconds).mLhsBcIsDirichlet == 1) {
+    else if (mpBconds->mLhsBcIsDirichlet) {
+        assert(left_bc_applied == false);
         mpLhsMat->insert(0,0) = 1.f ;
+        left_bc_applied = true;
     }
     else {cout << "Exception: Left boundary condition is not specified\n";
     }
+    (*mpRhsVec)(0) = mpBconds->mLhsBcValue;
 
     // Formation of right BC
-    if ((*mpBconds).mRhsBcIsNeumann == 1) {
-        mpLhsMat->insert(mNumNodes-1,mNumNodes-1) = 1.f / ((*mpGrid).mNodes(mNumNodes-1) - (*mpGrid).mNodes(mNumNodes-2));
-        mpLhsMat->insert(mNumNodes-1,mNumNodes-2) = - 1.f / ((*mpGrid).mNodes(mNumNodes-1) - (*mpGrid).mNodes(mNumNodes-2));
+    if (mpBconds->mRhsBcIsNeumann) {
+        assert(right_bc_applied == false);
+        mpLhsMat->insert(mNumNodes-1,mNumNodes-1) = 1.f / (mpGrid->mNodes(mNumNodes-1) - mpGrid->mNodes(mNumNodes-2));
+        mpLhsMat->insert(mNumNodes-1,mNumNodes-2) = - 1.f / (mpGrid->mNodes(mNumNodes-1) - mpGrid->mNodes(mNumNodes-2));
+        right_bc_applied = false;
     }
-    else if ((*mpBconds).mRhsBcIsDirichlet == 1) {
+    else if (mpBconds->mRhsBcIsDirichlet) {
+        assert(right_bc_applied == false);
         mpLhsMat->insert(mNumNodes-1,mNumNodes-1) = 1.f ;
+        right_bc_applied = false;
     }
     else {cout << "Exception: Right boundary condition is not specified\n";  }
-    cout << (*mpLhsMat) << endl << endl;
+    (*mpRhsVec)(mNumNodes-1) = mpBconds->mRhsBcValue;
+    // cout << (*mpLhsMat) << endl << endl;
 }
 
 void BvpOde::Solve_cg() {
-    VectorXd x(mNumNodes);
     ConjugateGradient<SparseMatrix<double> > cg;
     cg.compute(*mpLhsMat);
-    x = cg.solve(*mpRhsVec);
-    mpSolVec = &x;
-    cout << x << endl << endl;
+    mpSolVec  = cg.solve(*mpRhsVec);
 }
 
 void BvpOde::Solve_sldlt() {
-    VectorXd x(mNumNodes);
     SimplicialLDLT<SparseMatrix<double> > sldlt;
     sldlt.compute(*mpLhsMat);
-    x = sldlt.solve(*mpRhsVec);
-    mpSolVec = &x;
-    cout << (*mpSolVec) << endl << endl;
+    mpSolVec  = sldlt.solve(*mpRhsVec);
 }
 
 
 void BvpOde::Solve_sllt() {
-    VectorXd x(mNumNodes);
     SimplicialLLT<SparseMatrix<double> > sllt;
     sllt.compute(*mpLhsMat);
-    x = sllt.solve(*mpRhsVec);
-    mpSolVec = &x;
-    cout << (*mpSolVec) << endl << endl;
+    mpSolVec = sllt.solve(*mpRhsVec);
 }

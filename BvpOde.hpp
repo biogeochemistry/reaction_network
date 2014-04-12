@@ -6,7 +6,8 @@
 #include "FiniteDifferenceGrid.hpp"
 #include "SecondOrderOde.hpp"
 #include "BoundaryConditions.hpp"
-#include "Eigen/Sparse"
+#include "Eigen/Dense"
+#include <fstream>
 
 using namespace Eigen;
 using namespace std;
@@ -17,11 +18,13 @@ class BvpOde {
         FiniteDifferenceGrid* mpGrid;
         SecondOrderOde* mpOde;
         BoundaryConditions* mpBconds;
-        VectorXd *mpSolVec, *mpRhsVec;
+        VectorXd mpSolVec, *mpRhsVec;
         SparseMatrix<double> *mpLhsMat;
         void PopulateMatrix();
         void PopulateVector();
         void ApplyBoundaryConditions();
+        void WriteSolution();
+        string mFilename;
 
     public:
         BvpOde(SecondOrderOde *pOde, BoundaryConditions *pBcs, int numNodes);
@@ -30,6 +33,10 @@ class BvpOde {
         void Solve_cg();
         void Solve_sldlt();
         void Solve_sllt();
+        void Solve_sqr();
+        void SetFilename(const std::string& name){
+            mFilename = name;
+        }
 
 };
 

@@ -49,6 +49,8 @@ set(reaction_network "/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction
 
 set(GTEST_DIR "${reaction_network}/libs/gtest/")
 set(EIGEN_DIR "${reaction_network}/libs/eigen/")
+set(GNUPLOT_DIR "${reaction_network}/libs/gnuplot/")
+
 
 # Define helper functions and macros used by Google Test.
 include(${GTEST_DIR}/cmake/internal_utils.cmake)
@@ -60,10 +62,12 @@ include_directories(
   ${GTEST_DIR}/include
   ${GTEST_DIR}
   ${EIGEN_DIR}
+  ${GNUPLOT_DIR}
   ${reaction_network})
 # Where Google Test's libraries can be found.
 link_directories(${GTEST_DIR}/src)
-set(HEADER_FILES OdeSolver.hpp Runge-Kutta.hpp BoundaryConditions.hpp SecondOrderOde.hpp FiniteDifferenceGrid.hpp BvpOde.hpp Node.hpp)
+
+set(HEADER_FILES OdeSolver.hpp Runge-Kutta.hpp BoundaryConditions.hpp SecondOrderOde.hpp FiniteDifferenceGrid.hpp BvpOde.hpp)
 set(SOURCES_FILES OdeSolver.cpp Runge-Kutta.cpp BoundaryConditions.cpp BvpOde.cpp)
 
 add_definitions("-stdlib=libc++ -std=c++11 -lc++ -g -Wall -Wextra -pthread -Wno-missing-field-initializers")

@@ -2,8 +2,7 @@
 #define FINITE_DIFFERENCE_GRID_HPP
 
 #include "iostream"
-#include "Eigen/Dense"
-#include "Node.hpp"
+#include "Eigen/Sparse"
 #include "gtest/gtest_prod.h"
 #include <vector>
 
