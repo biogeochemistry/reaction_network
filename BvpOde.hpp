@@ -18,10 +18,8 @@ private:
   FiniteDifferenceGrid* mpGrid;
   SecondOrderOde* mpOde;
   BoundaryConditions* mpBconds;
-  VectorXd* mpSolVec;
+  VectorXd *mpSolVec, *mpRhsVec;
   SparseMatrix<double> *mpLhsMat;
-  string mFilename;
-
   void PopulateMatrix();
   void PopulateVector();
   void ApplyBoundaryConditions();
@@ -31,20 +29,21 @@ public:
       mpOde = pOde;
       mpBconds = pBcs;
       mNumNodes = numNodes;
-      mpLhsMat = new SparseMatrix<double>;
+      mpLhsMat = new SparseMatrix<double>(numNodes,numNodes);
+      mpRhsVec = new VectorXd(numNodes);
       mpGrid = new FiniteDifferenceGrid(numNodes, mpOde->mXmin, mpOde->mXmax);
       PopulateMatrix();
+      PopulateVector();
     };
     ~BvpOde(){
       delete mpLhsMat;
       delete mpGrid;
+      delete mpRhsVec;
     };
+    void Solve_cg();
+    void Solve_sldlt();
+    void Solve_sllt();
 
-    void SetFileName(const string& name){
-      mFilename = name;
-    }
-    void Solve();
-    // void WriteSolutionFile();
 };
 
 #endif // BVP_ODE_HPP

@@ -10,9 +10,9 @@ class SecondOrderOde
 private:
   FRIEND_TEST(second_order_ode, assigning_var);
   //Coefficients on LHS of ODE
-  double mCoeffOfUxx;
-  double mCoeffOfUx; 
-  double mCoeffOfU;
+  double mCoeffOfUxx; // diffusion
+  double mCoeffOfUx;  // advection
+  double mCoeffOfU; // function
   //Function on RHS of ODE
   double (*mpRhsFunc)(double x);
   //Interval for domain
