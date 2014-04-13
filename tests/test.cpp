@@ -1,9 +1,4 @@
 #include "gtest/gtest.h"
-// #include "/BvpOde.hpp"
-#include "Eigen/dense"
-// #include "FiniteDifferenceGrid.hpp"
-// #include "BoundaryConditions.hpp"
-// #include "SecondOrderOde.hpp"
 #include "BvpOde.hpp"
 #include "iostream"
 
@@ -18,7 +13,7 @@ TEST(FiniteDifferenceGrid, mesh_formation) {
   Vector3d v(1,1.5,2);  
   for (int i = 0; i < v.size(); ++i)
   {
-    EXPECT_EQ(v[i], grid.mNodes[i]) << "Vectors x and y differ at index ";
+    EXPECT_EQ(v[i], grid.mNodes[i].coordinate) << "Vectors x and y differ at index ";
   } 
 }
 

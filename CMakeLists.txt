@@ -44,7 +44,7 @@ endif()
 
 
 # Change this
-set(reaction_network "/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network")
+set(reaction_network ${CMAKE_SOURCE_DIR})
 
 
 set(GTEST_DIR "${reaction_network}/libs/gtest/")

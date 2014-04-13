@@ -22,7 +22,9 @@ void BvpOde::Solve(){
     PopulateMatrix();
     PopulateVector();
     ApplyBoundaryConditions();
-    Solve_sldlt();
+    cout << *mpLhsMat << endl;
+    cout << *mpRhsVec<<endl;
+    Solve_cg();
     WriteSolutionFile();
 }
 
@@ -31,12 +33,12 @@ void BvpOde::PopulateMatrix() {
         double xm = mpGrid->mNodes[i-1].coordinate; 
         double x = mpGrid->mNodes[i].coordinate; 
         double xp = mpGrid->mNodes[i+1].coordinate; 
-        double alpha = 2.0/(xp-xm)/(x-xm);
-        double beta = -2.0/(xp-x)/(x-xm);
-        double gamma = 2.0/(xp-xm)/(xp-x);
-        (*mpLhsMat).insert(i,i-1) = (mpOde->mCoeffOfUxx)*alpha - (mpOde->mCoeffOfUx)/(xp-xm);
-        (*mpLhsMat).insert(i,i) = (mpOde->mCoeffOfUxx)*beta + mpOde->mCoeffOfU;
-        (*mpLhsMat).insert(i,i+1) = (mpOde->mCoeffOfUxx)*gamma +(mpOde->mCoeffOfUx)/(xp-xm);
+        double diffusion_alpha = 2.0/(xp-xm)/(x-xm);
+        double diffusion_beta = -2.0/(xp-x)/(x-xm);
+        double diffusion_gamma = 2.0/(xp-xm)/(xp-x);
+        (*mpLhsMat).insert(i,i-1) = (mpOde->mCoeffOfUxx)*diffusion_alpha - (mpOde->mCoeffOfUx)/(xp-xm);
+        (*mpLhsMat).insert(i,i) = (mpOde->mCoeffOfUxx)*diffusion_beta + mpOde->mCoeffOfU;
+        (*mpLhsMat).insert(i,i+1) = (mpOde->mCoeffOfUxx)*diffusion_gamma +(mpOde->mCoeffOfUx)/(xp-xm);
     }
 }
 
@@ -83,7 +85,7 @@ void BvpOde::WriteSolutionFile() {
     assert(output_file.is_open());
     for (int i=0; i<mNumNodes; i++) {
         double x = mpGrid->mNodes[i].coordinate;
-          output_file << x << "  " << mpSolVec(i+1) << "\n";
+          output_file << x << "  " << mpSolVec(i) << "\n";
     }
    output_file.flush();
    output_file.close();
