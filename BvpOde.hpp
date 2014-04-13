@@ -15,10 +15,9 @@ using namespace std;
 class BvpOde {
     private:
         int mNumNodes;
-        FiniteDifferenceGrid* mpGrid;
         SecondOrderOde* mpOde;
         BoundaryConditions* mpBconds;
-        VectorXd mpSolVec, *mpRhsVec;
+        VectorXd *mpRhsVec;
         SparseMatrix<double> *mpLhsMat;
         void PopulateMatrix();
         void PopulateVector();
@@ -37,6 +36,8 @@ class BvpOde {
         void SetFilename(const std::string& name){
             mFilename = name;
         }
+        VectorXd mpSolVec;
+        FiniteDifferenceGrid* mpGrid;
 
 };
 

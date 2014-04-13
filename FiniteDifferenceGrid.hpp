@@ -13,8 +13,8 @@ class FiniteDifferenceGrid {
         friend class BvpOde;
     private:
         FRIEND_TEST(FiniteDifferenceGrid, mesh_formation);
-        VectorXd mNodes;
     public:
+        VectorXd mNodes;
         FiniteDifferenceGrid(int numNodes, double xMin, double xMax){
             mNodes.resize(numNodes);
             for (int i = 0; i < numNodes; ++i) {

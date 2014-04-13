@@ -22,8 +22,8 @@ void BvpOde::Solve(){
     ApplyBoundaryConditions();
     Solve_sldlt();
     WriteSolution();
-    // cout << (*mpRhsVec)<< endl;
-    // cout << mpSolVec << endl;
+    cout << (*mpLhsMat)<< endl;
+    cout << *mpRhsVec << endl;
 }
 
 void BvpOde::WriteSolution(){
@@ -40,12 +40,11 @@ void BvpOde::WriteSolution(){
     
 
 void BvpOde::PopulateMatrix(){
-    // (*mpLhsMat).resize(mNumNodes, mNumNodes);
     double diffusion_coef = mpOde->mCoeffOfUxx;
     double advection_coef = mpOde->mCoeffOfUx;
     double function_coef = mpOde->mCoeffOfU;
     double diffusionLeft, diffusionCenter, diffusionRight, xLeft, xCenter, xRight, advection;
-    // cout << diffusion_coef << advection_coef << function_coef << endl;
+    cout << diffusion_coef << advection_coef << function_coef << endl;
 
     // Formation of inner part of the matrix without BC
     for (int i = 1; i < mNumNodes-1; ++i)    {
@@ -59,6 +58,8 @@ void BvpOde::PopulateMatrix(){
         mpLhsMat->insert(i,i-1) = (diffusionLeft - advection) ;
         mpLhsMat->insert(i,i) = (diffusionCenter + function_coef);
         mpLhsMat->insert(i,i+1) = (diffusionRight + advection) ;
+        // cout << xLeft << "  "<< xCenter <<  " "<< xRight;
+        // cout << "\t\t\t" << advection_coef/(xLeft -xRight) << endl;
     }
 }
 

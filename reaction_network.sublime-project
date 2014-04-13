@@ -11,7 +11,22 @@
 				"all"
 			],
 			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
-			"name": "reaction_network",
+			"name": "RN test",
+			"working_dir": "${project_path}",
+			"path": "/usr/bin:/usr/local/bin:/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network:/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/tests",
+	    "shell": true
+		},
+		{
+			"cmd":
+			[
+				"make main && ./main",
+				"-f",
+				"Makefile",
+				"VERBOSE=1",
+				"all"
+			],
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+			"name": "RN exec",
 			"working_dir": "${project_path}",
 			"path": "/usr/bin:/usr/local/bin:/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network:/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/tests",
 	    "shell": true
