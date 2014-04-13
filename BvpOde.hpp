@@ -1,7 +1,6 @@
 #ifndef BVP_ODE_HPP
 #define BVP_ODE_HPP
 
-#include "gtest/gtest_prod.h"
 #include <string>
 #include "FiniteDifferenceGrid.hpp"
 #include "SecondOrderOde.hpp"
@@ -19,8 +18,8 @@ class BvpOde {
         int mNumNodes;
         SecondOrderOde* mpOde;
         BoundaryConditions* mpBconds;
-        VectorXd *mpRhsVec;
-        SparseMatrix<double> *mpLhsMat;
+        Vec mpRhsVec;
+        Mat mpLhsMat;
         void PopulateMatrix();
         void PopulateVector();
         void ApplyBoundaryConditions();
@@ -38,7 +37,7 @@ class BvpOde {
         void SetFilename(const std::string& name){
             mFilename = name;
         }
-        VectorXd mpSolVec;
+        Vec mpSolVec;
         FiniteDifferenceGrid* mpGrid;
 
 };

@@ -11,6 +11,10 @@ double model_prob_1_rhs(double x){return 0.0;}
 double model_prob_2_rhs(double x){return 34.0*sin(x);}
 double model_prob_3_rhs(double x){return 0;}
 int main(int argc, char* argv[]) {
+    PetscInitialize(&argc,&argv,PETSC_NULL,PETSC_NULL);
+    MPI_Comm_size(PETSC_COMM_WORLD,&size);
+    if(size!=1) PetscPrintf(PETSC_COMM_WORLD,"warning, %d threads\n",size);
+    
     Gnuplot g1;
 
     SecondOrderOde ode_mp1(1.0, -5, 0.0, model_prob_1_rhs, 0.0, 1.0);
@@ -44,6 +48,6 @@ int main(int argc, char* argv[]) {
 
    
     
-
+    PetscFinalize();
     return 0;
 }

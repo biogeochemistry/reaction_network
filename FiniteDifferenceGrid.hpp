@@ -3,7 +3,6 @@
 
 #include "iostream"
 #include "Eigen/Sparse"
-#include "gtest/gtest_prod.h"
 #include <vector>
 #include "Node.hpp"
 
@@ -12,7 +11,7 @@ using namespace std;
 
 class FiniteDifferenceGrid {
     private:
-        FRIEND_TEST(FiniteDifferenceGrid, mesh_formation);
+
     public:
         std::vector<Node> mNodes;
         friend class BvpOde;

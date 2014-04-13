@@ -4,11 +4,16 @@
 #include "BvpOde.hpp"
 
 BvpOde::BvpOde(SecondOrderOde* pOde,BoundaryConditions* pBcs, int numNodes){
-    mpOde = pOde; mpBconds = pBcs;
+    mpOde = pOde; 
+    mpBconds = pBcs;
     mNumNodes = numNodes;
     mpGrid = new FiniteDifferenceGrid(mNumNodes, pOde->mXmin, pOde->mXmax);
-    mpRhsVec = new VectorXd(mNumNodes);
-    mpLhsMat = new SparseMatrix<double> (mNumNodes, mNumNodes);
+    VecCreate(PETSC_COMM_WORLD, &mpRhsVec);
+    VecSetSizes(mpRhsVec,PETSC_DECIDE,mNumNodes);
+    VecSetFromOptions(mpRhsVec);
+    VecDuplicate(mpRhsVec,&mpSolVec);
+
+    mpLhsMat = new Mat(mNumNodes, mNumNodes);
     mFilename = "ode_output.dat";
 }
 
