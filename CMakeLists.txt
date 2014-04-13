@@ -1,3 +1,27 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+# Change this
+set(reaction_network ${CMAKE_SOURCE_DIR})
+
+
+set(GTEST_DIR "${reaction_network}/libs/gtest/")
+set(EIGEN_DIR "${reaction_network}/libs/eigen/")
+set(GNUPLOT_DIR "${reaction_network}/libs/gnuplot/")
+
+
+set(PETSC_DIR "/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/petsc/")
+set(PETSC_ARCH "arch-darwin-c-debug")
+set(PETSC_INCLUDES "${PETSC_DIR}/include")
+set(CMAKE_CXX_COMPILER ${PETSC_DIR}/${PETSC_ARCH}/bin/mpicc)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/libs/cmake-modules")
+
+
+
+INCLUDE_DIRECTORIES(${PETSC_INCLUDES})
+ADD_DEFINITIONS(${PETSC_DEFINITIONS})
+
+
+FIND_PACKAGE(PETSc REQUIRED)
 ########################################################################
 # CMake build script for Google Test.
 #
@@ -21,6 +45,7 @@ option(test "Build all of gtest's own tests." ON)
 # Defines pre_project_set_up_hermetic_build() and set_up_hermetic_build().
 include(cmake/hermetic_build.cmake OPTIONAL)
 
+
 if (COMMAND pre_project_set_up_hermetic_build)
   pre_project_set_up_hermetic_build()
 endif()
@@ -43,13 +68,6 @@ if (COMMAND set_up_hermetic_build)
 endif()
 
 
-# Change this
-set(reaction_network "/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network")
-
-
-set(GTEST_DIR "${reaction_network}/libs/gtest/")
-set(EIGEN_DIR "${reaction_network}/libs/eigen/")
-set(GNUPLOT_DIR "${reaction_network}/libs/gnuplot/")
 
 
 # Define helper functions and macros used by Google Test.
@@ -63,9 +81,12 @@ include_directories(
   ${GTEST_DIR}
   ${EIGEN_DIR}
   ${GNUPLOT_DIR}
+  ${PETSC_DIR}
+  ${PETSC_INCLUDES}
   ${reaction_network})
 # Where Google Test's libraries can be found.
 link_directories(${GTEST_DIR}/src)
+
 
 set(HEADER_FILES OdeSolver.hpp Runge-Kutta.hpp BoundaryConditions.hpp SecondOrderOde.hpp FiniteDifferenceGrid.hpp BvpOde.hpp Node.hpp)
 set(SOURCES_FILES OdeSolver.cpp Runge-Kutta.cpp BoundaryConditions.cpp BvpOde.cpp FiniteDifferenceGrid.cpp)
@@ -82,7 +103,7 @@ add_definitions("-stdlib=libc++ -std=c++11 -lc++ -g -Wall -Wextra -pthread -Wno-
 # aggressive about warnings.
 cxx_library(gtest "${cxx_strict}" ${GTEST_DIR}/src/gtest-all.cc)
 cxx_library(gtest_main "${cxx_strict}" ${GTEST_DIR}/src/gtest_main.cc)
-target_link_libraries(gtest_main gtest)
+target_link_libraries(gtest_main gtest ${PETSC_LIBRARIES})
 
 # cxx_executable(name dir lib srcs...)
 #
@@ -93,7 +114,7 @@ target_link_libraries(gtest_main gtest)
 ADD_EXECUTABLE(main main.cpp ${SOURCES_FILES} ${HEADER_FILES})
 
 add_executable(test tests/test.cpp ${SOURCES_FILES} ${HEADER_FILES})
-target_link_libraries(test gtest gtest_main)
+target_link_libraries(test gtest gtest_main ${PETSC_LIBRARIES})
 
 
 

@@ -22,6 +22,8 @@ void BvpOde::Solve(){
     PopulateMatrix();
     PopulateVector();
     ApplyBoundaryConditions();
+    // cout << *mpLhsMat << endl;
+    // cout << (*mpRhsVec)<< endl;
     Solve_sldlt();
     WriteSolutionFile();
 }
@@ -48,13 +50,16 @@ void BvpOde::PopulateVector() {
 }
 
 void BvpOde::ApplyBoundaryConditions() {
-    bool left_bc_applied = false; bool right_bc_applied = false;
+    bool left_bc_applied = false; 
+    bool right_bc_applied = false;
     if (mpBconds->mLhsBcIsDirichlet) {
+        assert(left_bc_applied == false);
         (*mpLhsMat).insert(0,0) = 1.0;
         (*mpRhsVec)(0) = mpBconds->mLhsBcValue; 
         left_bc_applied = true;
     }
     if (mpBconds->mRhsBcIsDirichlet) {
+        assert(right_bc_applied == false);
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = 1.0;
         (*mpRhsVec)(mNumNodes-1) = mpBconds->mRhsBcValue; 
         right_bc_applied = true;
@@ -83,7 +88,7 @@ void BvpOde::WriteSolutionFile() {
     assert(output_file.is_open());
     for (int i=0; i<mNumNodes; i++) {
         double x = mpGrid->mNodes[i].coordinate;
-          output_file << x << "  " << mpSolVec(i+1) << "\n";
+          output_file << x << "  " << mpSolVec(i) << "\n";
     }
    output_file.flush();
    output_file.close();

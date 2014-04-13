@@ -7,6 +7,7 @@
 #include "SecondOrderOde.hpp"
 #include "BoundaryConditions.hpp"
 #include "Eigen/Dense"
+#include <petsc.h>
 #include <fstream>
 
 using namespace Eigen;
