@@ -14,6 +14,7 @@ using namespace std;
 
 class BvpOde {
     private:
+        BvpOde(const BvpOde& otherBvpOde){};
         int mNumNodes;
         SecondOrderOde* mpOde;
         BoundaryConditions* mpBconds;
@@ -22,7 +23,7 @@ class BvpOde {
         void PopulateMatrix();
         void PopulateVector();
         void ApplyBoundaryConditions();
-        void WriteSolution();
+        void WriteSolutionFile();
         string mFilename;
 
     public:

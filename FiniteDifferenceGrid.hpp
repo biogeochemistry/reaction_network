@@ -5,22 +5,18 @@
 #include "Eigen/Sparse"
 #include "gtest/gtest_prod.h"
 #include <vector>
+#include "Node.hpp"
 
 using namespace Eigen;
 using namespace std;
 
 class FiniteDifferenceGrid {
-        friend class BvpOde;
     private:
         FRIEND_TEST(FiniteDifferenceGrid, mesh_formation);
     public:
-        VectorXd mNodes;
-        FiniteDifferenceGrid(int numNodes, double xMin, double xMax){
-            mNodes.resize(numNodes);
-            for (int i = 0; i < numNodes; ++i) {
-                mNodes[i] = xMin + (xMax - xMin) / (numNodes-1) * i;
-            };
-        };
+        std::vector<Node> mNodes;
+        friend class BvpOde;
+        FiniteDifferenceGrid(int numNodes, double xMin, double xMax);
 };
 
 #endif // FINITE_DIFFERENCE_GRID_HPP
