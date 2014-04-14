@@ -1,58 +1,63 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+########################################################################
+# CMake build script for Google Test.
+#
+# To run the tests for Google Test itself on Linux, use 'make test' or
+# ctest.  You can select which tests to run using 'ctest -R regex'.
+# For more options, run 'ctest --help'.
 
-PROJECT(reaction_network)
+# BUILD_SHARED_LIBS is a standard CMake variable, but we declare it here to
+# make it prominent in the GUI.
+option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." OFF)
 
-set(CMAKE_CXX_COMPILER $ENV{PETSC_DIR}/$ENV{PETSC_ARCH}/bin/mpicxx)
-SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/libs/cmake-modules")
+# When other libraries are using a shared version of runtime libraries,
+# Google Test also has to use one.
+option(  gtest_force_shared_crt
+  "Use shared (DLL) run-time lib even when Google Test is built as static lib."
+  OFF)
 
-FIND_PACKAGE(PETSc REQUIRED)
-
-INCLUDE_DIRECTORIES(${PETSC_INCLUDES})
-ADD_DEFINITIONS(${PETSC_DEFINITIONS})
-
-set(EIGEN_DIR "${CMAKE_SOURCE_DIR}/libs/eigen/")
-set(GNUPLOT_DIR "${CMAKE_SOURCE_DIR}/libs/gnuplot/")
-include_directories(
-  ${EIGEN_DIR}
-  ${GNUPLOT_DIR}
-  ${CMAKE_SOURCE_DIR})
-
-
-set(HEADER_FILES OdeSolver.hpp Runge-Kutta.hpp BoundaryConditions.hpp SecondOrderOde.hpp FiniteDifferenceGrid.hpp BvpOde.hpp Node.hpp)
-set(SOURCES_FILES OdeSolver.cpp Runge-Kutta.cpp BoundaryConditions.cpp BvpOde.cpp FiniteDifferenceGrid.cpp)
+option(test "Build all of gtest's own tests." ON)
 
 
-ADD_EXECUTABLE(main main.cpp ${SOURCES_FILES} ${HEADER_FILES})
-TARGET_LINK_LIBRARIES(main ${PETSC_LIBRARIES})
+# Defines pre_project_set_up_hermetic_build() and set_up_hermetic_build().
+include(cmake/hermetic_build.cmake OPTIONAL)
 
+if (COMMAND pre_project_set_up_hermetic_build)
+  pre_project_set_up_hermetic_build()
+endif()
+
+########################################################################
+#
+# Project-wide settings
+
+# Name of the project.
+#
+# CMake files in this project can refer to the root source directory
+# as ${gtest_SOURCE_DIR} and to the root binary directory as
+# ${gtest_BINARY_DIR}.
+# Language "C" is required for find_package(Threads).
+project(reaction_network CXX)
+cmake_minimum_required(VERSION 2.6.2)
+
+if (COMMAND set_up_hermetic_build)
+  set_up_hermetic_build()
+endif()
+
+# compiler options:
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++") #compiler clang++
+# set(CMAKE_CXX_COMPILER "/opt/local/bin/g++") #compiler g++
 
 
 # CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-
-# ########################################################################
-# #
-# # Project-wide settings
-
-# # Name of the project.
-# #
-# # CMake files in this project can refer to the root source directory
-# # as ${gtest_SOURCE_DIR} and to the root binary directory as
-# # ${gtest_BINARY_DIR}.
-# # Language "C" is required for find_package(Threads).
-# project(reaction_network CXX)
+# folders to import
+set(reaction_network ${CMAKE_SOURCE_DIR})
+set(GTEST_DIR "${reaction_network}/libs/gtest/")
+set(EIGEN_DIR "${reaction_network}/libs/eigen/")
+set(GNUPLOT_DIR "${reaction_network}/libs/gnuplot/")
 
 
-# # set(GTEST_DIR "${CMAKE_SOURCE_DIR}/libs/gtest/")
-# set(EIGEN_DIR "${CMAKE_SOURCE_DIR}/libs/eigen/")
-# set(GNUPLOT_DIR "${CMAKE_SOURCE_DIR}/libs/gnuplot/")
-# set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-modules")
-# FIND_PACKAGE(PETSc REQUIRED)
-# set(CMAKE_CXX_COMPILER ${PETSC_DIR}/${PETSC_ARCH}/bin/mpih)
-
-
-# # Define helper functions and macros used by Google Test.
-# # include(${GTEST_DIR}/cmake/internal_utils.cmake)
+# Define helper functions and macros used by Google Test.
+include(${GTEST_DIR}/cmake/internal_utils.cmake)
 
 # # config_compiler_and_linker()  # Defined in internal_utils.cmake.
 
