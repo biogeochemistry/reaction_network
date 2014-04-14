@@ -50,6 +50,7 @@ set(reaction_network "/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction
 set(GTEST_DIR "${reaction_network}/libs/gtest/")
 set(EIGEN_DIR "${reaction_network}/libs/eigen/")
 set(GNUPLOT_DIR "${reaction_network}/libs/gnuplot/")
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 
 # Define helper functions and macros used by Google Test.
