@@ -23,6 +23,7 @@ class BvpOde {
         void PopulateVector();
         void ApplyBoundaryConditions();
         void WriteSolutionFile();
+        Vec mpSolVec;
         string mFilename;
 
     public:
@@ -33,8 +34,8 @@ class BvpOde {
         void SetFilename(const std::string& name){
             mFilename = name;
         }
-        Vec mpSolVec;
         FiniteDifferenceGrid* mpGrid;
+        PetscScalar *results;
 
 };
 

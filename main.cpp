@@ -18,13 +18,13 @@ int main(int argc, char* argv[]) {
     
     // Gnuplot g1;
 
-    SecondOrderOde ode_mp1(1.0, -5, 0.0, model_prob_1_rhs, 0.0, 1.0);
-    BoundaryConditions bc_mp1;
-    bc_mp1.SetLhsDirichletBc(1.0);
-    bc_mp1.SetRhsNeumannBc(1.0);
-    BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 11);
-    bvpode_mp1.SetFilename("model_problem_results1.dat");
-    bvpode_mp1.Solve();
+    // SecondOrderOde ode_mp1(1.0, -5, 0.0, model_prob_1_rhs, 0.0, 1.0);
+    // BoundaryConditions bc_mp1;
+    // bc_mp1.SetLhsDirichletBc(1.0);
+    // bc_mp1.SetRhsNeumannBc(1.0);
+    // BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 101);
+    // bvpode_mp1.SetFilename("model_problem_results1.dat");
+    // bvpode_mp1.Solve();
     // g1.set_style("lines").plot_x(bvpode_mp1.mpSolVec);
 
 
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
     BoundaryConditions bc_mp2;
     bc_mp2.SetLhsNeumannBc(-5.0);
     bc_mp2.SetRhsDirichletBc(4.0);
-    BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 11);
+    BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 64);
     bvpode_mp2.SetFilename("model_problem_results2.dat");
     bvpode_mp2.Solve();
     // g1.set_style("points").plot_x(bvpode_mp2.mpSolVec,"user-defined points 2d");

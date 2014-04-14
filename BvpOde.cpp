@@ -118,28 +118,29 @@ void BvpOde::ApplyBoundaryConditions() {
 }
 
 void BvpOde::WriteSolutionFile() {
-    std::ofstream output_file(mFilename.c_str()); 
-    assert(output_file.is_open());
-    for (int i=0; i<mNumNodes; i++) {
-        double x = mpGrid->mNodes[i].coordinate;
+    std::ofstream output_file(mFilename.c_str());
+    // assert(output_file.is_open());
+    // for (int i=0; i<mNumNodes; i++) {
+        // double x = mpGrid->mNodes[i].coordinate;
           // output_file << x << "  " << mpSolVec(i) << "\n";
-    }
-    output_file.flush();
-    output_file.close();
-    std::cout<<"Solution written to "<<mFilename<<"\n";
+    // }
+    // output_file.flush();
+    // output_file.close();
+    // std::cout<<"Solution written to "<<mFilename<<"\n";
 }
 
 void BvpOde::Solve_petsc() { 
     KSP ksp;   /* linear solver context */
     PC pc;     /* preconditioner context */
     KSPCreate(PETSC_COMM_WORLD,&ksp);
-    KSPCreate(PETSC_COMM_WORLD,&ksp);
     /* operator is A matrix, also set matrix for preconditioning here */
     KSPSetOperators(ksp,mpLhsMat,mpLhsMat,DIFFERENT_NONZERO_PATTERN);
     /* get pc context from ksp context */
     KSPGetPC(ksp,&pc);
+
     /* set preconditioner type */
     PCSetType(pc,PCJACOBI);
+    // KSPSetType();
     KSPSetTolerances(ksp,1e-6,PETSC_DEFAULT,PETSC_DEFAULT,PETSC_DEFAULT);
     KSPSetFromOptions(ksp);
     /* solve! */
