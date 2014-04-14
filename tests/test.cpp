@@ -1,12 +1,14 @@
 #include "gtest/gtest.h"
 #include "BvpOde.hpp"
 #include "iostream"
+#include "gnuplot_i.hpp"
 
 
 // using namespace std;
 // using namespace Eigen;
 
 double model_prob_1_rhs(double x){return 1.0;}
+double model_prob_2_rhs(double x){return 34.0*sin(x);}
 
 TEST(FiniteDifferenceGrid, mesh_formation) {
   FiniteDifferenceGrid grid = FiniteDifferenceGrid(3,1,2);
@@ -17,7 +19,7 @@ TEST(FiniteDifferenceGrid, mesh_formation) {
   } 
 }
 
-TEST(Boundary_Conditions, def_constractor) {
+TEST(boundary_conditions, constractor) {
   BoundaryConditions bc;
   ASSERT_EQ(bc.mLhsBcIsDirichlet, false);
   ASSERT_EQ(bc.mRhsBcIsDirichlet, false);
@@ -32,4 +34,29 @@ TEST(second_order_ode, assigning_var){
   ASSERT_EQ(ode_mp1.mCoeffOfU, 0);
   ASSERT_EQ(ode_mp1.mXmin, 0);
   ASSERT_EQ(ode_mp1.mXmax, 1);
+}
+
+TEST(bvpode, error_of_the_solution){
+    Gnuplot g1;
+    SecondOrderOde ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1);
+    BoundaryConditions bc_mp1;
+    bc_mp1.SetLhsDirichletBc(0);
+    bc_mp1.SetRhsDirichletBc(0);
+    BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 128);
+    bvpode_mp1.SetFilename("model_problem_results1.dat");
+    bvpode_mp1.Solve();
+    g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.mpSolVec,"differentiation");
+    g1.set_style("lines").plot_equation("0.5*x*(1-x)","exact solution");
+
+    
+    Gnuplot g2;
+    SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
+    BoundaryConditions bc_mp2;
+    bc_mp2.SetLhsNeumannBc(-5.0);
+    bc_mp2.SetRhsDirichletBc(4.0);
+    BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 128);
+    bvpode_mp2.SetFilename("model_problem_results2.dat");
+    bvpode_mp2.Solve();
+    g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.mpSolVec);
+    g2.set_style("lines").plot_equation("(4*exp(x) + exp(-4*x) ) / (4*exp(pi)+exp(-4*pi))-5*sin(x)-3*cos(x)","exact solution");
 }

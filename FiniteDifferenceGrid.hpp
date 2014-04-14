@@ -5,12 +5,15 @@
 #include "Eigen/Sparse"
 #include <vector>
 #include "Node.hpp"
+#include "gtest/gtest_prod.h"
 
 using namespace Eigen;
 using namespace std;
 
 class FiniteDifferenceGrid {
     private:
+        // test framework
+        FRIEND_TEST(FiniteDifferenceGrid, mesh_formation);
 
     public:
         std::vector<Node> mNodes;

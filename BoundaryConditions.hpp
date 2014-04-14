@@ -1,14 +1,18 @@
 #ifndef BOUNDARYCONDITIONSHEADERDEF
 #define BOUNDARYCONDITIONSHEADERDEF
 
+#include "gtest/gtest_prod.h"
+
 
 class BoundaryConditions {
-    public:
-        friend class BvpOde; 
     private:
+         // test framework
+        FRIEND_TEST(boundary_conditions, constractor);
+        
         bool mLhsBcIsDirichlet, mRhsBcIsDirichlet, mLhsBcIsNeumann, mRhsBcIsNeumann; 
         double mLhsBcValue, mRhsBcValue;
     public:
+        friend class BvpOde; 
         BoundaryConditions();
         void SetLhsDirichletBc(double lhsValue);
         void SetRhsDirichletBc(double rhsValue);

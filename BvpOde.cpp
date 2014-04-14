@@ -3,6 +3,7 @@
 #include <cassert>
 #include "BvpOde.hpp"
 
+
 BvpOde::BvpOde(SecondOrderOde* pOde,BoundaryConditions* pBcs, int numNodes){
     mpOde = pOde; mpBconds = pBcs;
     mNumNodes = numNodes;
@@ -22,10 +23,7 @@ void BvpOde::Solve(){
     PopulateMatrix();
     PopulateVector();
     ApplyBoundaryConditions();
-    // cout << *mpLhsMat << endl;
-    // cout << *mpRhsVec<<endl;
-    Solve_dense_colPivHouseholderQR();
-    WriteSolutionFile();
+    Solve_sparse_lu();
 }
 
 void BvpOde::PopulateMatrix() {
@@ -50,17 +48,21 @@ void BvpOde::PopulateVector() {
 }
 
 void BvpOde::ApplyBoundaryConditions() {
-    bool left_bc_applied = false; bool right_bc_applied = false;
+    bool left_bc_applied = false; 
+    bool right_bc_applied = false;
+
     if (mpBconds->mLhsBcIsDirichlet) {
         (*mpLhsMat).insert(0,0) = 1.0;
         (*mpRhsVec)(0) = mpBconds->mLhsBcValue; 
         left_bc_applied = true;
     }
+
     if (mpBconds->mRhsBcIsDirichlet) {
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = 1.0;
         (*mpRhsVec)(mNumNodes-1) = mpBconds->mRhsBcValue; 
         right_bc_applied = true;
     }
+
     if (mpBconds->mLhsBcIsNeumann) {
         assert(left_bc_applied == false);
         double h = mpGrid->mNodes[1].coordinate - mpGrid->mNodes[0].coordinate;
@@ -132,4 +134,18 @@ void BvpOde::Solve_dense_colPivHouseholderQR() {
     MatrixXd A = MatrixXd(*mpLhsMat);
     ColPivHouseholderQR<MatrixXd> dec(A);
     mpSolVec = dec.solve(*mpRhsVec);
+}
+
+void BvpOde::Solve_sparse_BiCGSTAB() {
+    // for any sparse matrix
+    BiCGSTAB<SparseMatrix<double> > solver;
+    solver.compute(*mpLhsMat);
+    mpSolVec  = solver.solve(*mpRhsVec);
+}
+
+void BvpOde::Solve_sparse_lu() {
+    // for any sparse matrix
+    SparseLU<SparseMatrix<double,ColMajor>, AMDOrdering<int> > slu;
+    slu.compute(*mpLhsMat);
+    mpSolVec=slu.solve(*mpRhsVec);
 }

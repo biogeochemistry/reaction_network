@@ -14,6 +14,9 @@ using namespace std;
 
 class BvpOde {
     private:
+        // test framework
+        FRIEND_TEST(bvpode, error_of_the_solution);
+
         BvpOde(const BvpOde& otherBvpOde){};
         int mNumNodes;
         SecondOrderOde* mpOde;
@@ -31,6 +34,8 @@ class BvpOde {
         void Solve_sparse_ldlt(); // SparseCholesky: Direct LDLt factorization. for symmetric positive defined Matrices
         void Solve_sparse_llt(); // SparseCholesky: Direct LLt factorization. for symmetric positive defined Matrices
         void Solve_sparse_qr(); // SparseQR: Any, rectangular. for symmetric positive defined Matrices
+        void Solve_sparse_BiCGSTAB(); // A bi conjugate gradient stabilized solver for sparse square problems
+        void Solve_sparse_lu(); // LU factorization. ****
         string mFilename;
 
     public:
