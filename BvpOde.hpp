@@ -5,7 +5,6 @@
 #include "FiniteDifferenceGrid.hpp"
 #include "SecondOrderOde.hpp"
 #include "BoundaryConditions.hpp"
-#include "Eigen/Dense"
 #include <petsc.h>
 #include <fstream>
 
@@ -30,10 +29,7 @@ class BvpOde {
         BvpOde(SecondOrderOde *pOde, BoundaryConditions *pBcs, int numNodes);
         ~BvpOde();
         void Solve();
-        void Solve_cg();
-        void Solve_sldlt();
-        void Solve_sllt();
-        void Solve_sqr();
+        void Solve_petsc();
         void SetFilename(const std::string& name){
             mFilename = name;
         }
