@@ -24,16 +24,19 @@ class BvpOde {
         void PopulateVector();
         void ApplyBoundaryConditions();
         void WriteSolutionFile();
+        void Solve_dense_ldlt(); // for symmetric positive defined Matrices
+        void Solve_dense_fullPivHouseholderQr(); // for any, slowest but accurate.
+        void Solve_dense_colPivHouseholderQR(); //for any faster than fullPivHouseholderQr
+        void Solve_cg(); // for symmetric positive defined Matrices
+        void Solve_sldlt(); // for symmetric positive defined Matrices
+        void Solve_sllt(); // for symmetric positive defined Matrices
+        void Solve_sqr(); // for symmetric positive defined Matrices
         string mFilename;
 
     public:
         BvpOde(SecondOrderOde *pOde, BoundaryConditions *pBcs, int numNodes);
         ~BvpOde();
         void Solve();
-        void Solve_cg();
-        void Solve_sldlt();
-        void Solve_sllt();
-        void Solve_sqr();
         void SetFilename(const std::string& name){
             mFilename = name;
         }

@@ -22,9 +22,9 @@ void BvpOde::Solve(){
     PopulateMatrix();
     PopulateVector();
     ApplyBoundaryConditions();
-    cout << *mpLhsMat << endl;
-    cout << *mpRhsVec<<endl;
-    Solve_cg();
+    // cout << *mpLhsMat << endl;
+    // cout << *mpRhsVec<<endl;
+    Solve_dense_colPivHouseholderQR();
     WriteSolutionFile();
 }
 
@@ -93,20 +93,43 @@ void BvpOde::WriteSolutionFile() {
 }
 
 void BvpOde::Solve_cg() {
-    ConjugateGradient<SparseMatrix<double> > cg;
-    cg.compute(*mpLhsMat);
-    mpSolVec  = cg.solve(*mpRhsVec);
+    // symmetric positive definite
+    ConjugateGradient<SparseMatrix<double> > solver;
+    solver.compute(*mpLhsMat);
+    mpSolVec  = solver.solve(*mpRhsVec);
 }
 
 void BvpOde::Solve_sldlt() {
-    SimplicialLDLT<SparseMatrix<double> > sldlt;
-    sldlt.compute(*mpLhsMat);
-    mpSolVec  = sldlt.solve(*mpRhsVec);
+    // symmetric positive definite
+    SimplicialLDLT<SparseMatrix<double> > solver;
+    solver.compute(*mpLhsMat);
+    if(solver.info()==Eigen::Success) {
+        cout << 'Success';
+    }
+    mpSolVec  = solver.solve(*mpRhsVec);
 }
 
 
 void BvpOde::Solve_sllt() {
-    SimplicialLLT<SparseMatrix<double> > sllt;
-    sllt.compute(*mpLhsMat);
-    mpSolVec = sllt.solve(*mpRhsVec);
+    // symmetric positive definite
+    SimplicialLLT<SparseMatrix<double> > solver;
+    solver.compute(*mpLhsMat);
+    mpSolVec = solver.solve(*mpRhsVec);
+}
+
+void BvpOde::Solve_dense_ldlt() {
+    // // symmetric positive definite
+    mpSolVec = MatrixXd(*mpLhsMat).ldlt().solve(*mpRhsVec);
+}
+
+void BvpOde::Solve_dense_fullPivHouseholderQr() {
+    // for any matrix
+    mpSolVec = MatrixXd(*mpLhsMat).fullPivHouseholderQr().solve(*mpRhsVec);
+}
+
+void BvpOde::Solve_dense_colPivHouseholderQR() {
+    // for any matrix
+    MatrixXd A = MatrixXd(*mpLhsMat);
+    ColPivHouseholderQR<MatrixXd> dec(A);
+    mpSolVec = dec.solve(*mpRhsVec);
 }
