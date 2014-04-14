@@ -42,12 +42,14 @@ if (COMMAND set_up_hermetic_build)
   set_up_hermetic_build()
 endif()
 
+# compiler options:
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++") #compiler clang++
+# set(CMAKE_CXX_COMPILER "/opt/local/bin/g++") #compiler g++
 
-# Change this
+
+
+# folders to import
 set(reaction_network ${CMAKE_SOURCE_DIR})
-
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
-
 set(GTEST_DIR "${reaction_network}/libs/gtest/")
 set(EIGEN_DIR "${reaction_network}/libs/eigen/")
 set(GNUPLOT_DIR "${reaction_network}/libs/gnuplot/")
