@@ -92,14 +92,14 @@ void BvpOde::WriteSolutionFile() {
    std::cout<<"Solution written to "<<mFilename<<"\n";
 }
 
-void BvpOde::Solve_cg() {
+void BvpOde::Solve_sparse_cg() {
     // symmetric positive definite
     ConjugateGradient<SparseMatrix<double> > solver;
     solver.compute(*mpLhsMat);
     mpSolVec  = solver.solve(*mpRhsVec);
 }
 
-void BvpOde::Solve_sldlt() {
+void BvpOde::Solve_sparse_ldlt() {
     // symmetric positive definite
     SimplicialLDLT<SparseMatrix<double> > solver;
     solver.compute(*mpLhsMat);
@@ -110,7 +110,7 @@ void BvpOde::Solve_sldlt() {
 }
 
 
-void BvpOde::Solve_sllt() {
+void BvpOde::Solve_sparse_llt() {
     // symmetric positive definite
     SimplicialLLT<SparseMatrix<double> > solver;
     solver.compute(*mpLhsMat);
