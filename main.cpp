@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
     g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.mpSolVec);
 
     
+    Gnuplot g2;
     SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
     BoundaryConditions bc_mp2;
     bc_mp2.SetLhsNeumannBc(-5.0);
@@ -28,8 +29,9 @@ int main(int argc, char* argv[]) {
     BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 101);
     bvpode_mp2.SetFilename("model_problem_results2.dat");
     bvpode_mp2.Solve();
-    g1.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.mpSolVec);
+    g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.mpSolVec);
 
+    Gnuplot g3;
     SecondOrderOde ode_mp3(1.0, 6.0, 1.0, model_prob_3_rhs, 0.0, 1.0);
     BoundaryConditions bc_mp3;
     bc_mp3.SetLhsDirichletBc(10.0);
@@ -37,11 +39,8 @@ int main(int argc, char* argv[]) {
     BvpOde bvpode_mp3(&ode_mp3, &bc_mp3, 101);
     bvpode_mp3.SetFilename("model_problem_results3.dat");
     bvpode_mp3.Solve();
-    g1.set_style("points").plot_xy(bvpode_mp3.mpGrid->xGrid,bvpode_mp3.mpSolVec);
+    g3.set_style("points").plot_xy(bvpode_mp3.mpGrid->xGrid,bvpode_mp3.mpSolVec);
 
 
-   
-    
-    PetscFinalize();
     return 0;
 }
