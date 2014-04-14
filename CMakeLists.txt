@@ -46,6 +46,7 @@ endif()
 # Change this
 set(reaction_network ${CMAKE_SOURCE_DIR})
 
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 set(GTEST_DIR "${reaction_network}/libs/gtest/")
 set(EIGEN_DIR "${reaction_network}/libs/eigen/")
