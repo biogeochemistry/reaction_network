@@ -4,7 +4,7 @@
 #include "BvpOde.hpp"
 #include "gtest/gtest_prod.h"
 #include <string>
-#include "FiniteDifferenceGrid.hpp"
+#include "FiniteDifferenceGrid1D.hpp"
 #include "SecondOrderOde1D.hpp"
 #include "BoundaryConditions.hpp"
 #include "Eigen/Dense"
@@ -22,11 +22,12 @@ class BvpOde1D : public BvpOde {
         void PopulateMatrix();
         void PopulateVector();
         void ApplyBoundaryConditions();
+        void WriteSolutionFile();
         SecondOrderOde1D* mpOde;
     public:
         BvpOde1D(SecondOrderOde1D *pOde, BoundaryConditions *pBcs, int numNodes);
         ~BvpOde1D();
-
+        FiniteDifferenceGrid1D* mpGrid;
 
 };
 

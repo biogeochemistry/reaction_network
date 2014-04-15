@@ -8,7 +8,7 @@ BvpOde1D::BvpOde1D(SecondOrderOde1D* pOde,BoundaryConditions* pBcs, int numNodes
     mpOde = pOde; 
     mpBconds = pBcs;
     mNumNodes = numNodes;
-    mpGrid = new FiniteDifferenceGrid(mNumNodes, pOde->mXmin, pOde->mXmax);
+    mpGrid = new FiniteDifferenceGrid1D(mNumNodes, pOde->mXmin, pOde->mXmax);
     mpRhsVec = new VectorXd(mNumNodes);
     mpLhsMat = new SparseMatrix<double> (mNumNodes, mNumNodes);
     mFilename = "ode_output.dat";
@@ -76,4 +76,15 @@ void BvpOde1D::ApplyBoundaryConditions() {
     }
 }
 
+void BvpOde1D::WriteSolutionFile() {
+    std::ofstream output_file(mFilename.c_str()); 
+    assert(output_file.is_open());
+    for (int i=0; i<mNumNodes; i++) {
+        double x = mpGrid->mNodes[i].coordinate;
+          output_file << x << "  " << mpSolVec(i) << "\n";
+    }
+   output_file.flush();
+   output_file.close();
+   std::cout<<"Solution written to "<<mFilename<<"\n";
+}
 

@@ -8,9 +8,6 @@ class SecondOrderOde {
     friend class BvpOde;
     friend class BvpOde1D;  
     protected:
-        // test framework
-        FRIEND_TEST(second_order_ode, assigning_var);
-
 
         //Coefficients on LHS of ODE
         double mCoeffOfUxx; // diffusion

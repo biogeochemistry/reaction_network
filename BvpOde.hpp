@@ -16,7 +16,6 @@ using namespace std;
 class BvpOde {
     protected:
         // test framework
-        FRIEND_TEST(bvpode, error_of_the_solution);
 
         int mNumNodes;
         VectorXd *mpRhsVec;
@@ -24,10 +23,9 @@ class BvpOde {
         virtual void PopulateMatrix() = 0;
         virtual void PopulateVector() = 0;
         virtual void ApplyBoundaryConditions() = 0;
-        void WriteSolutionFile();
+        virtual void WriteSolutionFile() = 0;
         LinearSolver *mpLinearSolver;
         string mFilename;
-        SecondOrderOde* mpOde;
         BoundaryConditions* mpBconds;
     public:
 
@@ -36,7 +34,6 @@ class BvpOde {
             mFilename = name;
         }
         VectorXd mpSolVec;
-        FiniteDifferenceGrid* mpGrid;
 
 };
 

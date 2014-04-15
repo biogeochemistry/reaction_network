@@ -11,7 +11,7 @@ double model_prob_3_rhs(double x){return 0;}
 int main(int argc, char* argv[]) {
     Gnuplot g1;
 
-    SecondOrderOde1D ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1);
+    SecondOrderOde1D ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1.0);
     BoundaryConditions bc_mp1;
     bc_mp1.SetLhsDirichletBc(0);
     bc_mp1.SetRhsDirichletBc(0);

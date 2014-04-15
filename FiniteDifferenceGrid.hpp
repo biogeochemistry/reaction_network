@@ -11,9 +11,6 @@ using namespace Eigen;
 using namespace std;
 
 class FiniteDifferenceGrid {
-    private:
-        // test framework
-        FRIEND_TEST(FiniteDifferenceGrid, mesh_formation);
 
     public:
         std::vector<Node> mNodes;
@@ -21,7 +18,6 @@ class FiniteDifferenceGrid {
         friend class BvpOde1D; 
         friend class BvpOde; 
         void xGridForamtion(int xNumNodes, double xMin, double xMax);
-        FiniteDifferenceGrid(int xNumNodes, double xMin, double xMax);
 };
 
 #endif // FINITE_DIFFERENCE_GRID_HPP

@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "BvpOde.hpp"
+#include "BvpOde1D.hpp"
 #include "iostream"
 #include "gnuplot_i.hpp"
 
@@ -11,7 +11,7 @@ double model_prob_1_rhs(double x){return 1.0;}
 double model_prob_2_rhs(double x){return 34.0*sin(x);}
 
 TEST(FiniteDifferenceGrid, mesh_formation) {
-  FiniteDifferenceGrid grid = FiniteDifferenceGrid(3,1,2);
+  FiniteDifferenceGrid1D grid = FiniteDifferenceGrid1D(3,1,2);
   Vector3d v(1,1.5,2);  
   for (int i = 0; i < v.size(); ++i)
   {
@@ -28,7 +28,7 @@ TEST(boundary_conditions, constractor) {
 }
 
 TEST(second_order_ode, assigning_var){
-  SecondOrderOde ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1.0);
+  SecondOrderOde1D ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1.0);
   ASSERT_EQ(ode_mp1.mCoeffOfUxx, -1);
   ASSERT_EQ(ode_mp1.mCoeffOfUx, 0);
   ASSERT_EQ(ode_mp1.mCoeffOfU, 0);
@@ -38,11 +38,11 @@ TEST(second_order_ode, assigning_var){
 
 TEST(bvpode, error_of_the_solution){
     Gnuplot g1;
-    SecondOrderOde ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1);
+    SecondOrderOde1D ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1);
     BoundaryConditions bc_mp1;
     bc_mp1.SetLhsDirichletBc(0);
     bc_mp1.SetRhsDirichletBc(0);
-    BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 128);
+    BvpOde1D bvpode_mp1(&ode_mp1, &bc_mp1, 128);
     bvpode_mp1.SetFilename("model_problem_results1.dat");
     bvpode_mp1.Solve();
     g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.mpSolVec,"differentiation");
@@ -50,11 +50,11 @@ TEST(bvpode, error_of_the_solution){
 
     
     Gnuplot g2;
-    SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
+    SecondOrderOde1D ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
     BoundaryConditions bc_mp2;
     bc_mp2.SetLhsNeumannBc(-5.0);
     bc_mp2.SetRhsDirichletBc(4.0);
-    BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 128);
+    BvpOde1D bvpode_mp2(&ode_mp2, &bc_mp2, 128);
     bvpode_mp2.SetFilename("model_problem_results2.dat");
     bvpode_mp2.Solve();
     g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.mpSolVec);
