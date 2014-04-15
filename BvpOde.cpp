@@ -5,7 +5,8 @@
 
 
 BvpOde::BvpOde(SecondOrderOde* pOde,BoundaryConditions* pBcs, int numNodes){
-    mpOde = pOde; mpBconds = pBcs;
+    mpOde = pOde; 
+    mpBconds = pBcs;
     mNumNodes = numNodes;
     mpGrid = new FiniteDifferenceGrid(mNumNodes, pOde->mXmin, pOde->mXmax);
     mpRhsVec = new VectorXd(mNumNodes);
@@ -23,7 +24,8 @@ void BvpOde::Solve(){
     PopulateMatrix();
     PopulateVector();
     ApplyBoundaryConditions();
-    Solve_sparse_lu();
+    mpLinearSolver = new LinearSolver(*mpLhsMat, *mpRhsVec);
+    mpSolVec = mpLinearSolver->SolveLinearSystem();
 }
 
 void BvpOde::PopulateMatrix() {
@@ -92,60 +94,4 @@ void BvpOde::WriteSolutionFile() {
    output_file.flush();
    output_file.close();
    std::cout<<"Solution written to "<<mFilename<<"\n";
-}
-
-void BvpOde::Solve_sparse_cg() {
-    // symmetric positive definite
-    ConjugateGradient<SparseMatrix<double> > solver;
-    solver.compute(*mpLhsMat);
-    mpSolVec  = solver.solve(*mpRhsVec);
-}
-
-void BvpOde::Solve_sparse_ldlt() {
-    // symmetric positive definite
-    SimplicialLDLT<SparseMatrix<double> > solver;
-    solver.compute(*mpLhsMat);
-    if(solver.info()==Eigen::Success) {
-        cout << 'Success';
-    }
-    mpSolVec  = solver.solve(*mpRhsVec);
-}
-
-
-void BvpOde::Solve_sparse_llt() {
-    // symmetric positive definite
-    SimplicialLLT<SparseMatrix<double> > solver;
-    solver.compute(*mpLhsMat);
-    mpSolVec = solver.solve(*mpRhsVec);
-}
-
-void BvpOde::Solve_dense_ldlt() {
-    // // symmetric positive definite
-    mpSolVec = MatrixXd(*mpLhsMat).ldlt().solve(*mpRhsVec);
-}
-
-void BvpOde::Solve_dense_fullPivHouseholderQr() {
-    // for any matrix
-    mpSolVec = MatrixXd(*mpLhsMat).fullPivHouseholderQr().solve(*mpRhsVec);
-}
-
-void BvpOde::Solve_dense_colPivHouseholderQR() {
-    // for any matrix
-    MatrixXd A = MatrixXd(*mpLhsMat);
-    ColPivHouseholderQR<MatrixXd> dec(A);
-    mpSolVec = dec.solve(*mpRhsVec);
-}
-
-void BvpOde::Solve_sparse_BiCGSTAB() {
-    // for any sparse matrix
-    BiCGSTAB<SparseMatrix<double> > solver;
-    solver.compute(*mpLhsMat);
-    mpSolVec  = solver.solve(*mpRhsVec);
-}
-
-void BvpOde::Solve_sparse_lu() {
-    // for any sparse matrix
-    SparseLU<SparseMatrix<double,ColMajor>, AMDOrdering<int> > slu;
-    slu.compute(*mpLhsMat);
-    mpSolVec=slu.solve(*mpRhsVec);
 }

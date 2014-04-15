@@ -1,9 +1,8 @@
 #ifndef NODEHEADERDEF
 #define NODEHEADERDEF
 
-class Node
-{
-    public:
+class Node {
+public:
     double coordinate;
 };
 
