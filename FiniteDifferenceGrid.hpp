@@ -14,8 +14,10 @@ class FiniteDifferenceGrid {
 
     public:
         VectorXd xGrid;
-        friend class BvpOde1D; 
+        VectorXd yGrid;
+
         friend class BvpOde; 
+        void yGridFormation(int yNumNodes, double yMin, double yMax);
         void xGridForamtion(int xNumNodes, double xMin, double xMax);
 };
 

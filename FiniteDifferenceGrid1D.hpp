@@ -17,7 +17,6 @@ class FiniteDifferenceGrid1D : public FiniteDifferenceGrid {
         FRIEND_TEST(FiniteDifferenceGrid, mesh_formation);
         vector<Node1D> mNodes;
         friend class BvpOde1D; 
-        friend class BvpOde; 
     public:
 
         FiniteDifferenceGrid1D(int xNumNodes, double xMin, double xMax);

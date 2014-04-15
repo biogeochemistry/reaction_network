@@ -12,7 +12,6 @@ class BoundaryConditions1D : public BoundaryConditions {
         double mLhsBcValue1D, mRhsBcValue1D;
     public:
         friend class BvpOde1D; 
-        friend class BvpOde; 
         BoundaryConditions1D();
         void SetLhsDirichletBc1D(double lhsValue);
         void SetRhsDirichletBc1D(double rhsValue);

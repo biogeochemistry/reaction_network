@@ -11,7 +11,6 @@ class SecondOrderOde1D : public SecondOrderOde {
     protected:
         // test framework
         FRIEND_TEST(second_order_ode, assigning_var);
-        friend class BvpOde;
         friend class BvpOde1D;
         // friend class FiniteDifferenceGrid;
     public: 
