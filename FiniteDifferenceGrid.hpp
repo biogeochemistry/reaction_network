@@ -13,7 +13,6 @@ using namespace std;
 class FiniteDifferenceGrid {
 
     public:
-        std::vector<Node> mNodes;
         VectorXd xGrid;
         friend class BvpOde1D; 
         friend class BvpOde; 
