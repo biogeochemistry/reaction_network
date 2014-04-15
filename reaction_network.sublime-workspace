@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Solve_sparse_l",
+				"Solve_sparse_lu"
+			],
+			[
 				"mp",
 				"mpRhsVec"
 			],
@@ -431,7 +435,7 @@
 			"file": "main.cpp",
 			"settings":
 			{
-				"buffer_size": 1322,
+				"buffer_size": 1324,
 				"line_ending": "Unix"
 			}
 		},
@@ -439,7 +443,7 @@
 			"file": "tests/test.cpp",
 			"settings":
 			{
-				"buffer_size": 947,
+				"buffer_size": 2086,
 				"line_ending": "Unix"
 			}
 		},
@@ -447,7 +451,7 @@
 			"file": "BvpOde.cpp",
 			"settings":
 			{
-				"buffer_size": 4742,
+				"buffer_size": 4620,
 				"line_ending": "Unix"
 			}
 		},
@@ -463,7 +467,7 @@
 			"file": "BvpOde.hpp",
 			"settings":
 			{
-				"buffer_size": 1817,
+				"buffer_size": 1919,
 				"line_ending": "Unix"
 			}
 		},
@@ -1033,7 +1037,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1209,7 +1213,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1218,15 +1222,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1322,
+						"buffer_size": 1324,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1267,
-								1267
+								1307,
+								1098
 							]
 						],
 						"settings":
@@ -1387,7 +1391,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1396,15 +1400,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 947,
+						"buffer_size": 2086,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								90,
-								90
+								1292,
+								1292
 							]
 						],
 						"settings":
@@ -1562,10 +1566,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 300.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1574,15 +1578,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4742,
+						"buffer_size": 4620,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4664,
-								4664
+								80,
+								80
 							]
 						],
 						"settings":
@@ -1741,10 +1745,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1986.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1815,10 +1819,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 764.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -1827,15 +1831,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1817,
+						"buffer_size": 1919,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1476,
-								1476
+								330,
+								330
 							]
 						],
 						"settings":
@@ -1994,7 +1998,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 32.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -2013,8 +2017,8 @@
 						"selection":
 						[
 							[
-								185,
-								185
+								154,
+								171
 							]
 						],
 						"settings":
@@ -2353,7 +2357,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -2529,7 +2533,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -2538,15 +2542,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4742,
+						"buffer_size": 4620,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1462,
-								1462
+								1332,
+								1332
 							]
 						],
 						"settings":
