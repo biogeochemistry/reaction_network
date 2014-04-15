@@ -6,7 +6,7 @@
 #include <string>
 #include "FiniteDifferenceGrid1D.hpp"
 #include "SecondOrderOde1D.hpp"
-#include "BoundaryConditions.hpp"
+#include "BoundaryConditions1D.hpp"
 #include "Eigen/Dense"
 #include <fstream>
 
@@ -24,8 +24,9 @@ class BvpOde1D : public BvpOde {
         void ApplyBoundaryConditions();
         void WriteSolutionFile();
         SecondOrderOde1D* mpOde;
+        BoundaryConditions1D* mpBconds;
     public:
-        BvpOde1D(SecondOrderOde1D *pOde, BoundaryConditions *pBcs, int numNodes);
+        BvpOde1D(SecondOrderOde1D *pOde, BoundaryConditions1D *pBcs, int numNodes);
         ~BvpOde1D();
         FiniteDifferenceGrid1D* mpGrid;
 

@@ -12,9 +12,9 @@ int main(int argc, char* argv[]) {
     Gnuplot g1;
 
     SecondOrderOde1D ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1.0);
-    BoundaryConditions bc_mp1;
-    bc_mp1.SetLhsDirichletBc(0);
-    bc_mp1.SetRhsDirichletBc(0);
+    BoundaryConditions1D bc_mp1;
+    bc_mp1.SetLhsDirichletBc1D(0);
+    bc_mp1.SetRhsDirichletBc1D(0);
     BvpOde1D bvpode_mp1(&ode_mp1, &bc_mp1, 1024);
     bvpode_mp1.SetFilename("model_problem_results1.dat");
     bvpode_mp1.Solve();

@@ -5,7 +5,7 @@
 #include <string>
 #include "FiniteDifferenceGrid.hpp"
 #include "SecondOrderOde.hpp"
-#include "BoundaryConditions.hpp"
+#include "BoundaryConditions1D.hpp"
 #include "Eigen/Dense"
 #include <fstream>
 #include "LinearSolver.hpp"
@@ -26,7 +26,6 @@ class BvpOde {
         virtual void WriteSolutionFile() = 0;
         LinearSolver *mpLinearSolver;
         string mFilename;
-        BoundaryConditions* mpBconds;
     public:
 
         void Solve();

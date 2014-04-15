@@ -4,7 +4,7 @@
 #include "BvpOde1D.hpp"
 
 
-BvpOde1D::BvpOde1D(SecondOrderOde1D* pOde,BoundaryConditions* pBcs, int numNodes){
+BvpOde1D::BvpOde1D(SecondOrderOde1D* pOde,BoundaryConditions1D* pBcs, int numNodes){
     mpOde = pOde; 
     mpBconds = pBcs;
     mNumNodes = numNodes;
@@ -47,13 +47,13 @@ void BvpOde1D::ApplyBoundaryConditions() {
 
     if (mpBconds->mLhsBcIsDirichlet) {
         (*mpLhsMat).insert(0,0) = 1.0;
-        (*mpRhsVec)(0) = mpBconds->mLhsBcValue; 
+        (*mpRhsVec)(0) = mpBconds->mLhsBcValue1D; 
         left_bc_applied = true;
     }
 
     if (mpBconds->mRhsBcIsDirichlet) {
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = 1.0;
-        (*mpRhsVec)(mNumNodes-1) = mpBconds->mRhsBcValue; 
+        (*mpRhsVec)(mNumNodes-1) = mpBconds->mRhsBcValue1D; 
         right_bc_applied = true;
     }
 
@@ -62,7 +62,7 @@ void BvpOde1D::ApplyBoundaryConditions() {
         double h = mpGrid->mNodes[1].coordinate - mpGrid->mNodes[0].coordinate;
         (*mpLhsMat).insert(0,0) = -1.0/h; 
         (*mpLhsMat).insert(0,1) = 1.0/h;
-        (*mpRhsVec)(0) = mpBconds->mLhsBcValue; 
+        (*mpRhsVec)(0) = mpBconds->mLhsBcValue1D; 
         left_bc_applied = true;
     }
 
@@ -71,7 +71,7 @@ void BvpOde1D::ApplyBoundaryConditions() {
         double h = mpGrid->mNodes[mNumNodes-1].coordinate - mpGrid->mNodes[mNumNodes-2].coordinate; 
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = -1.0/h; 
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = 1.0/h; 
-        (*mpRhsVec)(mNumNodes-1) = mpBconds->mRhsBcValue; 
+        (*mpRhsVec)(mNumNodes-1) = mpBconds->mRhsBcValue1D; 
         right_bc_applied = true;
     }
 }
