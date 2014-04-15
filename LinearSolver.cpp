@@ -24,6 +24,9 @@ void LinearSolver::Solve_sparse_cg() {
     // symmetric positive definite
     ConjugateGradient<SparseMatrix<double> > solver;
     solver.compute(*mpA);
+    if(solver.info()==Eigen::Success) {
+        std::cout << "Sparse Conjugate Gradient solver::Success" << endl;
+    }
     *mpx  = solver.solve(*mpb);
 }
 
@@ -32,7 +35,7 @@ void LinearSolver::Solve_sparse_ldlt() {
     SimplicialLDLT<SparseMatrix<double> > solver;
     solver.compute(*mpA);
     if(solver.info()==Eigen::Success) {
-        std::cout << 'Success';
+        std::cout << "Sparse SimplicialLDLT solver::Success"<< endl;
     }
     *mpx  = solver.solve(*mpb);
 }
@@ -42,6 +45,9 @@ void LinearSolver::Solve_sparse_llt() {
     // symmetric positive definite
     SimplicialLLT<SparseMatrix<double> > solver;
     solver.compute(*mpA);
+    if(solver.info()==Eigen::Success) {
+        std::cout << "Sparse SimplicialLLT solver::Success" << endl;
+    }
     *mpx = solver.solve(*mpb);
 }
 
@@ -66,12 +72,18 @@ void LinearSolver::Solve_sparse_BiCGSTAB() {
     // for any sparse matrix
     BiCGSTAB<SparseMatrix<double> > solver;
     solver.compute(*mpA);
+    if(solver.info()==Eigen::Success) {
+        std::cout << "Sparse BiCGSTAB solver::Success" << endl;
+    }
     *mpx  = solver.solve(*mpb);
 }
 
 void LinearSolver::Solve_sparse_lu() {
     // for any sparse matrix
-    SparseLU<SparseMatrix<double,ColMajor>, AMDOrdering<int> > slu;
-    slu.compute(*mpA);
-    *mpx=slu.solve(*mpb);
+    SparseLU<SparseMatrix<double,ColMajor>, AMDOrdering<int> > solver;
+    solver.compute(*mpA);
+    if(solver.info()==Eigen::Success) {
+        std::cout << "Sparse LU solver::Success" << endl;
+    }
+    *mpx=solver.solve(*mpb);
 }
