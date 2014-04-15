@@ -11,7 +11,7 @@ double model_prob_3_rhs(double x){return 0;}
 int main(int argc, char* argv[]) {
     Gnuplot g1;
 
-    SecondOrderOde ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1);
+    SecondOrderOde1D ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1);
     BoundaryConditions bc_mp1;
     bc_mp1.SetLhsDirichletBc(0);
     bc_mp1.SetRhsDirichletBc(0);
@@ -23,11 +23,11 @@ int main(int argc, char* argv[]) {
 
     
     // Gnuplot g2;
-    // SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
+    // SecondOrderOde1D ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
     // BoundaryConditions bc_mp2;
     // bc_mp2.SetLhsNeumannBc(-5.0);
     // bc_mp2.SetRhsDirichletBc(4.0);
-    // BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 1024);
+    // BvpOde1D bvpode_mp2(&ode_mp2, &bc_mp2, 1024);
     // bvpode_mp2.SetFilename("model_problem_results2.dat");
     // bvpode_mp2.Solve();
     // g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.mpSolVec);

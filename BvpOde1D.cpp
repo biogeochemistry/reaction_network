@@ -4,7 +4,7 @@
 #include "BvpOde1D.hpp"
 
 
-BvpOde1D::BvpOde1D(SecondOrderOde* pOde,BoundaryConditions* pBcs, int numNodes){
+BvpOde1D::BvpOde1D(SecondOrderOde1D* pOde,BoundaryConditions* pBcs, int numNodes){
     mpOde = pOde; 
     mpBconds = pBcs;
     mNumNodes = numNodes;

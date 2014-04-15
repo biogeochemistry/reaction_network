@@ -5,9 +5,9 @@
 
 
 class SecondOrderOde {
-    friend class BvpOde1D; 
-    friend class BvpOde; 
-    private:
+    friend class BvpOde;
+    friend class BvpOde1D;  
+    protected:
         // test framework
         FRIEND_TEST(second_order_ode, assigning_var);
 
@@ -22,15 +22,6 @@ class SecondOrderOde {
         double mXmin; 
         double mXmax;
     public: 
-    SecondOrderOde(double coeffUxx, double coeffUx, double coeffU, double (*righthandSide)(double), double xMinimum, double xMaximum)
-    {
-        mCoeffOfUxx = coeffUxx;
-        mCoeffOfUx = coeffUx;
-        mCoeffOfU = coeffU;
-        mpRhsFunc = righthandSide;
-        mXmin = xMinimum;
-        mXmax = xMaximum;
-    };
 };
 
 #endif

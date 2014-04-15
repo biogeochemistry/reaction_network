@@ -5,7 +5,7 @@
 #include "gtest/gtest_prod.h"
 #include <string>
 #include "FiniteDifferenceGrid.hpp"
-#include "SecondOrderOde.hpp"
+#include "SecondOrderOde1D.hpp"
 #include "BoundaryConditions.hpp"
 #include "Eigen/Dense"
 #include <fstream>
@@ -19,12 +19,12 @@ class BvpOde1D : public BvpOde {
         FRIEND_TEST(bvpode, error_of_the_solution);
 
         BvpOde1D(const BvpOde1D& otherBvpOde1D){};
-
         void PopulateMatrix();
         void PopulateVector();
         void ApplyBoundaryConditions();
+        SecondOrderOde1D* mpOde;
     public:
-        BvpOde1D(SecondOrderOde *pOde, BoundaryConditions *pBcs, int numNodes);
+        BvpOde1D(SecondOrderOde1D *pOde, BoundaryConditions *pBcs, int numNodes);
         ~BvpOde1D();
 
 
