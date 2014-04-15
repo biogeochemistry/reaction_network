@@ -1,7 +1,7 @@
 #include "iostream"
 #include <cmath>
 #include <string>
-#include "BvpOde.hpp"
+#include "BvpOde1D.hpp"
 #include "gnuplot_i.hpp"
 
 
@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
     BoundaryConditions bc_mp1;
     bc_mp1.SetLhsDirichletBc(0);
     bc_mp1.SetRhsDirichletBc(0);
-    BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 1024);
+    BvpOde1D bvpode_mp1(&ode_mp1, &bc_mp1, 1024);
     bvpode_mp1.SetFilename("model_problem_results1.dat");
     bvpode_mp1.Solve();
     g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.mpSolVec,"differentiation");

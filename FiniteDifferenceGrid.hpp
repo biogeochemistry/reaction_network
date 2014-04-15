@@ -18,7 +18,8 @@ class FiniteDifferenceGrid {
     public:
         std::vector<Node> mNodes;
         VectorXd xGrid;
-        friend class BvpOde;
+        friend class BvpOde1D; 
+        friend class BvpOde; 
         void xGridForamtion(int xNumNodes, double xMin, double xMax);
         FiniteDifferenceGrid(int xNumNodes, double xMin, double xMax);
 };

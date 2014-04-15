@@ -12,6 +12,7 @@ class BoundaryConditions {
         bool mLhsBcIsDirichlet, mRhsBcIsDirichlet, mLhsBcIsNeumann, mRhsBcIsNeumann; 
         double mLhsBcValue, mRhsBcValue;
     public:
+        friend class BvpOde1D; 
         friend class BvpOde; 
         BoundaryConditions();
         void SetLhsDirichletBc(double lhsValue);

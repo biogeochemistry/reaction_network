@@ -4,10 +4,9 @@
 #include "gtest/gtest_prod.h"
 
 
-class SecondOrderOde
-
-{
-  friend class BvpOde;
+class SecondOrderOde {
+    friend class BvpOde1D; 
+    friend class BvpOde; 
     private:
         // test framework
         FRIEND_TEST(second_order_ode, assigning_var);

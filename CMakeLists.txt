@@ -72,8 +72,8 @@ include_directories(
 # # Where Google Test's libraries can be found.
 link_directories(${GTEST_DIR}/src)
 
-set(HEADER_FILES OdeSolver.hpp Runge-Kutta.hpp BoundaryConditions.hpp SecondOrderOde.hpp FiniteDifferenceGrid.hpp BvpOde.hpp Node.hpp LinearSolver.hpp)
-set(SOURCES_FILES OdeSolver.cpp Runge-Kutta.cpp BoundaryConditions.cpp BvpOde.cpp FiniteDifferenceGrid.cpp LinearSolver.cpp)
+set(HEADER_FILES OdeSolver.hpp Runge-Kutta.hpp BoundaryConditions.hpp SecondOrderOde.hpp FiniteDifferenceGrid.hpp BvpOde.hpp Node.hpp LinearSolver.hpp BvpOde1D.hpp)
+set(SOURCES_FILES OdeSolver.cpp Runge-Kutta.cpp BoundaryConditions.cpp  FiniteDifferenceGrid.cpp LinearSolver.cpp BvpOde1D.cpp BvpOde.cpp)
 
 # -stdlib=libc++  #for clang
 add_definitions(" -std=c++11 -lc++ -g -Wall -Wextra -pthread -Wno-missing-field-initializers")

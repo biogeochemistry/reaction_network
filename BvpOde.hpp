@@ -14,25 +14,23 @@ using namespace Eigen;
 using namespace std;
 
 class BvpOde {
-    private:
+    protected:
         // test framework
         FRIEND_TEST(bvpode, error_of_the_solution);
 
-        BvpOde(const BvpOde& otherBvpOde){};
         int mNumNodes;
-        SecondOrderOde* mpOde;
-        BoundaryConditions* mpBconds;
         VectorXd *mpRhsVec;
         SparseMatrix<double> *mpLhsMat;
-        void PopulateMatrix();
-        void PopulateVector();
-        void ApplyBoundaryConditions();
+        virtual void PopulateMatrix() = 0;
+        virtual void PopulateVector() = 0;
+        virtual void ApplyBoundaryConditions() = 0;
         void WriteSolutionFile();
         LinearSolver *mpLinearSolver;
         string mFilename;
+        SecondOrderOde* mpOde;
+        BoundaryConditions* mpBconds;
     public:
-        BvpOde(SecondOrderOde *pOde, BoundaryConditions *pBcs, int numNodes);
-        ~BvpOde();
+
         void Solve();
         void SetFilename(const std::string& name){
             mFilename = name;
