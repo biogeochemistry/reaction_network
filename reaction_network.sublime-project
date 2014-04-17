@@ -4,7 +4,7 @@
 		{
 			"cmd":
 			[
-				"make && ./test && ./main",
+				"make Bvp2D_test && ./Bvp2D_test",
 				"-f",
 				"Makefile",
 				"VERBOSE=1",

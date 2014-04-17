@@ -20,7 +20,7 @@ class FiniteDifferenceGrid2D : public FiniteDifferenceGrid {
         friend class BvpOde; 
     public:
 
-        FiniteDifferenceGrid2D(int xNumNodes, int yNumNodes, double xMin, double xMax, double yMin, double yMax);
+        FiniteDifferenceGrid2D(int xNumNodes, double xMin, double xMax, int yNumNodes, double yMin, double yMax);
 };
 
 #endif // FINITE_DIFFERENCE_GRID_HPP
