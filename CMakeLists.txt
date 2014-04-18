@@ -43,9 +43,11 @@ if (COMMAND set_up_hermetic_build)
 endif()
 
 # compiler options:
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++") #compiler clang++
-# set(CMAKE_CXX_COMPILER "/opt/local/bin/g++") #compiler g++
+set(CMAKE_CXX_COMPILER "clang++") #compiler clang++
+# set(CMAKE_CXX_COMPILER "g++") #compiler g++
 
+# -stdlib=libc++  #for clang
+add_definitions(" -std=c++11 -lc++ -g -Wall -Wextra -pthread -Wno-missing-field-initializers")
 
 # CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -75,8 +77,7 @@ link_directories(${GTEST_DIR}/src)
 set(HEADER_FILES OdeSolver.hpp Runge-Kutta.hpp BoundaryConditions1D.hpp BoundaryConditions.hpp SecondOrderOde.hpp SecondOrderOde1D.hpp FiniteDifferenceGrid.hpp FiniteDifferenceGrid1D.hpp BvpOde.hpp Node1D.hpp Node.hpp LinearSolver.hpp BvpOde1D.hpp FiniteDifferenceGrid2D.hpp Node2D.hpp )
 set(SOURCES_FILES OdeSolver.cpp Runge-Kutta.cpp BoundaryConditions1D.cpp  FiniteDifferenceGrid.cpp LinearSolver.cpp BvpOde1D.cpp BvpOde.cpp FiniteDifferenceGrid1D.cpp FiniteDifferenceGrid2D.cpp )
 
-# -stdlib=libc++  #for clang
-add_definitions(" -std=c++11 -lc++ -g -Wall -Wextra -pthread -Wno-missing-field-initializers")
+
 
 # ########################################################################
 # #
