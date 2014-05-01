@@ -460,10 +460,10 @@
 	"buffers":
 	[
 		{
-			"file": "Node2D.hpp",
+			"file": "main.cpp",
 			"settings":
 			{
-				"buffer_size": 254,
+				"buffer_size": 1820,
 				"line_ending": "Unix"
 			}
 		}
@@ -474,6 +474,10 @@
 		"height": 375.0,
 		"selected_items":
 		[
+			[
+				"linter",
+				"SublimeLinter: Don’t Show Errors on Save"
+			],
 			[
 				"packa",
 				"Package Control: Install Package"
@@ -736,35 +740,47 @@
 	},
 	"file_history":
 	[
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/CMakeLists.txt",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/main.cpp",
-		"/var/folders/49/nrnz8x2x141g4w899z9k4clr0000gn/T/rsub-3mt_x0/.profile",
-		"/Users/MarkelovIgor/.ssh/config",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid.cpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid2D.cpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/tests/Bvp2D.cpp",
-		"/Users/MarkelovIgor/.vimrc",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/reaction_network.sublime-project",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/tests/Bvp1D.cpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BvpOde.cpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BvpOde.hpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid2D.hpp",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Node2D.hpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid.hpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid1D.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BoundaryConditions1D.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid2D.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid2D.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BoundaryConditions1D.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BoundaryConditions.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BoundaryConditions2D.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/tests/Bvp2D.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/CMakeLists.txt",
+		"/Users/MarkelovIgor/.zshrc",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BoundaryConditions2D.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BvpOde1D.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BvpOde.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BvpOde.cpp",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Bvp2D_test",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Bvp1D_test",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/LinearSolver.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/blas/level1_impl.h",
+		"/Users/MarkelovIgor/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Node1D.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Node.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid1D.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid1D.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid.hpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/cmake-modules/FindNetCDF.cmake",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/main.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/test/vectorwiseop.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/Eigen/src/Core/VectorBlock.h",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/doc/examples/class_VectorBlock.cpp",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Makefile",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/doc/ClassHierarchy.dox",
+		"/var/folders/49/nrnz8x2x141g4w899z9k4clr0000gn/T/rsub-3mt_x0/.profile",
+		"/Users/MarkelovIgor/.ssh/config",
+		"/Users/MarkelovIgor/.vimrc",
+		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/reaction_network.sublime-project",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/doc/TutorialSparse_example_details.dox",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BoundaryConditions1D.hpp",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/tests/test.cpp",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BvpOde1D.hpp",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/SecondOrderOde1D.hpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Node.hpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Node1D.hpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/FiniteDifferenceGrid1D.cpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BoundaryConditions.hpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BoundaryConditions1D.cpp",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/BvpOde1D.cpp",
 		"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/c++/v1/fstream",
 		"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/c++/v1/string",
 		"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/c++/v1/vector",
@@ -772,8 +788,6 @@
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/SecondOrderOde.hpp",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/SecondOrderOde1D.cpp",
 		"/Users/MarkelovIgor/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
-		"/Users/MarkelovIgor/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/LinearSolver.cpp",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Runge-Kutta.hpp",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/LinearSolver.hpp",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Runge-Kutta.cpp",
@@ -785,7 +799,6 @@
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/CMakeCache.txt",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/cmake_install.cmake",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/main",
-		"/Users/MarkelovIgor/.zshrc",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/model_problem_results2.dat",
 		"/Users/MarkelovIgor/Library/Application Support/Sublime Text 3/Packages/Gist/Gist.sublime-settings",
 		"/var/folders/49/nrnz8x2x141g4w899z9k4clr0000gn/T/BvpOde.cpp",
@@ -822,7 +835,6 @@
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/petsc/conf/variables",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/.gitmodules",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/.gitignore",
-		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/Makefile",
 		"/Users/MarkelovIgor/Library/Application Support/Sublime Text 3/Packages/SublimeGDB/SublimeGDB.sublime-settings",
 		"/Users/MarkelovIgor/Library/Application Support/Sublime Text 3/Packages/User/SublimeGDB.sublime-settings",
 		"/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/libs/eigen/test/umeyama.cpp",
@@ -855,15 +867,7 @@
 		"/Users/MarkelovIgor/Documents/git/printchomp/app/models/quote_response.rb",
 		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/quotes/index.html.erb",
 		"/Users/MarkelovIgor/Documents/git/printchomp/db/migrate/20121115003033_add_printer_to_quotes.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/transactional_mailer/notify_printer_about_quote.html.erb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/db/migrate/20120913050752_add_quote_details_to_orders.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/spec/mailers/quote_mailer_spec.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/shared/_quote_link.html.erb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/quotes/_quotes.html.erb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/assets/javascripts/_namespace.js",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/services/respond_to_quote_reminder.rb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/transactional_mailer/_support_quote_info.html.erb",
-		"/Users/MarkelovIgor/Documents/git/printchomp/db/scripts/quotes.sql"
+		"/Users/MarkelovIgor/Documents/git/printchomp/app/views/transactional_mailer/notify_printer_about_quote.html.erb"
 	],
 	"find":
 	{
@@ -886,6 +890,23 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Rhs",
+			"rhs",
+			"Rhs",
+			"rhs",
+			"Rhs",
+			"rhs",
+			"Rhs",
+			"Lhs",
+			"lhs",
+			"Lhs",
+			"lhs",
+			"Lhs",
+			"lhs",
+			"Lhs",
+			"1D",
+			"BoundaryConditions1D",
+			"gcc",
 			"[7]",
 			"6]",
 			"5]",
@@ -996,24 +1017,7 @@
 			"t",
 			"manage",
 			"@branch",
-			"valid",
-			"vali",
-			"list",
-			"asse",
-			"contract",
-			"find",
-			"user",
-			"omni",
-			"candi",
-			"closest_branches",
-			"branch_candidate",
-			"closest_branches",
-			"edit",
-			"agent_identity_id",
-			"rating",
-			"num_quotes_responses",
-			"tag",
-			"won_orders"
+			"valid"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1066,19 +1070,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "Node2D.hpp",
-					"semi_transient": true,
+					"file": "main.cpp",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 254,
+						"buffer_size": 1820,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								231,
+								231
 							]
 						],
 						"settings":
@@ -1090,47 +1094,153 @@
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close"
 							],
-							"syntax": "Packages/C++/C++.tmLanguage"
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 154.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1202,12 +1312,64 @@
 		"selected_items":
 		[
 			[
-				"main",
-				"main.cpp"
+				"cmake",
+				"CMakeLists.txt"
+			],
+			[
+				"bvp2",
+				"tests/Bvp2D.cpp"
 			],
 			[
 				"bvp1",
 				"tests/Bvp1D.cpp"
+			],
+			[
+				"bounda",
+				"BoundaryConditions1D.cpp"
+			],
+			[
+				"bvp",
+				"BvpOde1D.cpp"
+			],
+			[
+				"linear",
+				"LinearSolver.cpp"
+			],
+			[
+				"boundary",
+				"BoundaryConditions1D.cpp"
+			],
+			[
+				"node",
+				"Node2D.hpp"
+			],
+			[
+				"fni",
+				"FiniteDifferenceGrid2D.cpp"
+			],
+			[
+				"",
+				"FiniteDifferenceGrid2D.hpp"
+			],
+			[
+				"f",
+				"FiniteDifferenceGrid2D.hpp"
+			],
+			[
+				"boundar",
+				"BoundaryConditions.hpp"
+			],
+			[
+				"bvp1d",
+				"tests/Bvp1D.cpp"
+			],
+			[
+				"make",
+				"Makefile"
+			],
+			[
+				"main",
+				"main.cpp"
 			],
 			[
 				"bvp2d",
@@ -1216,10 +1378,6 @@
 			[
 				"test",
 				"Bvp2D_test"
-			],
-			[
-				"cmake",
-				"CMakeLists.txt"
 			],
 			[
 				"bou",
@@ -1248,14 +1406,6 @@
 			[
 				"run",
 				"Runge-Kutta.cpp"
-			],
-			[
-				"node",
-				"Node.hpp"
-			],
-			[
-				"bvp",
-				"BvpOde.cpp"
 			],
 			[
 				"bv",
@@ -1298,14 +1448,6 @@
 				".gitmodules"
 			],
 			[
-				"",
-				"BoundaryConditions.cpp"
-			],
-			[
-				"bounda",
-				"BoundaryConditions.hpp"
-			],
-			[
 				"secon",
 				"SecondOrderOde.hpp"
 			],
@@ -1316,14 +1458,6 @@
 			[
 				"maincpp",
 				"main.cpp"
-			],
-			[
-				"boundar",
-				"BoundaryConditions.cpp"
-			],
-			[
-				"make",
-				"Makefile"
 			],
 			[
 				"order_service_spec.rb",
@@ -1688,30 +1822,6 @@
 			[
 				"solvin",
 				"MATSEDLAB-IsM/solving_eq.m"
-			],
-			[
-				"offermailer",
-				"app/views/offer_mailer/notify_printer_about_offer_verification.html.erb"
-			],
-			[
-				"new_edit.html.erb_spec.rb",
-				"spec/views/offers/new_edit.html.erb_spec.rb"
-			],
-			[
-				"apphelp",
-				"app/helpers/application_helper.rb"
-			],
-			[
-				"offersontr",
-				"app/controllers/offers_controller.rb"
-			],
-			[
-				"index.html.erb_spec.rb",
-				"spec/views/offers/index.html.erb_spec.rb"
-			],
-			[
-				"order_spec.rb",
-				"spec/features/order_spec.rb"
 			]
 		],
 		"width": 0.0
