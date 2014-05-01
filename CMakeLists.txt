@@ -89,13 +89,13 @@ set(HEADER_FILES
                   include/Node.hpp 
                   include/LinearSolver.hpp)
 set(SOURCES_FILES 
-                  sources/OdeSolver.cpp
-                  sources/Runge-Kutta.cpp 
-                  sources/BoundaryConditions.cpp  
-                  sources/FiniteDifferenceGrid.cpp 
-                  sources/LinearSolver.cpp 
-                  sources/BvpOde.cpp 
-                  sources/SecondOrderOde.cpp)
+                  src/OdeSolver.cpp
+                  src/Runge-Kutta.cpp 
+                  src/BoundaryConditions.cpp  
+                  src/FiniteDifferenceGrid.cpp 
+                  src/LinearSolver.cpp 
+                  src/BvpOde.cpp 
+                  src/SecondOrderOde.cpp)
 
 # ########################################################################
 # #
@@ -116,9 +116,9 @@ cxx_library(gtest_main "${cxx_strict}" ${GTEST_DIR}/src/gtest_main.cc)
 # # from the given source files.  dir/name.cc is implicitly included in
 # # the source file list.
 
-ADD_EXECUTABLE(main sources/main.cpp ${SOURCES_FILES} ${HEADER_FILES})
+ADD_EXECUTABLE(main src/main.cpp ${SOURCES_FILES} ${HEADER_FILES})
 
-add_executable(test tests/tests.cpp ${SOURCES_FILES} ${HEADER_FILES})
+add_executable(test src/tests/tests.cpp ${SOURCES_FILES} ${HEADER_FILES})
 target_link_libraries(test gtest gtest_main)
 
 
