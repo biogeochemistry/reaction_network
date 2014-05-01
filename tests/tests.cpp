@@ -3,10 +3,6 @@
 #include "iostream"
 #include "gnuplot_i.hpp"
 
-
-// using namespace std;
-// using namespace Eigen;
-
 double model_prob_1_rhs(double x){return 1.0;}
 double model_prob_2_rhs(double x){return 34.0*sin(x);}
 
