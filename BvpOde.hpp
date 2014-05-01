@@ -5,7 +5,7 @@
 #include <string>
 #include "FiniteDifferenceGrid.hpp"
 #include "SecondOrderOde.hpp"
-#include "BoundaryConditions1D.hpp"
+#include "BoundaryConditions.hpp"
 #include "Eigen/Dense"
 #include <fstream>
 #include "LinearSolver.hpp"
@@ -14,24 +14,28 @@ using namespace Eigen;
 using namespace std;
 
 class BvpOde {
+    FRIEND_TEST(bvpode, error_of_the_solution);
     protected:
         // test framework
 
         int mNumNodes;
         VectorXd *mpRhsVec;
         SparseMatrix<double> *mpLhsMat;
-        virtual void PopulateMatrix() = 0;
-        virtual void PopulateVector() = 0;
-        virtual void ApplyBoundaryConditions() = 0;
-        virtual void WriteSolutionFile() = 0;
+        void PopulateMatrix();
+        void PopulateVector();
+        void ApplyBoundaryConditions();
+        void WriteSolutionFile();
+        SecondOrderOde* mpOde;
+        BoundaryConditions* mpBconds;
         LinearSolver *mpLinearSolver;
         string mFilename;
     public:
+        BvpOde(SecondOrderOde *pOde, BoundaryConditions *pBcs, int numNodes);
+        ~BvpOde();
+        FiniteDifferenceGrid* mpGrid;
 
         void Solve();
-        void SetFilename(const std::string& name){
-            mFilename = name;
-        }
+        void SetFilename(const std::string& name);
         VectorXd mpSolVec;
 
 };

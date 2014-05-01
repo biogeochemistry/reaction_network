@@ -7,6 +7,7 @@
 class SecondOrderOde {
     friend class BvpOde;
     friend class BvpOde1D;  
+    FRIEND_TEST(second_order_ode, assigning_var);
     protected:
 
         //Coefficients on LHS of ODE
@@ -19,6 +20,7 @@ class SecondOrderOde {
         double mXmin; 
         double mXmax;
     public: 
+    SecondOrderOde(double coeffUxx, double coeffUx, double coeffU, double (*righthandSide)(double), double xMinimum, double xMaximum);
 };
 
 #endif
