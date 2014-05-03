@@ -8,3 +8,4 @@
 /test
 *.dat
 /Bvp1D_test
+*.sublime*
