@@ -40,8 +40,8 @@ TEST(bvpode, error_of_the_solution){
     BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 128);
     bvpode_mp1.SetFilename("model_problem_results1.dat");
     bvpode_mp1.Solve();
-    g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.mpSolVec,"differentiation");
-    g1.set_style("lines").plot_equation("0.5*x*(1-x)","exact solution");
+    // g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.mpSolVec,"differentiation");
+    // g1.set_style("lines").plot_equation("0.5*x*(1-x)","exact solution");
 
     
     Gnuplot g2;
@@ -52,8 +52,8 @@ TEST(bvpode, error_of_the_solution){
     BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 128);
     bvpode_mp2.SetFilename("model_problem_results2.dat");
     bvpode_mp2.Solve();
-    g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.mpSolVec);
-    g2.set_style("lines").plot_equation("(4*exp(x) + exp(-4*x) ) / (4*exp(pi)+exp(-4*pi))-5*sin(x)-3*cos(x)","exact solution");
+    // g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.mpSolVec);
+    // g2.set_style("lines").plot_equation("(4*exp(x) + exp(-4*x) ) / (4*exp(pi)+exp(-4*pi))-5*sin(x)-3*cos(x)","exact solution");
 }
 
 TEST(FiniteDifferenceGrid2d, mesh_formation) {
@@ -72,13 +72,14 @@ TEST(FiniteDifferenceGrid2d, mesh_formation) {
     //    |    |           |            |
     //    |   3[1,1.5]--4[1.5,1.5]----5[2,1.5]
     //    |    |            |           |
-    //    |    |            |            |
+    //    |    |            |           |
     //    |    0[1,1] ---1[1.5,1]------2[2,1]
     //    |
     //    0----------------------------------->
     //                                        x
     
     // Node # 0
+    ASSERT_EQ(grid.mNodes[0].num, 0);
     ASSERT_EQ(grid.mNodes[0].C.x, 1.0);
     ASSERT_EQ(grid.mNodes[0].C.y, 1.0);
     ASSERT_EQ(grid.mNodes[0].N.x, 1.0);
@@ -91,6 +92,7 @@ TEST(FiniteDifferenceGrid2d, mesh_formation) {
     ASSERT_EQ(grid.mNodes[0].W.y, NULL);
 
     // Node # 1
+    ASSERT_EQ(grid.mNodes[1].num, 1);
     ASSERT_EQ(grid.mNodes[1].C.x, 1.5);
     ASSERT_EQ(grid.mNodes[1].C.y, 1.0);
     ASSERT_EQ(grid.mNodes[1].N.x, 1.5);
@@ -103,6 +105,7 @@ TEST(FiniteDifferenceGrid2d, mesh_formation) {
     ASSERT_EQ(grid.mNodes[1].W.y, 1);
 
     // Node # 2
+    ASSERT_EQ(grid.mNodes[2].num, 2);
     ASSERT_EQ(grid.mNodes[2].C.x, 2);
     ASSERT_EQ(grid.mNodes[2].C.y, 1);
     ASSERT_EQ(grid.mNodes[2].N.x, 2);
@@ -115,6 +118,7 @@ TEST(FiniteDifferenceGrid2d, mesh_formation) {
     ASSERT_EQ(grid.mNodes[2].W.y, 1);
 
     // Node # 3
+    ASSERT_EQ(grid.mNodes[3].num, 3);
     ASSERT_EQ(grid.mNodes[3].C.x, 1);
     ASSERT_EQ(grid.mNodes[3].C.y, 1.5);
     ASSERT_EQ(grid.mNodes[3].N.x, 1);
@@ -127,6 +131,7 @@ TEST(FiniteDifferenceGrid2d, mesh_formation) {
     ASSERT_EQ(grid.mNodes[3].W.y, NULL);
 
     // Node # 4
+    ASSERT_EQ(grid.mNodes[4].num, 4);
     ASSERT_EQ(grid.mNodes[4].C.x, 1.5);
     ASSERT_EQ(grid.mNodes[4].C.y, 1.5);
     ASSERT_EQ(grid.mNodes[4].N.x, 1.5);
@@ -139,6 +144,7 @@ TEST(FiniteDifferenceGrid2d, mesh_formation) {
     ASSERT_EQ(grid.mNodes[4].W.y, 1.5);
 
     // Node # 5
+    ASSERT_EQ(grid.mNodes[5].num, 5);
     ASSERT_EQ(grid.mNodes[5].C.x, 2);
     ASSERT_EQ(grid.mNodes[5].C.y, 1.5);
     ASSERT_EQ(grid.mNodes[5].N.x, 2);
@@ -151,6 +157,7 @@ TEST(FiniteDifferenceGrid2d, mesh_formation) {
     ASSERT_EQ(grid.mNodes[5].W.y, 1.5);
 
     // Node # 6
+    ASSERT_EQ(grid.mNodes[6].num, 6);
     ASSERT_EQ(grid.mNodes[6].C.x, 1);
     ASSERT_EQ(grid.mNodes[6].C.y, 2);
     ASSERT_EQ(grid.mNodes[6].N.x, NULL);
@@ -163,6 +170,7 @@ TEST(FiniteDifferenceGrid2d, mesh_formation) {
     ASSERT_EQ(grid.mNodes[6].W.y, NULL);
 
     // Node # 7
+    ASSERT_EQ(grid.mNodes[7].num, 7);
     ASSERT_EQ(grid.mNodes[7].C.x, 1.5);
     ASSERT_EQ(grid.mNodes[7].C.y, 2);
     ASSERT_EQ(grid.mNodes[7].N.x, NULL);
@@ -175,6 +183,7 @@ TEST(FiniteDifferenceGrid2d, mesh_formation) {
     ASSERT_EQ(grid.mNodes[7].W.y, 2);
 
     // Node # 8
+    ASSERT_EQ(grid.mNodes[8].num, 8);
     ASSERT_EQ(grid.mNodes[8].C.x, 2);
     ASSERT_EQ(grid.mNodes[8].C.y, 2);
     ASSERT_EQ(grid.mNodes[8].N.x, NULL);

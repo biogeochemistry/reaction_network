@@ -222,11 +222,11 @@ FiniteDifferenceGrid::FiniteDifferenceGrid(int xNumNodes, double xMin, double xM
                 node.W.x = xGrid(i-1);
                 node.W.y = yGrid(j);
             }
-
+            node.num = j*yNumNodes+i;
             mNodes.push_back(node);
         }
     }
-    // assert(mNodes.size() == xNumNodes);
+    assert(mNodes.size() == yNumNodes*xNumNodes);
 }
 
 void FiniteDifferenceGrid::xGridForamtion(int xNumNodes, double xMin, double xMax){
