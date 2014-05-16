@@ -6,14 +6,58 @@
 double model_prob_1_rhs(double x){return 1.0;}
 double model_prob_2_rhs(double x){return 34.0*sin(x);}
 
-double left_bc_x0(double y){return -pow(y,2);}
-double right_bc_xN(double y){return pow(y,2);}
+double bc_x0(double y){return -pow(y,2);}
+double bc_xN(double y){return pow(y,2);}
+double bc_y0(double x){return -pow(x,4);}
+double bc_yN(double x){return pow(x,4);}
 
 TEST(boundary_conditions, assigning_var){
-    BoundaryConditions bc;
-    bc.SetX0DirichletBc2D(left_bc_x0);
-    bc.SetXNDirichletBc2D(right_bc_xN);
+    BoundaryConditions bc_dir, bc_neu;
+    // Dirichlet
+    bc_dir.SetX0DirichletBc2D(bc_x0);
+    bc_dir.SetXNDirichletBc2D(bc_xN);
+    bc_dir.SetY0DirichletBc2D(bc_y0);
+    bc_dir.SetYNDirichletBc2D(bc_yN);
 
+    // Neumann
+    bc_neu.SetX0NeumannBc2D(bc_x0);
+    bc_neu.SetXNNeumannBc2D(bc_xN);
+    bc_neu.SetY0NeumannBc2D(bc_y0);
+    bc_neu.SetYNNeumannBc2D(bc_yN);
+
+    Vector3d bc_v(1,2,3);
+    for (int i = 0; i < bc_v.size(); ++i) {
+        /*
+        Testing of the assigning of the value of given function to the BC
+         */
+        // Dirichlet
+        EXPECT_EQ( bc_dir.mpX0BcFunc2D(bc_v[i]), bc_x0(bc_v[i]) );
+        EXPECT_EQ( bc_dir.mpXNBcFunc2D(bc_v[i]), bc_xN(bc_v[i]) );
+        EXPECT_EQ( bc_dir.mpY0BcFunc2D(bc_v[i]), bc_y0(bc_v[i]) );
+        EXPECT_EQ( bc_dir.mpYNBcFunc2D(bc_v[i]), bc_yN(bc_v[i]) );
+        EXPECT_EQ( bc_dir.mX0BcIsDirichlet,  true);
+        EXPECT_EQ( bc_dir.mXNBcIsDirichlet,  true);
+        EXPECT_EQ( bc_dir.mYNBcIsDirichlet,  true);
+        EXPECT_EQ( bc_dir.mY0BcIsDirichlet,  true);
+        EXPECT_EQ( bc_dir.mX0BcIsNeumann, false);
+        EXPECT_EQ( bc_dir.mXNBcIsNeumann, false);
+        EXPECT_EQ( bc_dir.mYNBcIsNeumann, false);
+        EXPECT_EQ( bc_dir.mY0BcIsNeumann, false);
+
+        // Neumann
+        EXPECT_EQ( bc_neu.mpX0BcFunc2D(bc_v[i]), bc_x0(bc_v[i]) );
+        EXPECT_EQ( bc_neu.mpXNBcFunc2D(bc_v[i]), bc_xN(bc_v[i]) );
+        EXPECT_EQ( bc_neu.mpY0BcFunc2D(bc_v[i]), bc_y0(bc_v[i]) );
+        EXPECT_EQ( bc_neu.mpYNBcFunc2D(bc_v[i]), bc_yN(bc_v[i]) );
+        EXPECT_EQ( bc_neu.mX0BcIsDirichlet,  false);
+        EXPECT_EQ( bc_neu.mXNBcIsDirichlet,  false);
+        EXPECT_EQ( bc_neu.mYNBcIsDirichlet,  false);
+        EXPECT_EQ( bc_neu.mY0BcIsDirichlet,  false);
+        EXPECT_EQ( bc_neu.mX0BcIsNeumann, true);
+        EXPECT_EQ( bc_neu.mXNBcIsNeumann, true);
+        EXPECT_EQ( bc_neu.mYNBcIsNeumann, true);
+        EXPECT_EQ( bc_neu.mY0BcIsNeumann, true);
+    }
 
 }
 
