@@ -42,9 +42,14 @@ if (COMMAND set_up_hermetic_build)
   set_up_hermetic_build()
 endif()
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
+
 # compiler options:
-set(CMAKE_CXX_COMPILER "/usr/bin/clang++") #compiler clang++
-# set(CMAKE_CXX_COMPILER "/opt/local/bin/g++") #compiler g++
+# set(CMAKE_CXX_COMPILER "clang++") #compiler clang++
+set(CMAKE_CXX_COMPILER "g++") #compiler g++
+set (CMAKE_CXX_LINK_FLAGS "-fopenmp")
+add_definitions("-std=c++11 -g -fopenmp -Wall -Wextra -pthread -Wno-missing-field-initializers  -fdiagnostics-color=always")
 
 
 # CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
@@ -54,6 +59,7 @@ set(reaction_network ${CMAKE_SOURCE_DIR})
 set(GTEST_DIR "${reaction_network}/libs/gtest/")
 set(EIGEN_DIR "${reaction_network}/libs/eigen/")
 set(GNUPLOT_DIR "${reaction_network}/libs/gnuplot/")
+set(INCLUDE_DIR "${reaction_network}/include/")
 
 
 # Define helper functions and macros used by Google Test.
@@ -67,16 +73,29 @@ include_directories(
   ${GTEST_DIR}
   ${EIGEN_DIR}
   ${GNUPLOT_DIR}
-  ${CMAKE_SOURCE_DIR})
+  ${CMAKE_SOURCE_DIR}
+  ${INCLUDE_DIR})
 
 # # Where Google Test's libraries can be found.
 link_directories(${GTEST_DIR}/src)
 
-set(HEADER_FILES OdeSolver.hpp Runge-Kutta.hpp BoundaryConditions.hpp SecondOrderOde.hpp FiniteDifferenceGrid.hpp BvpOde.hpp Node.hpp)
-set(SOURCES_FILES OdeSolver.cpp Runge-Kutta.cpp BoundaryConditions.cpp BvpOde.cpp FiniteDifferenceGrid.cpp)
-
-# -stdlib=libc++  #for clang
-add_definitions(" -std=c++11 -lc++ -g -Wall -Wextra -pthread -Wno-missing-field-initializers")
+set(HEADER_FILES  
+                  include/OdeSolver.hpp 
+                  include/Runge-Kutta.hpp
+                  include/BoundaryConditions.hpp 
+                  include/SecondOrderOde.hpp 
+                  include/FiniteDifferenceGrid.hpp 
+                  include/BvpOde.hpp 
+                  include/Node.hpp 
+                  include/LinearSolver.hpp)
+set(SOURCES_FILES 
+                  src/OdeSolver.cpp
+                  src/Runge-Kutta.cpp 
+                  src/BoundaryConditions.cpp  
+                  src/FiniteDifferenceGrid.cpp 
+                  src/LinearSolver.cpp 
+                  src/BvpOde.cpp 
+                  src/SecondOrderOde.cpp)
 
 # ########################################################################
 # #
@@ -97,9 +116,9 @@ cxx_library(gtest_main "${cxx_strict}" ${GTEST_DIR}/src/gtest_main.cc)
 # # from the given source files.  dir/name.cc is implicitly included in
 # # the source file list.
 
-ADD_EXECUTABLE(main main.cpp ${SOURCES_FILES} ${HEADER_FILES})
+ADD_EXECUTABLE(main src/main.cpp ${SOURCES_FILES} ${HEADER_FILES})
 
-add_executable(test tests/test.cpp ${SOURCES_FILES} ${HEADER_FILES})
+add_executable(test src/tests/tests.cpp ${SOURCES_FILES} ${HEADER_FILES})
 target_link_libraries(test gtest gtest_main)
 
 
