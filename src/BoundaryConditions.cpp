@@ -2,65 +2,77 @@
 #include "BoundaryConditions.hpp"
 
 BoundaryConditions::BoundaryConditions() {
-    mTopBcIsDirichlet = false;
-    mBotBcIsDirichlet = false;
-    mTopBcIsNeumann = false;
-    mBotBcIsNeumann = false;
-    mLhsBcIsDirichlet = false;
-    mRhsBcIsDirichlet = false;
-    mLhsBcIsNeumann = false;
-    mRhsBcIsNeumann = false;
+    mYNBcIsDirichlet = false;
+    mYNBcIsDirichlet = false;
+    mYNBcIsNeumann = false;
+    mY0BcIsNeumann = false;
+    mX0BcIsDirichlet = false;
+    mXNBcIsDirichlet = false;
+    mX0BcIsNeumann = false;
+    mXNBcIsNeumann = false;
 }
 
 // X space
-void BoundaryConditions::SetLhsDirichletBc(double lhsValue)
+void BoundaryConditions::SetX0DirichletBc1D(double x0Value)
 {
-    assert(!mLhsBcIsNeumann);
-    mLhsBcIsDirichlet = true;
-    mLhsBcValue = lhsValue;
+    assert(!mX0BcIsNeumann);
+    mX0BcIsDirichlet = true;
+    mX0BcValue = x0Value;
 }
 
-void BoundaryConditions::SetRhsDirichletBc(double rhsValue){
-    assert(!mRhsBcIsNeumann);
-    mRhsBcIsDirichlet = true;
-    mRhsBcValue = rhsValue;
+void BoundaryConditions::SetXNDirichletBc1D(double xNValue){
+    assert(!mXNBcIsNeumann);
+    mXNBcIsDirichlet = true;
+    mXNBcValue = xNValue;
 }
 
-void BoundaryConditions::SetLhsNeumannBc(double lhsDerivValue){
-    assert(!mLhsBcIsDirichlet);
-    mLhsBcIsNeumann = true;
-    mLhsBcValue = lhsDerivValue;
+void BoundaryConditions::SetX0NeumannBc1D(double x0DerivValue){
+    assert(!mX0BcIsDirichlet);
+    mX0BcIsNeumann = true;
+    mX0BcValue = x0DerivValue;
 }
 
-void BoundaryConditions::SetRhsNeumannBc(double rhsDerivValue){
-    assert(!mRhsBcIsDirichlet); 
-    mRhsBcIsNeumann = true;
-    mRhsBcValue = rhsDerivValue; 
+void BoundaryConditions::SetXNNeumannBc1D(double xNDerivValue){
+    assert(!mXNBcIsDirichlet); 
+    mXNBcIsNeumann = true;
+    mXNBcValue = xNDerivValue; 
+}
+
+void BoundaryConditions::SetX0DirichletBc2D(double (*leftBCFunc)(double)){
+    assert(!mX0BcIsNeumann);
+    mX0BcIsDirichlet = true;
+    mpX0BcFunc2D = leftBCFunc;
+}
+
+void BoundaryConditions::SetXNDirichletBc2D(double (*NBCFunc)(double)){
+    assert(!mXNBcIsNeumann);
+    mXNBcIsDirichlet = true;
+    mpXNBcFunc2D = NBCFunc;
 }
 
 
 // Y space
-void BoundaryConditions::SetBotDirichletBc(double BotValue)
+void BoundaryConditions::SetY0DirichletBc(double y0Value)
 {
-    assert(!mBotBcIsNeumann);
-    mBotBcIsDirichlet = true;
-    mBotBcValue = BotValue;
+    assert(!mY0BcIsNeumann);
+    mY0BcIsDirichlet = true;
+    mY0BcValue = y0Value;
 }
 
-void BoundaryConditions::SetTopDirichletBc(double TopValue){
-    assert(!mTopBcIsNeumann);
-    mTopBcIsDirichlet = true;
-    mTopBcValue = TopValue;
+void BoundaryConditions::SetYNDirichletBc(double yNValue){
+    assert(!mYNBcIsNeumann);
+    mYNBcIsDirichlet = true;
+    mYNBcValue = yNValue;
 }
 
-void BoundaryConditions::SetBotNeumannBc(double BotDerivValue){
-    assert(!mBotBcIsDirichlet);
-    mBotBcIsNeumann = true;
-    mBotBcValue = BotDerivValue;
+void BoundaryConditions::SetY0NeumannBc(double y0DerivValue){
+    assert(!mYNBcIsDirichlet);
+    mY0BcIsNeumann = true;
+    mY0BcValue = y0DerivValue;
 }
 
-void BoundaryConditions::SetTopNeumannBc(double TopDerivValue){
-    assert(!mTopBcIsDirichlet); 
-    mTopBcIsNeumann = true;
-    mTopBcValue = TopDerivValue; 
+void BoundaryConditions::SetYNNeumannBc(double yNDerivValue){
+    assert(!mYNBcIsDirichlet); 
+    mYNBcIsNeumann = true;
+    mYNBcValue = yNDerivValue; 
 }

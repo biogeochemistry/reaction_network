@@ -54,33 +54,33 @@ void BvpOde::ApplyBoundaryConditions() {
     bool left_bc_applied = false; 
     bool right_bc_applied = false;
 
-    if (mpBconds->mLhsBcIsDirichlet) {
+    if (mpBconds->mX0BcIsDirichlet) {
         (*mpLhsMat).insert(0,0) = 1.0;
-        (*mpRhsVec)(0) = mpBconds->mLhsBcValue; 
+        (*mpRhsVec)(0) = mpBconds->mX0BcValue; 
         left_bc_applied = true;
     }
 
-    if (mpBconds->mRhsBcIsDirichlet) {
+    if (mpBconds->mXNBcIsDirichlet) {
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = 1.0;
-        (*mpRhsVec)(mNumNodes-1) = mpBconds->mRhsBcValue; 
+        (*mpRhsVec)(mNumNodes-1) = mpBconds->mXNBcValue; 
         right_bc_applied = true;
     }
 
-    if (mpBconds->mLhsBcIsNeumann) {
+    if (mpBconds->mX0BcIsNeumann) {
         assert(left_bc_applied == false);
         double h = mpGrid->mNodes[1].C.x - mpGrid->mNodes[0].C.x;
         (*mpLhsMat).insert(0,0) = -1.0/h; 
         (*mpLhsMat).insert(0,1) = 1.0/h;
-        (*mpRhsVec)(0) = mpBconds->mLhsBcValue; 
+        (*mpRhsVec)(0) = mpBconds->mX0BcValue; 
         left_bc_applied = true;
     }
 
-    if (mpBconds->mRhsBcIsNeumann) {
+    if (mpBconds->mXNBcIsNeumann) {
         assert(right_bc_applied == false);
         double h = mpGrid->mNodes[mNumNodes-1].C.x - mpGrid->mNodes[mNumNodes-2].C.x; 
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = -1.0/h; 
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = 1.0/h; 
-        (*mpRhsVec)(mNumNodes-1) = mpBconds->mRhsBcValue; 
+        (*mpRhsVec)(mNumNodes-1) = mpBconds->mXNBcValue; 
         right_bc_applied = true;
     }
 }

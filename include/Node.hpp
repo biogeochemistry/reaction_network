@@ -10,6 +10,7 @@ public:
     };
     coordinates N, S, W, E, C; // North, south, west, east, center
     int num; /*# of the node*/
+    double value; // value of u for boundary
 };
 
 #endif

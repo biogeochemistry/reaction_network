@@ -18,10 +18,12 @@ class FiniteDifferenceGrid {
         // 2D constructor
         FiniteDifferenceGrid(int xNumNodes, double xMin, double xMax, int yNumNodes, double yMin, double yMax);
         
+        friend class BvpOde;
+        friend class BoundaryCondiotions;
+        
         vector<Node> mNodes;
         VectorXd xGrid;
         VectorXd yGrid;
-        friend class BvpOde; 
         void yGridFormation(int yNumNodes, double yMin, double yMax);
         void xGridForamtion(int xNumNodes, double xMin, double xMax);
 };

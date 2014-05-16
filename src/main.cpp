@@ -12,6 +12,8 @@ using namespace std;
 double model_prob_1_rhs(double x){return 1.0;}
 double model_prob_2_rhs(double x){return 34.0*sin(x);}
 double model_prob_3_rhs(double x, double y){return exp(-(x*x+y*y));}
+
+
 int main(int argc, char* argv[]) {
     int nthreads, tid;
     #pragma omp parallel
@@ -31,8 +33,8 @@ int main(int argc, char* argv[]) {
 
     SecondOrderOde ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1.0);
     BoundaryConditions bc_mp1;
-    bc_mp1.SetLhsDirichletBc(0);
-    bc_mp1.SetRhsDirichletBc(0);
+    bc_mp1.SetX0DirichletBc1D(0);
+    bc_mp1.SetXNDirichletBc1D(0);
     BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 64);
     bvpode_mp1.SetFilename("model_problem_results1.dat");
     bvpode_mp1.Solve();
@@ -42,8 +44,8 @@ int main(int argc, char* argv[]) {
     Gnuplot g2;
     SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
     BoundaryConditions bc_mp2;
-    bc_mp2.SetLhsNeumannBc(-5.0);
-    bc_mp2.SetRhsDirichletBc(4.0);
+    bc_mp2.SetX0NeumannBc1D(-5.0);
+    bc_mp2.SetXNDirichletBc1D(4.0);
     BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 64);
     bvpode_mp2.SetFilename("model_problem_results2.dat");
     bvpode_mp2.Solve();

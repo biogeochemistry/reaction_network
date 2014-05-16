@@ -6,6 +6,17 @@
 double model_prob_1_rhs(double x){return 1.0;}
 double model_prob_2_rhs(double x){return 34.0*sin(x);}
 
+double left_bc_x0(double y){return -pow(y,2);}
+double right_bc_xN(double y){return pow(y,2);}
+
+TEST(boundary_conditions, assigning_var){
+    BoundaryConditions bc;
+    bc.SetX0DirichletBc2D(left_bc_x0);
+    bc.SetXNDirichletBc2D(right_bc_xN);
+
+
+}
+
 TEST(FiniteDifferenceGrid, mesh_formation) {
     FiniteDifferenceGrid grid = FiniteDifferenceGrid(3,1,2);
     Vector3d v(1,1.5,2);  
@@ -16,10 +27,10 @@ TEST(FiniteDifferenceGrid, mesh_formation) {
 
 TEST(boundary_conditions, constructor) {
     BoundaryConditions bc;
-    ASSERT_EQ(bc.mLhsBcIsDirichlet, false);
-    ASSERT_EQ(bc.mRhsBcIsDirichlet, false);
-    ASSERT_EQ(bc.mLhsBcIsNeumann, false);
-    ASSERT_EQ(bc.mRhsBcIsNeumann, false);
+    ASSERT_EQ(bc.mX0BcIsDirichlet, false);
+    ASSERT_EQ(bc.mXNBcIsDirichlet, false);
+    ASSERT_EQ(bc.mX0BcIsNeumann, false);
+    ASSERT_EQ(bc.mXNBcIsNeumann, false);
 }
 
 TEST(second_order_ode, assigning_var){
@@ -35,8 +46,8 @@ TEST(bvpode, error_of_the_solution){
     Gnuplot g1;
     SecondOrderOde ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1);
     BoundaryConditions bc_mp1;
-    bc_mp1.SetLhsDirichletBc(0);
-    bc_mp1.SetRhsDirichletBc(0);
+    bc_mp1.SetX0DirichletBc1D(0);
+    bc_mp1.SetXNDirichletBc1D(0);
     BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 128);
     bvpode_mp1.SetFilename("model_problem_results1.dat");
     bvpode_mp1.Solve();
@@ -47,8 +58,8 @@ TEST(bvpode, error_of_the_solution){
     Gnuplot g2;
     SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
     BoundaryConditions bc_mp2;
-    bc_mp2.SetLhsNeumannBc(-5.0);
-    bc_mp2.SetRhsDirichletBc(4.0);
+    bc_mp2.SetX0NeumannBc1D(-5.0);
+    bc_mp2.SetXNDirichletBc1D(4.0);
     BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 128);
     bvpode_mp2.SetFilename("model_problem_results2.dat");
     bvpode_mp2.Solve();
@@ -198,12 +209,12 @@ TEST(FiniteDifferenceGrid2d, mesh_formation) {
 
 TEST(boundary_conditions2d, constructor) {
     BoundaryConditions bc;
-    ASSERT_EQ(bc.mLhsBcIsDirichlet, false);
-    ASSERT_EQ(bc.mRhsBcIsDirichlet, false);
-    ASSERT_EQ(bc.mLhsBcIsNeumann, false);
-    ASSERT_EQ(bc.mRhsBcIsNeumann, false);
-    ASSERT_EQ(bc.mTopBcIsDirichlet, false);
-    ASSERT_EQ(bc.mBotBcIsDirichlet, false);
-    ASSERT_EQ(bc.mTopBcIsNeumann, false);
-    ASSERT_EQ(bc.mBotBcIsNeumann, false);
+    ASSERT_EQ(bc.mX0BcIsDirichlet, false);
+    ASSERT_EQ(bc.mXNBcIsDirichlet, false);
+    ASSERT_EQ(bc.mX0BcIsNeumann, false);
+    ASSERT_EQ(bc.mXNBcIsNeumann, false);
+    ASSERT_EQ(bc.mYNBcIsDirichlet, false);
+    ASSERT_EQ(bc.mYNBcIsDirichlet, false);
+    ASSERT_EQ(bc.mYNBcIsNeumann, false);
+    ASSERT_EQ(bc.mY0BcIsNeumann, false);
 }
