@@ -5,11 +5,8 @@
 
 
 void BvpOde::Solve(){
-    PopulateMatrix();
-    PopulateVector();
-    ApplyBoundaryConditions();
     mpLinearSolver = new LinearSolver(*mpLhsMat, *mpRhsVec);
-    mpSolVec = mpLinearSolver->SolveLinearSystem();
+    mSolVec = mpLinearSolver->SolveLinearSystem();
     WriteSolutionFile();
 }
 
@@ -21,6 +18,9 @@ BvpOde::BvpOde(SecondOrderOde* pOde,BoundaryConditions* pBcs, int numNodes){
     mpRhsVec = new VectorXd(mNumNodes);
     mpLhsMat = new SparseMatrix<double> (mNumNodes, mNumNodes);
     mFilename = "ode_output.dat";
+    PopulateMatrix();
+    PopulateVector();
+    ApplyBoundaryConditions();
 }
 
 BvpOde::~BvpOde() {
@@ -90,7 +90,7 @@ void BvpOde::WriteSolutionFile() {
     assert(output_file.is_open());
     for (int i=0; i<mNumNodes; i++) {
         double x = mpGrid->mNodes[i].C.x;
-          output_file << x << "  " << mpSolVec(i) << "\n";
+          output_file << x << "  " << mSolVec(i) << "\n";
     }
    output_file.flush();
    output_file.close();

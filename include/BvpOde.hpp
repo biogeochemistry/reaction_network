@@ -13,7 +13,7 @@
 using namespace Eigen;
 using namespace std;
 
-class BvpOde {
+class BvpOde{
     FRIEND_TEST(bvpode, error_of_the_solution);
     protected:
         // test framework
@@ -36,7 +36,7 @@ class BvpOde {
 
         void Solve();
         void SetFilename(const std::string& name);
-        VectorXd mpSolVec;
+        VectorXd mSolVec;
 
 };
 

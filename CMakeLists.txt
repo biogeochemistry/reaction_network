@@ -87,7 +87,8 @@ set(HEADER_FILES
                   include/FiniteDifferenceGrid.hpp 
                   include/BvpOde.hpp 
                   include/Node.hpp 
-                  include/LinearSolver.hpp)
+                  include/LinearSolver.hpp
+                  include/BvpPde.hpp)
 set(SOURCES_FILES 
                   src/OdeSolver.cpp
                   src/Runge-Kutta.cpp 
@@ -95,7 +96,8 @@ set(SOURCES_FILES
                   src/FiniteDifferenceGrid.cpp 
                   src/LinearSolver.cpp 
                   src/BvpOde.cpp 
-                  src/SecondOrderOde.cpp)
+                  src/SecondOrderOde.cpp
+                  src/BvpPde.cpp)
 
 # ########################################################################
 # #

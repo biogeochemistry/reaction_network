@@ -1,10 +1,14 @@
 #include "gtest/gtest.h"
-#include "BvpOde.hpp"
+#include "BvpPde.hpp"
 #include "iostream"
 #include "gnuplot_i.hpp"
+#include "math.h"
 
 double model_prob_1_rhs(double x){return 1.0;}
 double model_prob_2_rhs(double x){return 34.0*sin(x);}
+double model_prob_1_solution(double x){return 0.5*x*(1-x);}
+double model_prob_2_solution(double x){return (4*exp(x) + exp(-4*x) ) / (4*exp(M_PI)+exp(-4*M_PI))-5*sin(x)-3*cos(x);};
+
 
 double bc_x0(double y){return -pow(y,2);}
 double bc_xN(double y){return pow(y,2);}
@@ -87,7 +91,6 @@ TEST(second_order_ode, assigning_var){
 }
 
 TEST(bvpode, error_of_the_solution){
-    Gnuplot g1;
     SecondOrderOde ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1);
     BoundaryConditions bc_mp1;
     bc_mp1.SetX0DirichletBc1D(0);
@@ -95,11 +98,14 @@ TEST(bvpode, error_of_the_solution){
     BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 128);
     bvpode_mp1.SetFilename("model_problem_results1.dat");
     bvpode_mp1.Solve();
-    // g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.mpSolVec,"differentiation");
-    // g1.set_style("lines").plot_equation("0.5*x*(1-x)","exact solution");
+    double sum = 0;
+    for (int i = 0; i < bvpode_mp1.mpGrid->xGrid.size(); ++i) {
+        double x = bvpode_mp1.mpGrid->xGrid[i];
+        double Uexact = model_prob_1_solution(x);
+        sum += pow((bvpode_mp1.mSolVec[i] - Uexact),2);
+    }
+    ASSERT_EQ(sum < 1e-5, true);
 
-    
-    Gnuplot g2;
     SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
     BoundaryConditions bc_mp2;
     bc_mp2.SetX0NeumannBc1D(-5.0);
@@ -107,8 +113,13 @@ TEST(bvpode, error_of_the_solution){
     BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 128);
     bvpode_mp2.SetFilename("model_problem_results2.dat");
     bvpode_mp2.Solve();
-    // g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.mpSolVec);
-    // g2.set_style("lines").plot_equation("(4*exp(x) + exp(-4*x) ) / (4*exp(pi)+exp(-4*pi))-5*sin(x)-3*cos(x)","exact solution");
+    sum = 0;
+    for (int i = 0; i < bvpode_mp2.mpGrid->xGrid.size(); ++i) {
+        double x = bvpode_mp2.mpGrid->xGrid[i];
+        double Uexact = model_prob_2_solution(x);
+        sum += pow((bvpode_mp2.mSolVec[i] - Uexact),2);
+    }
+    ASSERT_EQ(sum < 1e-3, true);
 }
 
 TEST(FiniteDifferenceGrid2d, mesh_formation) {
@@ -261,4 +272,14 @@ TEST(boundary_conditions2d, constructor) {
     ASSERT_EQ(bc.mYNBcIsDirichlet, false);
     ASSERT_EQ(bc.mYNBcIsNeumann, false);
     ASSERT_EQ(bc.mY0BcIsNeumann, false);
+}
+
+TEST(PDE_init, constractor) {
+    SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
+    BoundaryConditions bc_mp2;
+    bc_mp2.SetX0NeumannBc1D(-5.0);
+    bc_mp2.SetXNDirichletBc1D(4.0);
+    BvpPde bvppde_mp2(&ode_mp2, &bc_mp2,0.1, 1.0, 1, 128);
+    ASSERT_EQ(bvppde_mp2.mtau, 1.0);
+    ASSERT_EQ(bvppde_mp2.mdt, 0.1);
 }
