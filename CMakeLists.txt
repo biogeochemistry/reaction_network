@@ -122,11 +122,11 @@ add_executable(test src/tests/tests.cpp ${SOURCES_FILES} ${HEADER_FILES})
 target_link_libraries(test gtest gtest_main)
 
 
-set(CMAKE_SHARED_LINKER_FLAGS "-fopenmp -fPIC")
+# set(CMAKE_SHARED_LINKER_FLAGS "-fopenmp -fPIC")
 
-add_library (bvpodecore OBJECT ${SOURCES_FILES})
-add_library (bvpodestatic STATIC $<TARGET_OBJECTS:bvpodecore>)
-add_library (bvpodeshared SHARED $<TARGET_OBJECTS:bvpodecore>)
+# add_library (bvpodecore OBJECT ${SOURCES_FILES})
+# add_library (bvpodestatic STATIC $<TARGET_OBJECTS:bvpodecore>)
+# add_library (bvpodeshared SHARED $<TARGET_OBJECTS:bvpodecore>)
 
 
 
