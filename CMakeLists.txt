@@ -7,13 +7,13 @@
 
 # BUILD_SHARED_LIBS is a standard CMake variable, but we declare it here to
 # make it prominent in the GUI.
-option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." OFF)
+option(BUILD_SHARED_LIBS "Build shared libraries (DLLs)." ON)
 
 # When other libraries are using a shared version of runtime libraries,
 # Google Test also has to use one.
 option(  gtest_force_shared_crt
   "Use shared (DLL) run-time lib even when Google Test is built as static lib."
-  OFF)
+  ON)
 
 option(test "Build all of gtest's own tests." ON)
 
@@ -49,7 +49,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 # set(CMAKE_CXX_COMPILER "clang++") #compiler clang++
 set(CMAKE_CXX_COMPILER "g++") #compiler g++
 set (CMAKE_CXX_LINK_FLAGS "-fopenmp")
-add_definitions("-std=c++11 -g -fopenmp -Wall -Wextra -pthread -Wno-missing-field-initializers  -fdiagnostics-color=always")
+add_definitions("-std=c++11 -g -fopenmp -fPIC -Wall -Wextra -pthread -Wno-missing-field-initializers  -fdiagnostics-color=always")
 
 
 # CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
@@ -120,6 +120,14 @@ ADD_EXECUTABLE(main src/main.cpp ${SOURCES_FILES} ${HEADER_FILES})
 
 add_executable(test src/tests/tests.cpp ${SOURCES_FILES} ${HEADER_FILES})
 target_link_libraries(test gtest gtest_main)
+
+
+# set(CMAKE_SHARED_LINKER_FLAGS "-fopenmp -fPIC")
+
+# add_library (bvpodecore OBJECT ${SOURCES_FILES})
+# add_library (bvpodestatic STATIC $<TARGET_OBJECTS:bvpodecore>)
+# add_library (bvpodeshared SHARED $<TARGET_OBJECTS:bvpodecore>)
+
 
 
 
