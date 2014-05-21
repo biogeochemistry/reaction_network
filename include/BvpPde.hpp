@@ -14,16 +14,16 @@ class BvpPde: public BvpOde {
         void SolvePdeInTime();
         VectorXd mb;
         VectorXd mp_temp;
-        MatrixXd solutionInTime;
-        VectorXd solution;
         double (*mUj0Func)(double x);
         BvpOde* ode; //
         double mtau; // tau, shift in time
         double mdt; // dt
-        double T; // last point in time
+        double mT; // last point in time
         LinearSolver *mpLinearSolver;
     public:
         BvpPde(SecondOrderOde *pOde, BoundaryConditions *pBcs, double dt, double tau, double timer, int numNodes, double (*uj0)(double) = 0);
         void SolvePde();
+        MatrixXd solutionInTime;
+        VectorXd solution;
 };
 #endif // BVPPDEHPP

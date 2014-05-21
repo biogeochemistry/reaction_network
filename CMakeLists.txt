@@ -49,8 +49,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 # set(CMAKE_CXX_COMPILER "clang++") #compiler clang++
 set(CMAKE_CXX_COMPILER "g++") #compiler g++
 set (CMAKE_CXX_LINK_FLAGS "-fopenmp")
+# add_definitions("-std=c++11 -O3 -ffast-math -ffinite-math-only -fopenmp -fPIC -Wall -Wextra -pthread -Wno-missing-field-initializers  -fdiagnostics-color=always")
 add_definitions("-std=c++11 -g -fopenmp -fPIC -Wall -Wextra -pthread -Wno-missing-field-initializers  -fdiagnostics-color=always")
-
 
 # CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
