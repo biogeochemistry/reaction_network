@@ -9,7 +9,7 @@ using namespace Eigen;
 using namespace std;
 
 
-double model_prob_1_rhs(double x){return 1.0;}
+double model_prob_1_rhs(double x){return 2.0;}
 double model_prob_2_rhs(double x){return 34.0*sin(x);}
 double model_prob_3_rhs(double x, double y){return exp(-(x*x+y*y));}
 double uj0(double x){return 0.5;}
@@ -32,15 +32,19 @@ int main(int argc, char* argv[]) {
 
     Gnuplot g1;
 
-    SecondOrderOde ode_mp1(1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1.0);
+    SecondOrderOde ode_mp1(1.0, -10.0, 0.0, model_prob_1_rhs, 0.0, 1.0);
     BoundaryConditions bc_mp1;
-    bc_mp1.SetX0DirichletBc1D(1);
+    // bc_mp1.SetX0DirichletBc1D(1);
+    bc_mp1.SetX0NeumannBc1D(0);
+    // bc_mp1.SetXNDirichletBc1D(0);
     bc_mp1.SetXNNeumannBc1D(0);
-    BvpPde bvpode_mp1(&ode_mp1, &bc_mp1,0.01, 1, 1, 8, uj0);
-    bvpode_mp1.SetFilename("model_problem_results1.dat");
+    BvpPde bvpode_mp1(&ode_mp1, &bc_mp1,0.01, 0, 1, 12, uj0);
+    // BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 120);
+    // bvpode_mp1.SetFilename("model_problem_results1.dat");
+    // bvpode_mp1.Solve();
     bvpode_mp1.SolvePde();
 
-    // g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.mSolVec,"differentiation");
+    // g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.mb,"differentiation");
     // g1.set_style("lines").plot_equation("0.5*x*(1-x)","exact solution");
 
     // Gnuplot g2;

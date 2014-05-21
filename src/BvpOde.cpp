@@ -69,8 +69,8 @@ void BvpOde::ApplyBoundaryConditions() {
     if (mpBconds->mX0BcIsNeumann) {
         assert(left_bc_applied == false);
         double h = mpGrid->mNodes[1].C.x - mpGrid->mNodes[0].C.x;
-        (*mpLhsMat).insert(0,0) = -1.0/h; 
-        (*mpLhsMat).insert(0,1) = 1.0/h;
+        (*mpLhsMat).insert(0,0) = 1.0/h; 
+        (*mpLhsMat).insert(0,1) = -1.0/h;
         (*mpRhsVec)(0) = mpBconds->mX0BcValue; 
         left_bc_applied = true;
     }

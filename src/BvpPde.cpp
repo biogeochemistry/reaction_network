@@ -17,35 +17,40 @@ void BvpPde::SolvePde(){
 
 void BvpPde::SolvePdeInTime(){
     int columns = T/mdt;
+    cout << mb;
     solutionInTime.resize(BvpOde::mNumNodes, columns+1);
     solutionInTime.col(0) = mb;
     // Applying BC
     mb(0) = (*BvpOde::mpRhsVec)(0);
     mb(mNumNodes-1) = (*BvpOde::mpRhsVec)(mNumNodes-1);
-    cout << mb;
+    // cout << mb;
+    // cout << mb;
     for (int i = 1; i <2; ++i) {
         VectorXd temp = mUj0Operator*mb;
-        cout << temp;
+        // cout << temp;
         temp(0) = (*BvpOde::mpRhsVec)(0);
         temp(mNumNodes-1) = (*BvpOde::mpRhsVec)(mNumNodes-1);
-        // cout << mb;
         mpLinearSolver = new LinearSolver(mUj1Operator, temp);
+        // cout << "mUj1Operator" << endl << mUj1Operator << endl;
+        // cout << "temp"<<endl << temp << endl;
+        // NOTE: solver works correctly (Checked with MATLAB)
         solution = mpLinearSolver->SolveLinearSystem();
         mb = solution;
-        solutionInTime.col(i) = mb;
-        // cout << mb;
+        // solutionInTime.col(i) = solution;
+        // cout << "mb"<<endl << mb << endl;
         mb(0) = (*BvpOde::mpRhsVec)(0);
         mb(mNumNodes-1) = (*BvpOde::mpRhsVec)(mNumNodes-1);
     }
-    // cout << solutionInTime;
+    // cout << mb;
 }
 
 void BvpPde::PopulateOperators(){
     int x = BvpOde::mNumNodes;
     SparseMatrix<double> I = MatrixXd::Identity(x, x).sparseView();
     SparseMatrix<double> F = *BvpOde::mpLhsMat;
-    mUj0Operator = (I +     mtau*mdt*I*F);
-    mUj1Operator = (I - (1-mtau)*mdt*I*F);
+    mUj0Operator = (I +     mtau*mdt*F);
+    mUj1Operator = (I - (1-mtau)*mdt*F);
+    cout << "mUj1Operator" << endl << mUj1Operator << endl;
 }
 
 void BvpPde::PopulateInitCondiotions(){

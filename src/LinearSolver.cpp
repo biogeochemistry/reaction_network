@@ -82,8 +82,8 @@ void LinearSolver::Solve_sparse_lu() {
     // for any sparse matrix
     SparseLU<SparseMatrix<double,ColMajor>, AMDOrdering<int> > solver;
     solver.compute(*mpA);
-    if(solver.info()==Eigen::Success) {
-        std::cout << "Sparse LU solver::Success" << endl;
-    }
+    // if(solver.info()==Eigen::Success) {
+        // std::cout << "Sparse LU solver::Success" << endl;
+    // }
     *mpx=solver.solve(*mpb);
 }
