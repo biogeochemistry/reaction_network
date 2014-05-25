@@ -22,6 +22,7 @@ class BvpOde{
         VectorXd *mpRhsVec;
         SparseMatrix<double> *mpLhsMat;
         void PopulateMatrix();
+        void PopulateMatrix6thOrder();
         void PopulateVector();
         void ApplyBoundaryConditions();
         void WriteSolutionFile();
@@ -36,7 +37,7 @@ class BvpOde{
 
         void Solve();
         void SetFilename(const std::string& name);
-        VectorXd mSolVec;
+        VectorXd solution;
 
 };
 

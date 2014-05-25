@@ -6,7 +6,7 @@
 
 void BvpOde::Solve(){
     mpLinearSolver = new LinearSolver(*mpLhsMat, *mpRhsVec);
-    mSolVec = mpLinearSolver->SolveLinearSystem();
+    solution = mpLinearSolver->SolveLinearSystem();
     WriteSolutionFile();
 }
 
@@ -18,7 +18,7 @@ BvpOde::BvpOde(SecondOrderOde* pOde,BoundaryConditions* pBcs, int numNodes){
     mpRhsVec = new VectorXd(mNumNodes);
     mpLhsMat = new SparseMatrix<double> (mNumNodes, mNumNodes);
     mFilename = "ode_output.dat";
-    PopulateMatrix();
+    PopulateMatrix6thOrder();
     PopulateVector();
     ApplyBoundaryConditions();
 }
@@ -40,6 +40,92 @@ void BvpOde::PopulateMatrix() {
         (*mpLhsMat).insert(i,i-1) = (mpOde->mCoeffOfUxx)*diffusion_alpha - (mpOde->mCoeffOfUx)/(xp-xm);
         (*mpLhsMat).insert(i,i) = (mpOde->mCoeffOfUxx)*diffusion_beta + mpOde->mCoeffOfU;
         (*mpLhsMat).insert(i,i+1) = (mpOde->mCoeffOfUxx)*diffusion_gamma +(mpOde->mCoeffOfUx)/(xp-xm);
+    }
+}
+
+void BvpOde::PopulateMatrix6thOrder() {
+    // This works only with uniform grid!!!
+    double h = mpGrid->mNodes[1].C.x - mpGrid->mNodes[0].C.x; 
+    double D = mpOde->mCoeffOfUxx;
+    double w = mpOde->mCoeffOfUx;
+    double k = mpOde->mCoeffOfU;
+
+    int i1 = 1;
+    (*mpLhsMat).insert(i1,i1+6) =   11*D/(180*h*h);
+    (*mpLhsMat).insert(i1,i1+5) =  -90*D/(180*h*h) +   (+2*w)/(60*h);
+    (*mpLhsMat).insert(i1,i1+4) =  324*D/(180*h*h) +  (-15*w)/(60*h);
+    (*mpLhsMat).insert(i1,i1+3) = -670*D/(180*h*h) +  (+50*w)/(60*h);
+    (*mpLhsMat).insert(i1,i1+2) =  855*D/(180*h*h) + (-100*w)/(60*h);
+    (*mpLhsMat).insert(i1,i1+1) = -486*D/(180*h*h) + (+150*w)/(60*h);
+    (*mpLhsMat).insert(i1,i1)   =  -70*D/(180*h*h) +  (-77*w)/(60*h) + k;
+    (*mpLhsMat).insert(i1,i1-1) =  126*D/(180*h*h) +  (-10*w)/(60*h);
+    
+    int i2 = 2;
+    (*mpLhsMat).insert(i2,i2+5) =  -2*D/(180*h*h);
+    (*mpLhsMat).insert(i2,i2+4) =  +16*D/(180*h*h) +    (-w)/(60*h);
+    (*mpLhsMat).insert(i2,i2+3) =  -54*D/(180*h*h) +  (+8*w)/(60*h);
+    (*mpLhsMat).insert(i2,i2+2) =  +85*D/(180*h*h) + (-30*w)/(60*h);
+    (*mpLhsMat).insert(i2,i2+1) = +130*D/(180*h*h) + (+80*w)/(60*h);
+    (*mpLhsMat).insert(i2,i2)   = -378*D/(180*h*h) + (-35*w)/(60*h) + k;
+    (*mpLhsMat).insert(i2,i2-1) = +214*D/(180*h*h) + (-24*w)/(60*h);
+    (*mpLhsMat).insert(i2,i2-2) =  -11*D/(180*h*h) +  (+2*w)/(60*h);
+
+
+    
+    int im2 = mNumNodes-3;
+    (*mpLhsMat).insert(im2,im2-5) =  -2*D/(180*h*h);
+    (*mpLhsMat).insert(im2,im2-4) =  +16*D/(180*h*h) +    (+w)/(60*h);
+    (*mpLhsMat).insert(im2,im2-3) =  -54*D/(180*h*h) +  (-8*w)/(60*h);
+    (*mpLhsMat).insert(im2,im2-2) =  +85*D/(180*h*h) + (+30*w)/(60*h);
+    (*mpLhsMat).insert(im2,im2-1) = +130*D/(180*h*h) + (-80*w)/(60*h);
+    (*mpLhsMat).insert(im2,im2)   = -378*D/(180*h*h) + (+35*w)/(60*h) + k;
+    (*mpLhsMat).insert(im2,im2+1) = +214*D/(180*h*h) + (+24*w)/(60*h);
+    (*mpLhsMat).insert(im2,im2+2) =  -11*D/(180*h*h) +  (-2*w)/(60*h);
+    
+    int im1 = mNumNodes-2;
+    (*mpLhsMat).insert(im1,im1-6) =   11*D/(180*h*h);
+    (*mpLhsMat).insert(im1,im1-5) =  -90*D/(180*h*h) +   (-2*w)/(60*h);
+    (*mpLhsMat).insert(im1,im1-4) =  324*D/(180*h*h) +  (+15*w)/(60*h);
+    (*mpLhsMat).insert(im1,im1-3) = -670*D/(180*h*h) +  (-50*w)/(60*h);
+    (*mpLhsMat).insert(im1,im1-2) =  855*D/(180*h*h) +  (100*w)/(60*h);
+    (*mpLhsMat).insert(im1,im1-1) = -486*D/(180*h*h) + (-150*w)/(60*h);
+    (*mpLhsMat).insert(im1,im1)   =  -70*D/(180*h*h) +  (+77*w)/(60*h) + k;
+    (*mpLhsMat).insert(im1,im1+1) =  126*D/(180*h*h) +  (+10*w)/(60*h);
+
+    for (int i=3; i<mNumNodes-3; i++) {
+        double xm = mpGrid->mNodes[i-1].C.x; 
+        double x = mpGrid->mNodes[i].C.x;
+        double xp = mpGrid->mNodes[i+1].C.x;
+        
+        // Checking that grid is uniform
+        assert(h - (x-xm) < 1e-5);
+        assert(h - (xp-x) < 1e-5);
+
+        // Constructing 6th order finite difference scheme:
+        /*
+         diffusion_alpha_m3 = alpha(-3) 
+         diffusion_alpha_m2 = alpha(-2) 
+         diffusion_alpha_m1 = alpha(-1) 
+         diffusion_alpha_0  = alpha(0)
+         diffusion_alpha_p1 = alpha(+1) 
+         diffusion_alpha_p2 = alpha(+2) 
+         diffusion_alpha_p3 = alpha(+3) 
+         */
+        double diffusion_alpha_m3 =   2*D/(180*h*h) +   (-w)/(60*h);
+        double diffusion_alpha_m2 = -27*D/(180*h*h) + (+9*w)/(60*h);
+        double diffusion_alpha_m1 = 270*D/(180*h*h) +(-45*w)/(60*h);
+        double diffusion_alpha_0  =-490*D/(180*h*h) + k;
+        double diffusion_alpha_p1 = 270*D/(180*h*h) +(+45*w)/(60*h);
+        double diffusion_alpha_p2 = -27*D/(180*h*h) + (-9*w)/(60*h);
+        double diffusion_alpha_p3 =   2*D/(180*h*h) +   (+w)/(60*h);
+
+        (*mpLhsMat).insert(i,i-3) = diffusion_alpha_m3;
+        (*mpLhsMat).insert(i,i-2) = diffusion_alpha_m2;
+        (*mpLhsMat).insert(i,i-1) = diffusion_alpha_m1;
+        (*mpLhsMat).insert(i,i)   = diffusion_alpha_0;
+        (*mpLhsMat).insert(i,i+1) = diffusion_alpha_p1;
+        (*mpLhsMat).insert(i,i+2) = diffusion_alpha_p2;
+        (*mpLhsMat).insert(i,i+3) = diffusion_alpha_p3;
     }
 }
 
@@ -69,8 +155,8 @@ void BvpOde::ApplyBoundaryConditions() {
     if (mpBconds->mX0BcIsNeumann) {
         assert(left_bc_applied == false);
         double h = mpGrid->mNodes[1].C.x - mpGrid->mNodes[0].C.x;
-        (*mpLhsMat).insert(0,0) = 1.0/h; 
-        (*mpLhsMat).insert(0,1) = -1.0/h;
+        (*mpLhsMat).insert(0,0) = -1.0/h; 
+        (*mpLhsMat).insert(0,1) = 1.0/h;
         (*mpRhsVec)(0) = mpBconds->mX0BcValue; 
         left_bc_applied = true;
     }
@@ -78,8 +164,8 @@ void BvpOde::ApplyBoundaryConditions() {
     if (mpBconds->mXNBcIsNeumann) {
         assert(right_bc_applied == false);
         double h = mpGrid->mNodes[mNumNodes-1].C.x - mpGrid->mNodes[mNumNodes-2].C.x; 
-        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = -1.0/h; 
-        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = 1.0/h; 
+        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = 1.0/h; 
+        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = -1.0/h; 
         (*mpRhsVec)(mNumNodes-1) = mpBconds->mXNBcValue; 
         right_bc_applied = true;
     }
@@ -90,7 +176,7 @@ void BvpOde::WriteSolutionFile() {
     assert(output_file.is_open());
     for (int i=0; i<mNumNodes; i++) {
         double x = mpGrid->mNodes[i].C.x;
-          output_file << x << "  " << mSolVec(i) << "\n";
+          output_file << x << "  " << solution(i) << "\n";
     }
    output_file.flush();
    output_file.close();

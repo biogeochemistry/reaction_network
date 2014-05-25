@@ -30,33 +30,33 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    Gnuplot g1;
+    // Gnuplot g1;
 
-    SecondOrderOde ode_mp1(500.0, -5.0, 0.0, model_prob_1_rhs, 0.0, 15.0);
-    BoundaryConditions bc_mp1;
-    bc_mp1.SetX0DirichletBc1D(1);
-    // bc_mp1.SetX0NeumannBc1D(0);
-    // bc_mp1.SetXNDirichletBc1D(0);
-    bc_mp1.SetXNNeumannBc1D(0);
-    BvpPde bvpode_mp1(&ode_mp1, &bc_mp1,0.01, 0, 100, 120, uj0);
-    // BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 120);
-    // bvpode_mp1.SetFilename("model_problem_results1.dat");
+    // SecondOrderOde ode_mp1(500.0, -5.0, 0.0, model_prob_1_rhs, 0.0, 15.0);
+    // BoundaryConditions bc_mp1;
+    // bc_mp1.SetX0DirichletBc1D(1);
+    // // bc_mp1.SetX0NeumannBc1D(0);
+    // // bc_mp1.SetXNDirichletBc1D(0);
+    // bc_mp1.SetXNNeumannBc1D(0);
+    // // BvpPde bvpode_mp1(&ode_mp1, &bc_mp1,0.01, 0, 100, 120, uj0);
+    // BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 10);
+    // // bvpode_mp1.SetFilename("model_problem_results1.dat");
     // bvpode_mp1.Solve();
-    bvpode_mp1.SolvePde();
+    // // bvpode_mp1.SolvePde();
 
-    g1.set_style("lines").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.solution,"differentiation");
+    // g1.set_style("lines").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.solution,"differentiation");
     // g1.set_style("lines").plot_equation("0.5*x*(1-x)","exact solution");
 
-    // Gnuplot g2;
-    // SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
-    // BoundaryConditions bc_mp2;
-    // bc_mp2.SetX0NeumannBc1D(-5.0);
-    // bc_mp2.SetXNDirichletBc1D(4.0);
-    // BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 64);
-    // bvpode_mp2.SetFilename("model_problem_results2.dat");
-    // bvpode_mp2.Solve();
-    // g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.mSolVec);
-    // g2.set_style("lines").plot_equation("(4*exp(x) + exp(-4*x) ) / (4*exp(pi)+exp(-4*pi))-5*sin(x)-3*cos(x)","exact solution");
+    Gnuplot g2;
+    SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
+    BoundaryConditions bc_mp2;
+    bc_mp2.SetX0NeumannBc1D(-5.0);
+    bc_mp2.SetXNDirichletBc1D(4.0);
+    BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 128);
+    bvpode_mp2.SetFilename("model_problem_results2.dat");
+    bvpode_mp2.Solve();
+    g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.solution);
+    g2.set_style("lines").plot_equation("(4*exp(x) + exp(-4*x) ) / (4*exp(pi)+exp(-4*pi))-5*sin(x)-3*cos(x)","exact solution");
 
     return 0;
 }

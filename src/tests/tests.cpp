@@ -91,35 +91,48 @@ TEST(second_order_ode, assigning_var){
 }
 
 TEST(bvpode, error_of_the_solution){
+    // Checking error of the solution with 2nd order error term
+    int n = 128;
     SecondOrderOde ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1);
     BoundaryConditions bc_mp1;
     bc_mp1.SetX0DirichletBc1D(0);
     bc_mp1.SetXNDirichletBc1D(0);
-    BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 128);
+    BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, n);
     bvpode_mp1.SetFilename("model_problem_results1.dat");
     bvpode_mp1.Solve();
     double sum = 0;
     for (int i = 0; i < bvpode_mp1.mpGrid->xGrid.size(); ++i) {
         double x = bvpode_mp1.mpGrid->xGrid[i];
         double Uexact = model_prob_1_solution(x);
-        sum += pow((bvpode_mp1.mSolVec[i] - Uexact),2);
+        sum += pow((bvpode_mp1.solution[i] - Uexact),2);
     }
-    ASSERT_EQ(sum < 1e-5, true);
+    sum /=n-1;
+    printf("Standard deviation: %f\n", sqrt(sum));
+    ASSERT_EQ(sqrt(sum) < 1e-2, true);
 
     SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
     BoundaryConditions bc_mp2;
     bc_mp2.SetX0NeumannBc1D(-5.0);
     bc_mp2.SetXNDirichletBc1D(4.0);
-    BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 128);
+    BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, n);
     bvpode_mp2.SetFilename("model_problem_results2.dat");
     bvpode_mp2.Solve();
     sum = 0;
     for (int i = 0; i < bvpode_mp2.mpGrid->xGrid.size(); ++i) {
         double x = bvpode_mp2.mpGrid->xGrid[i];
         double Uexact = model_prob_2_solution(x);
-        sum += pow((bvpode_mp2.mSolVec[i] - Uexact),2);
+        sum += pow((bvpode_mp2.solution[i] - Uexact),2);
     }
-    ASSERT_EQ(sum < 1e-3, true);
+    sum /=n-1;
+    printf("Standard deviation: %f\n", sqrt(sum));
+    // ASSERT_EQ(sqrt(sum) < 1e-2, true);
+    
+
+    Gnuplot g1, g2;
+    g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.solution,"differentiation");
+    g1.set_style("lines").plot_equation("0.5*x*(1-x)","exact solution");
+    g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.solution);
+    g2.set_style("lines").plot_equation("(4*exp(x) + exp(-4*x) ) / (4*exp(pi)+exp(-4*pi))-5*sin(x)-3*cos(x)","exact solution");
 }
 
 TEST(FiniteDifferenceGrid2d, mesh_formation) {
