@@ -71,7 +71,6 @@ void BvpOde::PopulateMatrix6thOrder() {
     (*mpLhsMat).insert(i2,i2-2) =  -11*D/(180*h*h) +  (+2*w)/(60*h);
 
 
-    
     int im2 = mNumNodes-3;
     (*mpLhsMat).insert(im2,im2-5) =  -2*D/(180*h*h);
     (*mpLhsMat).insert(im2,im2-4) =  +16*D/(180*h*h) +    (+w)/(60*h);
