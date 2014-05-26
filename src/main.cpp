@@ -35,11 +35,11 @@ int main(int argc, char* argv[]) {
     SecondOrderOde ode_mp1(500, -5.0, 0.0, model_prob_1_rhs, 0.0, 20.0);
     BoundaryConditions bc_mp1;
     
-    bc_mp1.SetX0FluxBc1D(1.0);
-    // bc_mp1.SetX0NoFluxBc1D(0);
-    // bc_mp1.SetXNConstBc1D(0);
-    bc_mp1.SetXNNoFluxBc1D(0);
-    // bc_mp1.SetXNFluxBc1D(0);
+    bc_mp1.SetX0RobinBc1D(1.0);
+    // bc_mp1.SetX0NeumannBc1D(0);
+    // bc_mp1.SetXNDirichletBc1D(0);
+    bc_mp1.SetXNNeumannBc1D(0);
+    // bc_mp1.SetXNRobinBc1D(0);
     BvpPde bvpode_mp1(&ode_mp1, &bc_mp1,0.1, 0.0, 1, 128, uj0);
     // BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, 10);
     // bvpode_mp1.SetFilename("model_problem_results1.dat");
@@ -52,8 +52,8 @@ int main(int argc, char* argv[]) {
     // Gnuplot g2;
     // SecondOrderOde ode_mp2(10.0, 5.0, 0.0, uj0, 0.0, 20.0);
     // BoundaryConditions bc_mp2;
-    // bc_mp2.SetX0NoFluxBc1D(10.0);
-    // bc_mp2.SetXNConstBc1D(0.0);
+    // bc_mp2.SetX0NeumannBc1D(10.0);
+    // bc_mp2.SetXNDirichletBc1D(0.0);
     // BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, 64);
     // bvpode_mp2.SetFilename("model_problem_results2.dat");
     // bvpode_mp2.Solve();

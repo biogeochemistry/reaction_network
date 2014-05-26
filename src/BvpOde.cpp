@@ -142,37 +142,39 @@ void BvpOde::ApplyBoundaryConditions() {
     double D = mpOde->mCoeffOfUxx;
     double w = mpOde->mCoeffOfUx;
     double k = mpOde->mCoeffOfU;        
-    if (mpBconds->mX0BcIsConst) {
+    if (mpBconds->mX0BcisDirichlet) {
         (*mpLhsMat).insert(0,0) = 1.0;
         (*mpRhsVec)(0) = mpBconds->mX0BcValue; 
         left_bc_applied = true;
     }
 
-    if (mpBconds->mXNBcIsConst) {
+    if (mpBconds->mXNBcisDirichlet) {
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = 1.0;
         (*mpRhsVec)(mNumNodes-1) = mpBconds->mXNBcValue; 
         right_bc_applied = true;
     }
 
-    if (mpBconds->mX0BcIsNoFlux) {
+    if (mpBconds->mX0BcIsNeumann) {
         assert(left_bc_applied == false);
+        double F = mpBconds->mX0BcValue;
         double h = mpGrid->mNodes[1].C.x - mpGrid->mNodes[0].C.x;
-        (*mpLhsMat).insert(0,0) = -2.0*D/h; 
-        (*mpLhsMat).insert(0,1) = 2.0*D/h;
-        (*mpRhsVec)(0) = 0;//No Flux =0 
+        (*mpLhsMat).insert(0,0) = -2.0*D/(h*h); 
+        (*mpLhsMat).insert(0,1) = 2.0*D/(h*h);
+        (*mpRhsVec)(0) = 2 * F * ( D/h - h*w);
         left_bc_applied = true;
     }
 
-    if (mpBconds->mXNBcIsNoFlux) {
+    if (mpBconds->mXNBcIsNeumann) {
         assert(right_bc_applied == false);
+        double F = mpBconds->mXNBcValue;
         double h = mpGrid->mNodes[mNumNodes-1].C.x - mpGrid->mNodes[mNumNodes-2].C.x; 
-        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = -2.0*D/h; 
-        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = 2.0*D/h; 
-        (*mpRhsVec)(mNumNodes-1) = 0; //No flux =0 
+        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = -2.0*D/(h*h);
+        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = 2.0*D/(h*h); 
+        (*mpRhsVec)(mNumNodes-1) = 2 * F * ( D/h - h*w);
         right_bc_applied = true;
     }
 
-    if (mpBconds->mX0BcIsFlux) {
+    if (mpBconds->mX0BcIsRobin) {
         assert(left_bc_applied == false);
         double F = mpBconds->mX0BcValue;
         double h = mpGrid->mNodes[1].C.x - mpGrid->mNodes[0].C.x;
@@ -182,7 +184,7 @@ void BvpOde::ApplyBoundaryConditions() {
         left_bc_applied = true;
     }
 
-    if (mpBconds->mXNBcIsFlux) {
+    if (mpBconds->mXNBcIsRobin) {
         assert(right_bc_applied == false);
         double F = mpBconds->mXNBcValue;
         double h = mpGrid->mNodes[mNumNodes-1].C.x - mpGrid->mNodes[mNumNodes-2].C.x; 

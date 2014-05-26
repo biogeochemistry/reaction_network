@@ -3,16 +3,16 @@
 #include "iostream"
 
 BoundaryConditions::BoundaryConditions() {
-    mYNBcIsConst = false;
-    mY0BcIsConst = false;
-    mYNBcIsNoFlux = false;
-    mY0BcIsNoFlux = false;
-    mX0BcIsConst = false;
-    mXNBcIsConst = false;
-    mX0BcIsNoFlux = false;
-    mXNBcIsNoFlux = false;
-    mX0BcIsFlux = false;
-    mXNBcIsFlux = false;
+    mYNBcisDirichlet = false;
+    mY0BcisDirichlet = false;
+    mYNBcIsNeumann = false;
+    mY0BcIsNeumann = false;
+    mX0BcisDirichlet = false;
+    mXNBcisDirichlet = false;
+    mX0BcIsNeumann = false;
+    mXNBcIsNeumann = false;
+    mX0BcIsRobin = false;
+    mXNBcIsRobin = false;
 }
 
 
@@ -23,66 +23,66 @@ to the variable mBCvalue.
 */
 
 // X space 1D
-void BoundaryConditions::SetX0ConstBc1D(double x0Value)
+void BoundaryConditions::SetX0DirichletBc1D(double x0Value)
 {
-    assert(!mX0BcIsNoFlux  & !mX0BcIsFlux);
-    mX0BcIsConst = true;
+    assert(!mX0BcIsNeumann  & !mX0BcIsRobin);
+    mX0BcisDirichlet = true;
     mX0BcValue = x0Value;
 }
 
-void BoundaryConditions::SetXNConstBc1D(double xNValue){
-    assert(!mXNBcIsNoFlux  & !mXNBcIsFlux);
-    mXNBcIsConst = true;
+void BoundaryConditions::SetXNDirichletBc1D(double xNValue){
+    assert(!mXNBcIsNeumann  & !mXNBcIsRobin);
+    mXNBcisDirichlet = true;
     mXNBcValue = xNValue;
 }
 
-void BoundaryConditions::SetX0NoFluxBc1D(double x0DerivValue){
-    assert(!mX0BcIsConst & !mX0BcIsFlux);
-    mX0BcIsNoFlux = true;
+void BoundaryConditions::SetX0NeumannBc1D(double x0DerivValue){
+    assert(!mX0BcisDirichlet & !mX0BcIsRobin);
+    mX0BcIsNeumann = true;
     mX0BcValue = x0DerivValue;
 }
 
-void BoundaryConditions::SetXNNoFluxBc1D(double xNDerivValue){
-    assert(!mXNBcIsConst & !mXNBcIsFlux); 
-    mXNBcIsNoFlux = true;
+void BoundaryConditions::SetXNNeumannBc1D(double xNDerivValue){
+    assert(!mXNBcisDirichlet & !mXNBcIsRobin); 
+    mXNBcIsNeumann = true;
     mXNBcValue = xNDerivValue; 
 }
 
-void BoundaryConditions::SetX0FluxBc1D(double x0FluxValue){
-    assert(!mX0BcIsConst & !mX0BcIsNoFlux);
-    mX0BcIsFlux = true;
-    mX0BcValue = x0FluxValue;
+void BoundaryConditions::SetX0RobinBc1D(double x0RobinValue){
+    assert(!mX0BcisDirichlet & !mX0BcIsNeumann);
+    mX0BcIsRobin = true;
+    mX0BcValue = x0RobinValue;
 }
 
-void BoundaryConditions::SetXNFluxBc1D(double xNFluxValue){
-    assert(!mXNBcIsConst & !mXNBcIsNoFlux); 
-    mXNBcIsFlux = true;
+void BoundaryConditions::SetXNRobinBc1D(double xNRobinValue){
+    assert(!mXNBcisDirichlet & !mXNBcIsNeumann); 
+    mXNBcIsRobin = true;
 }
 
 
 // Y space 1D
-void BoundaryConditions::SetY0ConstBc1D(double y0Value)
+void BoundaryConditions::SetY0DirichletBc1D(double y0Value)
 {
-    assert(!mY0BcIsNoFlux);
-    mY0BcIsConst = true;
+    assert(!mY0BcIsNeumann);
+    mY0BcisDirichlet = true;
     mY0BcValue = y0Value;
 }
 
-void BoundaryConditions::SetYNConstBc1D(double yNValue){
-    assert(!mYNBcIsNoFlux);
-    mYNBcIsConst = true;
+void BoundaryConditions::SetYNDirichletBc1D(double yNValue){
+    assert(!mYNBcIsNeumann);
+    mYNBcisDirichlet = true;
     mYNBcValue = yNValue;
 }
 
-void BoundaryConditions::SetY0NoFluxBc1D(double y0DerivValue){
-    assert(!mYNBcIsConst);
-    mY0BcIsNoFlux = true;
+void BoundaryConditions::SetY0NeumannBc1D(double y0DerivValue){
+    assert(!mYNBcisDirichlet);
+    mY0BcIsNeumann = true;
     mY0BcValue = y0DerivValue;
 }
 
-void BoundaryConditions::SetYNNoFluxBc1D(double yNDerivValue){
-    assert(!mYNBcIsConst); 
-    mYNBcIsNoFlux = true;
+void BoundaryConditions::SetYNNeumannBc1D(double yNDerivValue){
+    assert(!mYNBcisDirichlet); 
+    mYNBcIsNeumann = true;
     mYNBcValue = yNDerivValue; 
 }
 
@@ -94,51 +94,51 @@ boundary condition which user should provide, it is not assigning of the
 variable as it is in 1D case.
 */
 // X space 2D
-void BoundaryConditions::SetX0ConstBc2D(double (*X0BCFunc)(double)){
-    assert(!mX0BcIsNoFlux);
-    mX0BcIsConst = true;
+void BoundaryConditions::SetX0DirichletBc2D(double (*X0BCFunc)(double)){
+    assert(!mX0BcIsNeumann);
+    mX0BcisDirichlet = true;
     mpX0BcFunc2D = X0BCFunc;
 }
 
-void BoundaryConditions::SetXNConstBc2D(double (*XNBCFunc)(double)){
-    assert(!mXNBcIsNoFlux);
-    mXNBcIsConst = true;
+void BoundaryConditions::SetXNDirichletBc2D(double (*XNBCFunc)(double)){
+    assert(!mXNBcIsNeumann);
+    mXNBcisDirichlet = true;
     mpXNBcFunc2D = XNBCFunc;
 }
 
-void BoundaryConditions::SetX0NoFluxBc2D(double (*X0DerivBCFunc)(double)){
-    assert(!mX0BcIsConst);
-    mX0BcIsNoFlux = true;
+void BoundaryConditions::SetX0NeumannBc2D(double (*X0DerivBCFunc)(double)){
+    assert(!mX0BcisDirichlet);
+    mX0BcIsNeumann = true;
     mpX0BcFunc2D = X0DerivBCFunc;
 }
 
-void BoundaryConditions::SetXNNoFluxBc2D(double (*XNDerivBCFunc)(double)){
-    assert(!mXNBcIsConst); 
-    mXNBcIsNoFlux = true;
+void BoundaryConditions::SetXNNeumannBc2D(double (*XNDerivBCFunc)(double)){
+    assert(!mXNBcisDirichlet); 
+    mXNBcIsNeumann = true;
     mpXNBcFunc2D = XNDerivBCFunc; 
 }
 
 // Y space 2D
-void BoundaryConditions::SetY0ConstBc2D(double (*Y0BCFunc)(double)){
-    assert(!mY0BcIsNoFlux);
-    mY0BcIsConst = true;
+void BoundaryConditions::SetY0DirichletBc2D(double (*Y0BCFunc)(double)){
+    assert(!mY0BcIsNeumann);
+    mY0BcisDirichlet = true;
     mpY0BcFunc2D = Y0BCFunc;
 }
 
-void BoundaryConditions::SetYNConstBc2D(double (*YNBCFunc)(double)){
-    assert(!mYNBcIsNoFlux);
-    mYNBcIsConst = true;
+void BoundaryConditions::SetYNDirichletBc2D(double (*YNBCFunc)(double)){
+    assert(!mYNBcIsNeumann);
+    mYNBcisDirichlet = true;
     mpYNBcFunc2D = YNBCFunc;
 }
 
-void BoundaryConditions::SetY0NoFluxBc2D(double (*X0DerivBCFunc)(double)){
-    assert(!mY0BcIsConst);
-    mY0BcIsNoFlux = true;
+void BoundaryConditions::SetY0NeumannBc2D(double (*X0DerivBCFunc)(double)){
+    assert(!mY0BcisDirichlet);
+    mY0BcIsNeumann = true;
     mpY0BcFunc2D = X0DerivBCFunc;
 }
 
-void BoundaryConditions::SetYNNoFluxBc2D(double (*XNDerivBCFunc)(double)){
-    assert(!mYNBcIsConst); 
-    mYNBcIsNoFlux = true;
+void BoundaryConditions::SetYNNeumannBc2D(double (*XNDerivBCFunc)(double)){
+    assert(!mYNBcisDirichlet); 
+    mYNBcIsNeumann = true;
     mpYNBcFunc2D = XNDerivBCFunc; 
 }
