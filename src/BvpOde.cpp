@@ -21,6 +21,7 @@ BvpOde::BvpOde(SecondOrderOde* pOde,BoundaryConditions* pBcs, int numNodes){
     PopulateMatrix6thOrder();
     PopulateVector();
     ApplyBoundaryConditions();
+
 }
 
 BvpOde::~BvpOde() {
@@ -138,7 +139,9 @@ void BvpOde::PopulateVector() {
 void BvpOde::ApplyBoundaryConditions() {
     bool left_bc_applied = false; 
     bool right_bc_applied = false;
-
+    double D = mpOde->mCoeffOfUxx;
+    double w = mpOde->mCoeffOfUx;
+    double k = mpOde->mCoeffOfU;        
     if (mpBconds->mX0BcIsDirichlet) {
         (*mpLhsMat).insert(0,0) = 1.0;
         (*mpRhsVec)(0) = mpBconds->mX0BcValue; 
@@ -151,23 +154,45 @@ void BvpOde::ApplyBoundaryConditions() {
         right_bc_applied = true;
     }
 
-    if (mpBconds->mX0BcIsNeumann) {
+    if (mpBconds->mX0BcIsNoFlux) {
         assert(left_bc_applied == false);
         double h = mpGrid->mNodes[1].C.x - mpGrid->mNodes[0].C.x;
-        (*mpLhsMat).insert(0,0) = -1.0/h; 
-        (*mpLhsMat).insert(0,1) = 1.0/h;
-        (*mpRhsVec)(0) = mpBconds->mX0BcValue; 
+        (*mpLhsMat).insert(0,0) = -2.0*D/h; 
+        (*mpLhsMat).insert(0,1) = 2.0*D/h;
+        (*mpRhsVec)(0) = 0;//No Flux =0 
         left_bc_applied = true;
     }
 
-    if (mpBconds->mXNBcIsNeumann) {
+    if (mpBconds->mXNBcIsNoFlux) {
         assert(right_bc_applied == false);
         double h = mpGrid->mNodes[mNumNodes-1].C.x - mpGrid->mNodes[mNumNodes-2].C.x; 
-        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = 1.0/h; 
-        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = -1.0/h; 
-        (*mpRhsVec)(mNumNodes-1) = mpBconds->mXNBcValue; 
+        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = -2.0*D/h; 
+        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = 2.0*D/h; 
+        (*mpRhsVec)(mNumNodes-1) = 0; //No flux =0 
         right_bc_applied = true;
     }
+
+    if (mpBconds->mX0BcIsFlux) {
+        assert(left_bc_applied == false);
+        double F = mpBconds->mX0BcValue;
+        double h = mpGrid->mNodes[1].C.x - mpGrid->mNodes[0].C.x;
+        (*mpLhsMat).insert(0,0) = - 2.0*D/(h*h) - 2.0*w/h - w*w/D + k; 
+        (*mpLhsMat).insert(0,1) = 2.0*D/(h*h);
+        (*mpRhsVec)(0) = F * (2.0/h + w/D); 
+        left_bc_applied = true;
+    }
+
+    if (mpBconds->mXNBcIsFlux) {
+        assert(right_bc_applied == false);
+        double F = mpBconds->mXNBcValue;
+        double h = mpGrid->mNodes[mNumNodes-1].C.x - mpGrid->mNodes[mNumNodes-2].C.x; 
+        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = 2*D/(h*h);
+        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = -2*D/(h*h) + 2*w/h + w*w/D + k; 
+        (*mpRhsVec)(mNumNodes-1) = F * (2.0/h + w/D); 
+        cout <<endl<<endl<<endl<<(*mpRhsVec)(mNumNodes-1)<<endl<<endl<<endl;
+        right_bc_applied = true;
+    }
+    assert(right_bc_applied & left_bc_applied);
 }
 
 void BvpOde::WriteSolutionFile() {

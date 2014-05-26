@@ -9,7 +9,7 @@ BvpPde::BvpPde(SecondOrderOde *pOde, BoundaryConditions *pBcs, double dt, double
     mT = timer;
 }
 
-void BvpPde::SolvePde(){
+void BvpPde::Solve(){
     PopulateOperators();
     PopulateInitCondiotions();
     SolvePdeInTime();
@@ -17,11 +17,12 @@ void BvpPde::SolvePde(){
 
 void BvpPde::SolvePdeInTime(){
     int columns = mT/mdt;
-    solutionInTime.resize(BvpOde::mNumNodes, columns+1);
+    solutionInTime.resize(BvpOde::mNumNodes, columns);
     solutionInTime.col(0) = mb;
     // Applying BC
     mb(0) = (*BvpOde::mpRhsVec)(0);
     mb(mNumNodes-1) = (*BvpOde::mpRhsVec)(mNumNodes-1);
+    cout <<endl<< mb<<endl;
     for (int i = 1; i < columns; ++i) {
         VectorXd temp = mUj0Operator*mb;
         temp(0) = (*BvpOde::mpRhsVec)(0);
@@ -31,9 +32,12 @@ void BvpPde::SolvePdeInTime(){
         mb = solution;
         mb(0) = (*BvpOde::mpRhsVec)(0);
         mb(mNumNodes-1) = (*BvpOde::mpRhsVec)(mNumNodes-1);
+        
+        solutionInTime.col(i) = solution;
     }
     // NOTE: all methods work according with python
     // Solver works correctly (Checked with MATLAB and python)
+    cout << solutionInTime;
 }
 
 void BvpPde::PopulateOperators(){

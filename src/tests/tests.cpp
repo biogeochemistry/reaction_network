@@ -17,50 +17,50 @@ double bc_yN(double x){return pow(x,4);}
 
 TEST(boundary_conditions, assigning_var){
     BoundaryConditions bc_dir, bc_neu;
-    // Dirichlet
-    bc_dir.SetX0DirichletBc2D(bc_x0);
-    bc_dir.SetXNDirichletBc2D(bc_xN);
-    bc_dir.SetY0DirichletBc2D(bc_y0);
-    bc_dir.SetYNDirichletBc2D(bc_yN);
+    // Const
+    bc_dir.SetX0ConstBc2D(bc_x0);
+    bc_dir.SetXNConstBc2D(bc_xN);
+    bc_dir.SetY0ConstBc2D(bc_y0);
+    bc_dir.SetYNConstBc2D(bc_yN);
 
-    // Neumann
-    bc_neu.SetX0NeumannBc2D(bc_x0);
-    bc_neu.SetXNNeumannBc2D(bc_xN);
-    bc_neu.SetY0NeumannBc2D(bc_y0);
-    bc_neu.SetYNNeumannBc2D(bc_yN);
+    // NoFlux
+    bc_neu.SetX0NoFluxBc2D(bc_x0);
+    bc_neu.SetXNNoFluxBc2D(bc_xN);
+    bc_neu.SetY0NoFluxBc2D(bc_y0);
+    bc_neu.SetYNNoFluxBc2D(bc_yN);
 
     Vector3d bc_v(1,2,3);
     for (int i = 0; i < bc_v.size(); ++i) {
         /*
         Testing of the assigning of the value of given function to the BC
          */
-        // Dirichlet
+        // Const
         EXPECT_EQ( bc_dir.mpX0BcFunc2D(bc_v[i]), bc_x0(bc_v[i]) );
         EXPECT_EQ( bc_dir.mpXNBcFunc2D(bc_v[i]), bc_xN(bc_v[i]) );
         EXPECT_EQ( bc_dir.mpY0BcFunc2D(bc_v[i]), bc_y0(bc_v[i]) );
         EXPECT_EQ( bc_dir.mpYNBcFunc2D(bc_v[i]), bc_yN(bc_v[i]) );
-        EXPECT_EQ( bc_dir.mX0BcIsDirichlet,  true);
-        EXPECT_EQ( bc_dir.mXNBcIsDirichlet,  true);
-        EXPECT_EQ( bc_dir.mYNBcIsDirichlet,  true);
-        EXPECT_EQ( bc_dir.mY0BcIsDirichlet,  true);
-        EXPECT_EQ( bc_dir.mX0BcIsNeumann, false);
-        EXPECT_EQ( bc_dir.mXNBcIsNeumann, false);
-        EXPECT_EQ( bc_dir.mYNBcIsNeumann, false);
-        EXPECT_EQ( bc_dir.mY0BcIsNeumann, false);
+        EXPECT_EQ( bc_dir.mX0BcIsConst,  true);
+        EXPECT_EQ( bc_dir.mXNBcIsConst,  true);
+        EXPECT_EQ( bc_dir.mYNBcIsConst,  true);
+        EXPECT_EQ( bc_dir.mY0BcIsConst,  true);
+        EXPECT_EQ( bc_dir.mX0BcIsNoFlux, false);
+        EXPECT_EQ( bc_dir.mXNBcIsNoFlux, false);
+        EXPECT_EQ( bc_dir.mYNBcIsNoFlux, false);
+        EXPECT_EQ( bc_dir.mY0BcIsNoFlux, false);
 
-        // Neumann
+        // NoFlux
         EXPECT_EQ( bc_neu.mpX0BcFunc2D(bc_v[i]), bc_x0(bc_v[i]) );
         EXPECT_EQ( bc_neu.mpXNBcFunc2D(bc_v[i]), bc_xN(bc_v[i]) );
         EXPECT_EQ( bc_neu.mpY0BcFunc2D(bc_v[i]), bc_y0(bc_v[i]) );
         EXPECT_EQ( bc_neu.mpYNBcFunc2D(bc_v[i]), bc_yN(bc_v[i]) );
-        EXPECT_EQ( bc_neu.mX0BcIsDirichlet,  false);
-        EXPECT_EQ( bc_neu.mXNBcIsDirichlet,  false);
-        EXPECT_EQ( bc_neu.mYNBcIsDirichlet,  false);
-        EXPECT_EQ( bc_neu.mY0BcIsDirichlet,  false);
-        EXPECT_EQ( bc_neu.mX0BcIsNeumann, true);
-        EXPECT_EQ( bc_neu.mXNBcIsNeumann, true);
-        EXPECT_EQ( bc_neu.mYNBcIsNeumann, true);
-        EXPECT_EQ( bc_neu.mY0BcIsNeumann, true);
+        EXPECT_EQ( bc_neu.mX0BcIsConst,  false);
+        EXPECT_EQ( bc_neu.mXNBcIsConst,  false);
+        EXPECT_EQ( bc_neu.mYNBcIsConst,  false);
+        EXPECT_EQ( bc_neu.mY0BcIsConst,  false);
+        EXPECT_EQ( bc_neu.mX0BcIsNoFlux, true);
+        EXPECT_EQ( bc_neu.mXNBcIsNoFlux, true);
+        EXPECT_EQ( bc_neu.mYNBcIsNoFlux, true);
+        EXPECT_EQ( bc_neu.mY0BcIsNoFlux, true);
     }
 
 }
@@ -75,10 +75,12 @@ TEST(FiniteDifferenceGrid, mesh_formation) {
 
 TEST(boundary_conditions, constructor) {
     BoundaryConditions bc;
-    ASSERT_EQ(bc.mX0BcIsDirichlet, false);
-    ASSERT_EQ(bc.mXNBcIsDirichlet, false);
-    ASSERT_EQ(bc.mX0BcIsNeumann, false);
-    ASSERT_EQ(bc.mXNBcIsNeumann, false);
+    ASSERT_EQ(bc.mX0BcIsConst, false);
+    ASSERT_EQ(bc.mXNBcIsConst, false);
+    ASSERT_EQ(bc.mX0BcIsNoFlux, false);
+    ASSERT_EQ(bc.mXNBcIsNoFlux, false);
+    ASSERT_EQ(bc.mX0BcIsFlux, false);
+    ASSERT_EQ(bc.mXNBcIsFlux, false);
 }
 
 TEST(second_order_ode, assigning_var){
@@ -95,8 +97,8 @@ TEST(bvpode, error_of_the_solution){
     int n = 128;
     SecondOrderOde ode_mp1(-1.0, 0.0, 0.0, model_prob_1_rhs, 0.0, 1);
     BoundaryConditions bc_mp1;
-    bc_mp1.SetX0DirichletBc1D(0);
-    bc_mp1.SetXNDirichletBc1D(0);
+    bc_mp1.SetX0ConstBc1D(0);
+    bc_mp1.SetXNConstBc1D(0);
     BvpOde bvpode_mp1(&ode_mp1, &bc_mp1, n);
     bvpode_mp1.SetFilename("model_problem_results1.dat");
     bvpode_mp1.Solve();
@@ -112,8 +114,8 @@ TEST(bvpode, error_of_the_solution){
 
     SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
     BoundaryConditions bc_mp2;
-    bc_mp2.SetX0NeumannBc1D(-5.0);
-    bc_mp2.SetXNDirichletBc1D(4.0);
+    bc_mp2.SetX0FluxBc1D(5.0);
+    bc_mp2.SetXNConstBc1D(4.0);
     BvpOde bvpode_mp2(&ode_mp2, &bc_mp2, n);
     bvpode_mp2.SetFilename("model_problem_results2.dat");
     bvpode_mp2.Solve();
@@ -277,21 +279,21 @@ TEST(FiniteDifferenceGrid2d, mesh_formation) {
 
 TEST(boundary_conditions2d, constructor) {
     BoundaryConditions bc;
-    ASSERT_EQ(bc.mX0BcIsDirichlet, false);
-    ASSERT_EQ(bc.mXNBcIsDirichlet, false);
-    ASSERT_EQ(bc.mX0BcIsNeumann, false);
-    ASSERT_EQ(bc.mXNBcIsNeumann, false);
-    ASSERT_EQ(bc.mYNBcIsDirichlet, false);
-    ASSERT_EQ(bc.mYNBcIsDirichlet, false);
-    ASSERT_EQ(bc.mYNBcIsNeumann, false);
-    ASSERT_EQ(bc.mY0BcIsNeumann, false);
+    ASSERT_EQ(bc.mX0BcIsConst, false);
+    ASSERT_EQ(bc.mXNBcIsConst, false);
+    ASSERT_EQ(bc.mX0BcIsNoFlux, false);
+    ASSERT_EQ(bc.mXNBcIsNoFlux, false);
+    ASSERT_EQ(bc.mYNBcIsConst, false);
+    ASSERT_EQ(bc.mYNBcIsConst, false);
+    ASSERT_EQ(bc.mYNBcIsNoFlux, false);
+    ASSERT_EQ(bc.mY0BcIsNoFlux, false);
 }
 
 TEST(PDE_init, constractor) {
     SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
     BoundaryConditions bc_mp2;
-    bc_mp2.SetX0NeumannBc1D(-5.0);
-    bc_mp2.SetXNDirichletBc1D(4.0);
+    bc_mp2.SetX0NoFluxBc1D(-5.0);
+    bc_mp2.SetXNConstBc1D(4.0);
     BvpPde bvppde_mp2(&ode_mp2, &bc_mp2,0.1, 1.0, 1, 128);
     ASSERT_EQ(bvppde_mp2.mtau, 1.0);
     ASSERT_EQ(bvppde_mp2.mdt, 0.1);

@@ -35,7 +35,7 @@ void LinearSolver::Solve_sparse_ldlt() {
     SimplicialLDLT<SparseMatrix<double> > solver;
     solver.compute(*mpA);
     if(solver.info()==Eigen::Success) {
-        std::cout << "Sparse SimplicialLDLT solver::Success"<< endl;
+        // std::cout << "Sparse SimplicialLDLT solver::Success"<< endl;
     }
     *mpx  = solver.solve(*mpb);
 }
@@ -82,8 +82,8 @@ void LinearSolver::Solve_sparse_lu() {
     // for any sparse matrix
     SparseLU<SparseMatrix<double,ColMajor>, AMDOrdering<int> > solver;
     solver.compute(*mpA);
-    // if(solver.info()==Eigen::Success) {
+    if(solver.info()==Eigen::Success) {
         // std::cout << "Sparse LU solver::Success" << endl;
-    // }
+    }
     *mpx=solver.solve(*mpb);
 }

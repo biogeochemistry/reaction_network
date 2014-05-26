@@ -10,9 +10,9 @@ class BoundaryConditions {
     FRIEND_TEST(boundary_conditions, assigning_var);
     protected:
         
-        bool mX0BcIsDirichlet, mXNBcIsDirichlet, mX0BcIsNeumann, mXNBcIsNeumann; 
-        bool mY0BcIsDirichlet, mYNBcIsDirichlet, mYNBcIsNeumann, mY0BcIsNeumann; 
-        double mX0BcValue, mXNBcValue, mYNBcValue, mY0BcValue;
+        bool mX0BcIsConst, mXNBcIsConst, mX0BcIsNoFlux, mXNBcIsNoFlux, mX0BcIsFlux, mXNBcIsFlux; 
+        bool mY0BcIsConst, mYNBcIsConst, mYNBcIsNoFlux, mY0BcIsNoFlux; 
+        double mX0BcValue, mXNBcValue, mYNBcValue, mY0BcValue, x0FluxValue, xNFluxValue;
         double (*mpX0BcFunc2D)(double y);
         double (*mpXNBcFunc2D)(double y);
         double (*mpY0BcFunc2D)(double x);
@@ -22,24 +22,29 @@ class BoundaryConditions {
         BoundaryConditions();
         friend class BvpOde;
         // 1D
-        void SetX0DirichletBc1D(double x0Value);
-        void SetXNDirichletBc1D(double xNValue);
-        void SetX0NeumannBc1D(double x0DerivValue);
-        void SetXNNeumannBc1D(double xNDerivValue);
-        void SetYNDirichletBc1D(double yNValue);
-        void SetY0DirichletBc1D(double y0Value);
-        void SetYNNeumannBc1D(double yNDerivValue);
-        void SetY0NeumannBc1D(double y0DerivValue);
+        /*
+        NOTE:NoFlux BC can be only = 0. 
+         */
+        void SetX0ConstBc1D(double x0Value);
+        void SetXNConstBc1D(double xNValue);
+        void SetX0NoFluxBc1D(double x0DerivValue);
+        void SetXNNoFluxBc1D(double xNDerivValue);
+        void SetX0FluxBc1D(double x0FluxValue);
+        void SetXNFluxBc1D(double xNFluxValue);
+        void SetYNConstBc1D(double yNValue);
+        void SetY0ConstBc1D(double y0Value);
+        void SetYNNoFluxBc1D(double yNDerivValue);
+        void SetY0NoFluxBc1D(double y0DerivValue);
         // 2D BC as a function 
-        void SetX0DirichletBc2D(double (*leftBCFunc)(double));
-        void SetXNDirichletBc2D(double (*XNBCFunc)(double));
-        void SetX0NeumannBc2D(double (*x0DerivBCFunc)(double));
-        void SetXNNeumannBc2D(double (*xNDerivBCFunc)(double));
+        void SetX0ConstBc2D(double (*leftBCFunc)(double));
+        void SetXNConstBc2D(double (*XNBCFunc)(double));
+        void SetX0NoFluxBc2D(double (*x0DerivBCFunc)(double));
+        void SetXNNoFluxBc2D(double (*xNDerivBCFunc)(double));
         // 2D BC as a function 
-        void SetY0DirichletBc2D(double (*X0BCFunc)(double));
-        void SetYNDirichletBc2D(double (*YNBCFunc)(double));
-        void SetY0NeumannBc2D(double (*Y0DerivBCFunc)(double));
-        void SetYNNeumannBc2D(double (*YNDerivBCFunc)(double));
+        void SetY0ConstBc2D(double (*X0BCFunc)(double));
+        void SetYNConstBc2D(double (*YNBCFunc)(double));
+        void SetY0NoFluxBc2D(double (*Y0DerivBCFunc)(double));
+        void SetYNNoFluxBc2D(double (*YNDerivBCFunc)(double));
 };
 
 #endif

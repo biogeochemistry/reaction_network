@@ -22,7 +22,7 @@ class BvpPde: public BvpOde {
         LinearSolver *mpLinearSolver;
     public:
         BvpPde(SecondOrderOde *pOde, BoundaryConditions *pBcs, double dt, double tau, double timer, int numNodes, double (*uj0)(double) = 0);
-        void SolvePde();
+        void Solve();
         MatrixXd solutionInTime;
         VectorXd solution;
 };
