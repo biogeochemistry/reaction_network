@@ -142,13 +142,13 @@ void BvpOde::ApplyBoundaryConditions() {
     double D = mpOde->mCoeffOfUxx;
     double w = mpOde->mCoeffOfUx;
     double k = mpOde->mCoeffOfU;        
-    if (mpBconds->mX0BcIsDirichlet) {
+    if (mpBconds->mX0BcIsConst) {
         (*mpLhsMat).insert(0,0) = 1.0;
         (*mpRhsVec)(0) = mpBconds->mX0BcValue; 
         left_bc_applied = true;
     }
 
-    if (mpBconds->mXNBcIsDirichlet) {
+    if (mpBconds->mXNBcIsConst) {
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = 1.0;
         (*mpRhsVec)(mNumNodes-1) = mpBconds->mXNBcValue; 
         right_bc_applied = true;
