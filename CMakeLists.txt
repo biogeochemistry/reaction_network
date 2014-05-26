@@ -88,7 +88,8 @@ set(HEADER_FILES
                   include/BvpOde.hpp 
                   include/Node.hpp 
                   include/LinearSolver.hpp
-                  include/BvpPde.hpp)
+                  include/BvpPde.hpp
+                  include/CoupledPde.hpp)
 set(SOURCES_FILES 
                   src/OdeSolver.cpp
                   src/Runge-Kutta.cpp 
@@ -97,7 +98,8 @@ set(SOURCES_FILES
                   src/LinearSolver.cpp 
                   src/BvpOde.cpp 
                   src/SecondOrderOde.cpp
-                  src/BvpPde.cpp)
+                  src/BvpPde.cpp
+                  src/CoupledPde.cpp)
 
 # ########################################################################
 # #

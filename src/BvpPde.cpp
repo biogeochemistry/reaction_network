@@ -7,40 +7,33 @@ BvpPde::BvpPde(SecondOrderOde *pOde, BoundaryConditions *pBcs, double dt, double
     mdt = dt;
     mUj0Func = uj0;
     mT = timer;
+    PopulateInitCondiotions();
+    PopulateOperators();
 }
 
 void BvpPde::Solve(){
-    PopulateOperators();
-    PopulateInitCondiotions();
-    SolvePdeInTime();
+    SolvePde1TS(1);
 }
 
-void BvpPde::SolvePdeInTime(){
-    int columns = mT/mdt;
-    solutionInTime.resize(BvpOde::mNumNodes, columns);
-    solutionInTime.col(0) = mb;
+void BvpPde::SolvePde1TS(int i){
+    // NOTE: all methods work according with python
+    // Solver works correctly (Checked with MATLAB and python)
     // Applying BC
     mb(0) = (*BvpOde::mpRhsVec)(0);
     mb(mNumNodes-1) = (*BvpOde::mpRhsVec)(mNumNodes-1);
-    cout <<endl<< mb<<endl;
-    for (int i = 1; i < columns; ++i) {
-        VectorXd temp = mUj0Operator*mb;
-        temp(0) = (*BvpOde::mpRhsVec)(0);
-        temp(mNumNodes-1) = (*BvpOde::mpRhsVec)(mNumNodes-1);
-        mpLinearSolver = new LinearSolver(mUj1Operator, temp);
-        solution = mpLinearSolver->SolveLinearSystem();
-        mb = solution;
-        mb(0) = (*BvpOde::mpRhsVec)(0);
-        mb(mNumNodes-1) = (*BvpOde::mpRhsVec)(mNumNodes-1);
-        
-        solutionInTime.col(i) = solution;
-    }
-    // NOTE: all methods work according with python
-    // Solver works correctly (Checked with MATLAB and python)
-    cout << solutionInTime;
+    VectorXd temp = mUj0Operator*mb;
+    temp(0) = (*BvpOde::mpRhsVec)(0);
+    temp(mNumNodes-1) = (*BvpOde::mpRhsVec)(mNumNodes-1);
+    mpLinearSolver = new LinearSolver(mUj1Operator, temp);
+    solution = mpLinearSolver->SolveLinearSystem();
+    mb = solution;
+    solutionInTime.col(i+1) = solution;
 }
 
 void BvpPde::PopulateOperators(){
+    int columns = mT/mdt;
+    solutionInTime.resize(BvpOde::mNumNodes, columns);
+    solutionInTime.col(0) = mb;
     int x = BvpOde::mNumNodes;
     SparseMatrix<double> I = MatrixXd::Identity(x, x).sparseView();
     SparseMatrix<double> F = *BvpOde::mpLhsMat;

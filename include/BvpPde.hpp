@@ -11,19 +11,19 @@ class BvpPde: public BvpOde {
         SparseMatrix<double> mUj1Operator;
         void PopulateInitCondiotions();
         void PopulateOperators();
-        void SolvePdeInTime();
         VectorXd mb;
         VectorXd mp_temp;
         double (*mUj0Func)(double x);
         BvpOde* ode; //
         double mtau; // tau, shift in time
-        double mdt; // dt
-        double mT; // last point in time
         LinearSolver *mpLinearSolver;
     public:
         BvpPde(SecondOrderOde *pOde, BoundaryConditions *pBcs, double dt, double tau, double timer, int numNodes, double (*uj0)(double) = 0);
         void Solve();
         MatrixXd solutionInTime;
         VectorXd solution;
+        double mdt; // dt
+        double mT; // last point in time
+        void SolvePde1TS(int i);
 };
 #endif // BVPPDEHPP

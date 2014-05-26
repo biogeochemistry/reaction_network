@@ -175,6 +175,7 @@ void BvpOde::ApplyBoundaryConditions() {
     }
 
     if (mpBconds->mX0BcIsRobin) {
+        // NOTE: This boundary doesn't work. Need to check math.
         assert(left_bc_applied == false);
         double F = mpBconds->mX0BcValue;
         double h = mpGrid->mNodes[1].C.x - mpGrid->mNodes[0].C.x;
@@ -185,6 +186,7 @@ void BvpOde::ApplyBoundaryConditions() {
     }
 
     if (mpBconds->mXNBcIsRobin) {
+        // NOTE: This boundary doesn't work. Need to check math.
         assert(right_bc_applied == false);
         double F = mpBconds->mXNBcValue;
         double h = mpGrid->mNodes[mNumNodes-1].C.x - mpGrid->mNodes[mNumNodes-2].C.x; 
