@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
     SecondOrderOde ode_mp1(500, -5.0, 0.0, model_prob_1_rhs, 0.0, 20.0);
     BoundaryConditions bc_mp1;
     
-    bc_mp1.SetX0RobinBc1D(1.0);
+    bc_mp1.SetX0NeumannBc1D(1.0);
     // bc_mp1.SetX0NeumannBc1D(0);
     // bc_mp1.SetXNDirichletBc1D(0);
     bc_mp1.SetXNNeumannBc1D(0);

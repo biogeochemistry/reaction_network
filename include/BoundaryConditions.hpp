@@ -23,7 +23,7 @@ class BoundaryConditions {
         friend class BvpOde;
         // 1D
         /*
-        NOTE:Neumann BC can be only = 0. 
+        Robin BC doesnt work
          */
         void SetX0DirichletBc1D(double x0Value);
         void SetXNDirichletBc1D(double xNValue);
