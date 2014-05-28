@@ -45,12 +45,25 @@ endif()
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 
+# set(Boost_INCLUDE_DIR /usr/local/Cellar/boost/1.55.0_1)
+# set(Boost_LIBRARY_DIR /usr/local/Cellar/boost/1.55.0_1/lib)
+set(Boost_USE_STATIC_LIBS        ON)
+set(Boost_USE_MULTITHREADED      ON)
+set(Boost_USE_STATIC_RUNTIME    OFF)
+find_package(Boost COMPONENTS system filesystem iostreams REQUIRED)
+
+
+find_package(Gnuplot)
+if(NOT GNUPLOT_FOUND)
+  message(WARNING "Gnuplot not found, cannot use analysis scripts.")
+endif(NOT GNUPLOT_FOUND)
+
 # compiler options:
 # set(CMAKE_CXX_COMPILER "clang++") #compiler clang++
 set(CMAKE_CXX_COMPILER "g++") #compiler g++
-set (CMAKE_CXX_LINK_FLAGS "-fopenmp")
+set (CMAKE_CXX_LINK_FLAGS "-fopenmp -lstdc++")
 # add_definitions("-std=c++11 -O3 -ffast-math -ffinite-math-only -fopenmp -fPIC -Wall -Wextra -pthread -Wno-missing-field-initializers  -fdiagnostics-color=always")
-add_definitions("-std=c++11 -g -fopenmp -fPIC -Wall -Wextra -pthread -Wno-missing-field-initializers  -fdiagnostics-color=always")
+add_definitions("-std=c++11 -lstdc++ -g -fopenmp -fPIC -Wall -Wextra -pthread -Wno-missing-field-initializers  -fdiagnostics-color=always")
 
 # CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -59,6 +72,7 @@ set(reaction_network ${CMAKE_SOURCE_DIR})
 set(GTEST_DIR "${reaction_network}/libs/gtest/")
 set(EIGEN_DIR "${reaction_network}/libs/eigen/")
 set(GNUPLOT_DIR "${reaction_network}/libs/gnuplot/")
+set(GNUPLOT2_DIR "${reaction_network}/libs/gnuplot-iostream/")
 set(INCLUDE_DIR "${reaction_network}/include/")
 
 
@@ -73,8 +87,10 @@ include_directories(
   ${GTEST_DIR}
   ${EIGEN_DIR}
   ${GNUPLOT_DIR}
+  ${GNUPLOT2_DIR}
   ${CMAKE_SOURCE_DIR}
-  ${INCLUDE_DIR})
+  ${INCLUDE_DIR}
+  ${Boost_INCLUDE_DIRS})
 
 # # Where Google Test's libraries can be found.
 link_directories(${GTEST_DIR}/src)
@@ -123,7 +139,9 @@ cxx_library(gtest_main "${cxx_strict}" ${GTEST_DIR}/src/gtest_main.cc)
 ADD_EXECUTABLE(main src/main.cpp ${SOURCES_FILES} ${HEADER_FILES})
 
 add_executable(test src/tests/tests.cpp ${SOURCES_FILES} ${HEADER_FILES})
-target_link_libraries(test gtest gtest_main)
+target_link_libraries(test gtest gtest_main   ${Boost_FILESYSTEM_LIBRARY}
+                                              ${Boost_SYSTEM_LIBRARY}
+                                              ${Boost_IOSTREAMS_LIBRARY})
 
 
 # set(CMAKE_SHARED_LINKER_FLAGS "-fopenmp -fPIC")

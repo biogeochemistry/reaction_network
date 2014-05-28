@@ -2,7 +2,8 @@
 #include <cmath>
 #include <string>
 #include "CoupledPde.hpp"
-#include "gnuplot_i.hpp"
+// #include "gnuplot_i.hpp"
+#include "gnuplot-iostream.h"
 #include <omp.h>
 
 using namespace Eigen;
@@ -30,8 +31,8 @@ int main(int argc, char* argv[]) {
     //         printf("Number of threads = %d\n", nthreads);
     //     }
     // }
-
     Gnuplot g1;
+    
 
     SecondOrderOde ode_mp1(500, -5.0, 0.0, model_prob_1_rhs, 0.0, 15.0);
     SecondOrderOde ode_mp2(50, -5.0, 0.0, model_prob_1_rhs, 0.0, 15.0);
@@ -52,6 +53,14 @@ int main(int argc, char* argv[]) {
     // oxygen.Solve();
     CoupledPde cpde(&oxygen, &organic_mater_1);
     cpde.SolveSystem();
+
+
+    // g1 << "set xrange [-2:2]\nset yrange [-2:2]\n";
+    // g1 << "plot '-' with lines title 'cubic', '-' with points title 'circle'\n";
+    // g1.send1d(oxygen.mpGrid->xGrid);
+    // g1.send1d(oxygen.solution);
+
+
 
     // g1.set_style("lines").plot_xy(oxygen.mpGrid->xGrid,oxygen.solution,"differentiation");
     // g1.set_style("lines").plot_xy(organic_mater_1.mpGrid->xGrid,organic_mater_1.solution,"differentiation");
