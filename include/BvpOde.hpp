@@ -17,7 +17,6 @@ class BvpOde{
     FRIEND_TEST(bvpode, error_of_the_solution);
     protected:
         // test framework
-
         int mNumNodes;
         VectorXd *mpRhsVec;
         SparseMatrix<double> *mpLhsMat;
@@ -29,7 +28,7 @@ class BvpOde{
         SecondOrderOde* mpOde;
         BoundaryConditions* mpBconds;
         LinearSolver *mpLinearSolver;
-        string mFilename;
+    
     public:
         BvpOde(SecondOrderOde *pOde, BoundaryConditions *pBcs, int numNodes);
         ~BvpOde();
@@ -38,7 +37,8 @@ class BvpOde{
         void Solve();
         void SetFilename(const std::string& name);
         VectorXd solution;
-
+        // TODO: move it to protected and write get() method for CouplePde class
+        string mFilename;
 };
 
 #endif // BVP_ODE_HPP

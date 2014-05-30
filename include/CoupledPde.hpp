@@ -9,6 +9,8 @@ class CoupledPde {
         BvpPde *Pde2;
         int counter;
         double mdt, mT;
+        void WriteSolution();
+
     public:
         CoupledPde(BvpPde *FirstPde, BvpPde *SecondPde);
         void SolveSystem();

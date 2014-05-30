@@ -2,8 +2,7 @@
 #include <cmath>
 #include <string>
 #include "CoupledPde.hpp"
-// #include "gnuplot_i.hpp"
-#include "gnuplot-iostream.h"
+#include "gnuplot_i.hpp"
 #include <omp.h>
 
 using namespace Eigen;
@@ -31,7 +30,7 @@ int main(int argc, char* argv[]) {
     //         printf("Number of threads = %d\n", nthreads);
     //     }
     // }
-    Gnuplot g1;
+    
     
 
     SecondOrderOde ode_mp1(500, -5.0, 0.0, model_prob_1_rhs, 0.0, 15.0);
@@ -46,24 +45,19 @@ int main(int argc, char* argv[]) {
     // bc_mp1.SetXNDirichletBc1D(0);
     bc_mp1.SetXNNeumannBc1D(0);
     // bc_mp1.SetXNRobinBc1D(0);
-    BvpPde oxygen(&ode_mp1, &bc_mp1,0.001, 0.0, 1.0, 64, uj0);
-    BvpPde organic_mater_1(&ode_mp2, &bc_mp2,0.001, 0.0, 1.0, 64, uj0);
+    BvpPde oxygen(&ode_mp1, &bc_mp1,0.001, 0.0, 10.0, 64, uj0);
+    BvpPde organic_mater_1(&ode_mp2, &bc_mp2,0.001, 0.0, 10.0, 64, uj0);
     // BvpOde oxygen(&ode_mp1, &bc_mp1, 10);
-    // oxygen.SetFilename("model_problem_results1.dat");
+    oxygen.SetFilename("oxygen_results.dat");
+    organic_mater_1.SetFilename("om1_results.dat");
     // oxygen.Solve();
     CoupledPde cpde(&oxygen, &organic_mater_1);
     cpde.SolveSystem();
 
 
-    // g1 << "set xrange [-2:2]\nset yrange [-2:2]\n";
-    // g1 << "plot '-' with lines title 'cubic', '-' with points title 'circle'\n";
-    // g1.send1d(oxygen.mpGrid->xGrid);
-    // g1.send1d(oxygen.solution);
-
-
-
-    // g1.set_style("lines").plot_xy(oxygen.mpGrid->xGrid,oxygen.solution,"differentiation");
-    // g1.set_style("lines").plot_xy(organic_mater_1.mpGrid->xGrid,organic_mater_1.solution,"differentiation");
+    Gnuplot g1, g2;
+    g1.set_style("lines").plot_xy(oxygen.mpGrid->xGrid,oxygen.solution,"differentiation");
+    g2.set_style("lines").plot_xy(organic_mater_1.mpGrid->xGrid,organic_mater_1.solution,"differentiation");
     // g1.set_style("lines").plot_equation("0.5*x*(1-x)","exact solution");
 
     // Gnuplot g2;

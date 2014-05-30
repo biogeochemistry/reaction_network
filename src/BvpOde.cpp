@@ -161,6 +161,10 @@ void BvpOde::ApplyBoundaryConditions() {
         (*mpLhsMat).insert(0,0) = -2.0*D/(h*h); 
         (*mpLhsMat).insert(0,1) = 2.0*D/(h*h);
         (*mpRhsVec)(0) = 2 * F * ( D/h - h*w);
+        // Boundary classic conditions are less accurate
+        // (*mpLhsMat).insert(0,0) = -1.0/h; 
+        // (*mpLhsMat).insert(0,1) = 1.0/h;
+        // (*mpRhsVec)(0) = F;
         left_bc_applied = true;
     }
 
@@ -171,6 +175,10 @@ void BvpOde::ApplyBoundaryConditions() {
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = -2.0*D/(h*h);
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = 2.0*D/(h*h); 
         (*mpRhsVec)(mNumNodes-1) = 2 * F * ( D/h - h*w);
+        // Boundary classic conditions are less accurate
+        // (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = 1.0/h;
+        // (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = -1.0/h; 
+        // (*mpRhsVec)(mNumNodes-1) = F;
         right_bc_applied = true;
     }
 

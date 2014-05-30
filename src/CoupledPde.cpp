@@ -26,6 +26,22 @@ void CoupledPde::SolveSystem(){
             }
         }
     }
+    WriteSolution();
+}
+
+void CoupledPde::WriteSolution(){
+    string name1 = Pde1->mFilename;
+    string name2 = Pde2->mFilename;
+    
+    ofstream file(name1);
+    if (file.is_open()) {
+        file << Pde1->solutionInTime << '\n';
+    }
+
+    ofstream file2(name2);
+    if (file2.is_open()) {
+        file2 << Pde2->solutionInTime << '\n';
+    }
 }
 
 
