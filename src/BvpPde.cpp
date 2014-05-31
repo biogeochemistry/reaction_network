@@ -37,8 +37,8 @@ void BvpPde::PopulateOperators(){
     int x = BvpOde::mNumNodes;
     SparseMatrix<double> I = MatrixXd::Identity(x, x).sparseView();
     SparseMatrix<double> F = *BvpOde::mpLhsMat;
-    mUj0Operator = (I +     mtau*mdt*F);
-    mUj1Operator = (I - (1-mtau)*mdt*F);
+    mUj0Operator = (I + (1-mtau)*mdt*F);
+    mUj1Operator = (I -    mtau*mdt*F);
 }
 
 void BvpPde::PopulateInitCondiotions(){

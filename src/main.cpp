@@ -45,8 +45,8 @@ int main(int argc, char* argv[]) {
     // bc_mp1.SetXNDirichletBc1D(0);
     bc_mp1.SetXNNeumannBc1D(0);
     // bc_mp1.SetXNRobinBc1D(0);
-    BvpPde oxygen(&ode_mp1, &bc_mp1,0.001, 0.0, 10.0, 64, uj0);
-    BvpPde organic_mater_1(&ode_mp2, &bc_mp2,0.001, 0.0, 10.0, 64, uj0);
+    BvpPde oxygen(&ode_mp1, &bc_mp1,0.001, 1.0, 10.0, 64, uj0);
+    BvpPde organic_mater_1(&ode_mp2, &bc_mp2,0.001, 1.0, 10.0, 64, uj0);
     // BvpOde oxygen(&ode_mp1, &bc_mp1, 10);
     oxygen.SetFilename("oxygen_results.dat");
     organic_mater_1.SetFilename("om1_results.dat");
