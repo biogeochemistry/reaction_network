@@ -36,9 +36,9 @@ void BvpPde::PopulateOperators(){
     solutionInTime.col(0) = mb;
     int x = BvpOde::mNumNodes;
     SparseMatrix<double> I = MatrixXd::Identity(x, x).sparseView();
-    SparseMatrix<double> F = *BvpOde::mpLhsMat;
-    mUj0Operator = (I + (1-mtau)*mdt*F);
-    mUj1Operator = (I -    mtau*mdt*F);
+    SparseMatrix<double> T = *BvpOde::mpLhsMat; // Transport matrix
+    mUj0Operator = (I + (1-mtau)*mdt*T);
+    mUj1Operator = (I -    mtau*mdt*T);
 }
 
 void BvpPde::PopulateInitCondiotions(){

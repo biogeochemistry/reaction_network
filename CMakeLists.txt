@@ -45,6 +45,7 @@ endif()
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 
+find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 
 # compiler options:
 # set(CMAKE_CXX_COMPILER "clang++") #compiler clang++
@@ -127,7 +128,7 @@ cxx_library(gtest_main "${cxx_strict}" ${GTEST_DIR}/src/gtest_main.cc)
 ADD_EXECUTABLE(main src/main.cpp ${SOURCES_FILES} ${HEADER_FILES})
 
 add_executable(test src/tests/tests.cpp ${SOURCES_FILES} ${HEADER_FILES})
-target_link_libraries(test gtest gtest_main   ${Boost_FILESYSTEM_LIBRARY})
+target_link_libraries(test gtest gtest_main  ${Boost_LIBRARIES})
 
 
 # set(CMAKE_SHARED_LINKER_FLAGS "-fopenmp -fPIC")
