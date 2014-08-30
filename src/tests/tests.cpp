@@ -109,7 +109,7 @@ TEST(bvpode, error_of_the_solution){
         sum += pow((bvpode_mp1.solution[i] - Uexact),2);
     }
     sum /=n-1;
-    printf("Standard deviation: %f\n", sqrt(sum));
+    cout << "Standard deviation: " << sqrt(sum) <<'\n';
     ASSERT_EQ(sqrt(sum) < 1e-2, true);
 
     SecondOrderOde ode_mp2(1.0, 3.0, -4.0, model_prob_2_rhs, 0.0, M_PI);
@@ -126,15 +126,15 @@ TEST(bvpode, error_of_the_solution){
         sum += pow((bvpode_mp2.solution[i] - Uexact),2);
     }
     sum /=n-1;
-    printf("Standard deviation: %f\n", sqrt(sum));
+    cout << "Standard deviation: " << sqrt(sum) <<'\n';
     // ASSERT_EQ(sqrt(sum) < 1e-2, true);
     
 
-    Gnuplot g1, g2;
-    g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.solution,"differentiation");
-    g1.set_style("lines").plot_equation("0.5*x*(1-x)","exact solution");
-    g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.solution);
-    g2.set_style("lines").plot_equation("(4*exp(x) + exp(-4*x) ) / (4*exp(pi)+exp(-4*pi))-5*sin(x)-3*cos(x)","exact solution");
+    // Gnuplot g1, g2;
+    // g1.set_style("points").plot_xy(bvpode_mp1.mpGrid->xGrid,bvpode_mp1.solution,"differentiation");
+    // g1.set_style("lines").plot_equation("0.5*x*(1-x)","exact solution");
+    // g2.set_style("points").plot_xy(bvpode_mp2.mpGrid->xGrid,bvpode_mp2.solution);
+    // g2.set_style("lines").plot_equation("(4*exp(x) + exp(-4*x) ) / (4*exp(pi)+exp(-4*pi))-5*sin(x)-3*cos(x)","exact solution");
 }
 
 TEST(FiniteDifferenceGrid2d, mesh_formation) {

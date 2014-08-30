@@ -10,7 +10,7 @@ FiniteDifferenceGrid::FiniteDifferenceGrid(int xNumNodes, double xMin, double xM
         Node node;
         node.C.x = xGrid(i);
         mNodes.push_back(node);
-        }
+    }
     assert(mNodes.size() == xNumNodes);
 }
 

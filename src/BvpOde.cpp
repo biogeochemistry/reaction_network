@@ -18,7 +18,7 @@ BvpOde::BvpOde(SecondOrderOde* pOde,BoundaryConditions* pBcs, int numNodes){
     mpRhsVec = new VectorXd(mNumNodes);
     mpLhsMat = new SparseMatrix<double> (mNumNodes, mNumNodes);
     mFilename = "ode_output.dat";
-    PopulateMatrix6thOrder();
+    PopulateMatrix();
     PopulateVector();
     ApplyBoundaryConditions();
 
@@ -159,12 +159,8 @@ void BvpOde::ApplyBoundaryConditions() {
         double F = mpBconds->mX0BcValue;
         double h = mpGrid->mNodes[1].C.x - mpGrid->mNodes[0].C.x;
         (*mpLhsMat).insert(0,0) = -2.0*D/(h*h); 
-        (*mpLhsMat).insert(0,1) = 2.0*D/(h*h);
+        (*mpLhsMat).insert(0,1) =  2.0*D/(h*h);
         (*mpRhsVec)(0) = 2 * F * ( D/h - h*w);
-        // Boundary classic conditions are less accurate
-        // (*mpLhsMat).insert(0,0) = -1.0/h; 
-        // (*mpLhsMat).insert(0,1) = 1.0/h;
-        // (*mpRhsVec)(0) = F;
         left_bc_applied = true;
     }
 
@@ -173,12 +169,8 @@ void BvpOde::ApplyBoundaryConditions() {
         double F = mpBconds->mXNBcValue;
         double h = mpGrid->mNodes[mNumNodes-1].C.x - mpGrid->mNodes[mNumNodes-2].C.x; 
         (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = -2.0*D/(h*h);
-        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = 2.0*D/(h*h); 
+        (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) =  2.0*D/(h*h); 
         (*mpRhsVec)(mNumNodes-1) = 2 * F * ( D/h - h*w);
-        // Boundary classic conditions are less accurate
-        // (*mpLhsMat).insert(mNumNodes-1,mNumNodes-1) = 1.0/h;
-        // (*mpLhsMat).insert(mNumNodes-1,mNumNodes-2) = -1.0/h; 
-        // (*mpRhsVec)(mNumNodes-1) = F;
         right_bc_applied = true;
     }
 
