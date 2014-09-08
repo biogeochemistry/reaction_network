@@ -1,50 +1,77 @@
 {
-	"build_systems":
-	[
-		{
-			"cmd":
-			[
-				"make Bvp2D_test && ./Bvp2D_test",
-				"-f",
-				"Makefile",
-				"VERBOSE=1",
-				"all"
-			],
-			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
-			"name": "make test and run",
-			"working_dir": "${project_path}",
-			"path": "/usr/bin:/usr/local/bin:/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network:/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/tests",
-	    "shell": true
-		},
-		{
-			"cmd":
-			[
-				"make main && ./main",
-				"-f",
-				"Makefile",
-				"VERBOSE=1",
-				"all"
-			],
-			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
-			"name": "make main and run",
-			"working_dir": "${project_path}",
-			"path": "/usr/bin:/usr/local/bin:/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network:/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network/tests",
-	    "shell": true
-		}
-	],
 	"folders":
 	[
 		{
-			"follow_symlinks": true,
-			"path": "/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network"
+			"path": "./"
 		}
 	],
-    "settings":
-    {
-			  "sublimegdb_workingdir": "/Users/MarkelovIgor/Documents/git/biogeochemistry/reaction_network",
-  "sublimegdb_commandline": "/usr/local/bin/gdb --interpreter=mi ./main",
-      "sublimegdb_close_views": true
+	"build_systems":
+	[
+		{
+			"name": "reaction_network - all",
+			"cmd": ["pmake"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
+		},
+		{
+			"name": "reaction_network - clean",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "VERBOSE=1", "clean"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
+		},
+		{
+			"name": "reaction_network - gtest",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "VERBOSE=1", "gtest"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
+		},
+		{
+			"name": "reaction_network - gtest/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "VERBOSE=1", "gtest/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
+		},
+		{
+			"name": "reaction_network - gtest_main",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "VERBOSE=1", "gtest_main"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
+		},
+		{
+			"name": "reaction_network - gtest_main/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "VERBOSE=1", "gtest_main/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
+		},
+		{
+			"name": "reaction_network - main",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "VERBOSE=1", "main"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
+		},
+		{
+			"name": "reaction_network - main/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "VERBOSE=1", "main/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
+		},
+		{
+			"name": "reaction_network - rebuild_cache",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "VERBOSE=1", "rebuild_cache"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
+		},
+		{
+			"name": "reaction_network - test",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "VERBOSE=1", "test"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
+		},
+		{
+			"name": "reaction_network - test/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "VERBOSE=1", "test/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$"
 		}
-}
-
-
+	]
+	}
