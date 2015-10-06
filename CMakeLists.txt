@@ -49,7 +49,8 @@ find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 
 # compiler options:
 # set(CMAKE_CXX_COMPILER "clang++") #compiler clang++
-set(CMAKE_CXX_COMPILER "g++") #compiler g++
+# set(CMAKE_CXX_COMPILER "g++") #compiler g++
+# set(CMAKE_CXX_COMPILER "/usr/local/Cellar/gcc49/4.9.0/bin/g++-4.9") #compiler g++
 set (CMAKE_CXX_LINK_FLAGS "-fopenmp -lstdc++")
 add_definitions("-std=c++11 -O3 -ffast-math -ffinite-math-only -fopenmp -fPIC -Wall -Wextra -pthread -Wno-missing-field-initializers  -fdiagnostics-color=always")
 # add_definitions("-std=c++11 -g -O0 -fopenmp -fPIC -Wall -Wextra -Wno-missing-field-initializers  -fdiagnostics-color=always -pthread")
