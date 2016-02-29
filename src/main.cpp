@@ -2,7 +2,7 @@
 #include <cmath>
 #include <string>
 #include "CoupledPde.hpp"
-// #include "gn0uplo128i.hpp"
+#include "gnuplot_i.hpp"
 #include <omp.h>
 // #include <boost/test/unit_test.hpp>
 
@@ -47,8 +47,8 @@ int main(int argc, char* argv[]) {
     // bc_mp1.SetXNDirichletBc1D(0);
     // bc_mp1.SetXNNeumannBc1D(0);
     // bc_mp1.SetXNRobinBc1D(0);
-    BvpPde oxygen(&ode_mp1, &bc_mp1,0.001, 1.0, 1.0, 128, uj0);
-    BvpPde organic_mater_1(&ode_mp2, &bc_mp2,0.001, 1.0, 1.0, 128, uj0);
+    BvpPde oxygen(&ode_mp1, &bc_mp1,0.001, 1.0, 10.0, 128, uj0);
+    BvpPde organic_mater_1(&ode_mp2, &bc_mp2,0.001, 1.0, 10.0, 128, uj0);
     // BvpOde oxygen(&ode_mp1, &bc_mp1, 10);
     oxygen.SetFilename("oxygen_results.dat");
     organic_mater_1.SetFilename("om1_results.dat");
@@ -57,9 +57,9 @@ int main(int argc, char* argv[]) {
     cpde.SolveSystem();
 
 
-    // Gnuplot g1, g2;
-    // g1.set_style("lines").plot_xy(oxygen.mpGrid->xGrid,oxygen.solution,"differentiation");
-    // g2.set_style("lines").plot_xy(organic_mater_1.mpGrid->xGrid,organic_mater_1.solution,"differentiation");
+    Gnuplot g1, g2;
+    g1.set_style("lines").plot_xy(oxygen.mpGrid->xGrid,oxygen.solution,"differentiation");
+    g2.set_style("lines").plot_xy(organic_mater_1.mpGrid->xGrid,organic_mater_1.solution,"differentiation");
     // g1.set_style("lines").plot_equation("0.5*x*(1-x)","exact solution");
 
     // Gnuplot g2;

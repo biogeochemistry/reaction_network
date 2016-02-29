@@ -25,6 +25,10 @@ if (COMMAND pre_project_set_up_hermetic_build)
   pre_project_set_up_hermetic_build()
 endif()
 
+
+
+SET(CMAKE_SKIP_RPATH TRUE)
+
 ########################################################################
 #
 # Project-wide settings
@@ -51,15 +55,16 @@ find_package(Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 # set(CMAKE_CXX_COMPILER "clang++") #compiler clang++
 # set(CMAKE_CXX_COMPILER "g++") #compiler g++
 # set(CMAKE_CXX_COMPILER "/usr/local/Cellar/gcc49/4.9.0/bin/g++-4.9") #compiler g++
+set(CMAKE_CXX_COMPILER "/usr/local/Cellar/gcc/5.3.0/bin/g++-5") #compiler g++
 set (CMAKE_CXX_LINK_FLAGS "-fopenmp -lstdc++")
-add_definitions("-std=c++11 -O3 -ffast-math -ffinite-math-only -fopenmp -fPIC -Wall -Wextra -pthread -Wno-missing-field-initializers  -fdiagnostics-color=always")
-# add_definitions("-std=c++11 -g -O0 -fopenmp -fPIC -Wall -Wextra -Wno-missing-field-initializers  -fdiagnostics-color=always -pthread")
+# add_definitions("-std=c++11 -O3 -ffast-math -ffinite-math-only -fopenmp -fPIC -Wall -Wextra -pthread -Wno-missing-field-initializers  -fdiagnostics-color=always")
+add_definitions("-std=c++11 -g -O0 -fopenmp -fPIC -Wall -Wextra -Wno-missing-field-initializers  -fdiagnostics-color=always -pthread")
 
 # CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 # folders to import
 set(reaction_network ${CMAKE_SOURCE_DIR})
-set(GTEST_DIR "${reaction_network}/libs/gtest/")
+set(GTEST_DIR "${reaction_network}/libs/googletest/")
 set(EIGEN_DIR "${reaction_network}/libs/eigen/")
 set(GNUPLOT_DIR "${reaction_network}/libs/gnuplot/")
 set(GNUPLOT2_DIR "${reaction_network}/libs/gnuplot-iostream/")
@@ -116,8 +121,8 @@ set(SOURCES_FILES
 # # are used for other targets, to ensure that gtest can be compiled by a user
 # # aggressive about warnings.
 
-cxx_library(gtest "${cxx_strict}" ${GTEST_DIR}/src/gtest-all.cc)
-cxx_library(gtest_main "${cxx_strict}" ${GTEST_DIR}/src/gtest_main.cc)
+# cxx_library(gtest "${cxx_strict}" ${GTEST_DIR}/src/gtest-all.cc)
+# cxx_library(gtest_main "${cxx_strict}" ${GTEST_DIR}/src/gtest_main.cc)
 
 
 # # cxx_executable(name dir lib srcs...)
@@ -128,8 +133,8 @@ cxx_library(gtest_main "${cxx_strict}" ${GTEST_DIR}/src/gtest_main.cc)
 
 ADD_EXECUTABLE(main src/main.cpp ${SOURCES_FILES} ${HEADER_FILES})
 
-add_executable(test src/tests/tests.cpp ${SOURCES_FILES} ${HEADER_FILES})
-target_link_libraries(test gtest gtest_main  ${Boost_LIBRARIES})
+# add_executable(test src/tests/tests.cpp ${SOURCES_FILES} ${HEADER_FILES})
+# target_link_libraries(test gtest gtest_main  ${Boost_LIBRARIES})
 
 
 # set(CMAKE_SHARED_LINKER_FLAGS "-fopenmp -fPIC")
