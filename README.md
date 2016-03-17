@@ -42,7 +42,7 @@ Generally, I expect collaborators to create the pull request with new feature/im
 #### Coupled System of PDEs: 100% #####
 - [x] update concentrations according to R term;
 - [x] Solve PDE for an each species..;
-- [x] Parallel solution of each specie with OpenMP(2 Species = 2 processors);
+- [x] Parallel solution of each species with OpenMP(2 Species = 2 processors);
 
 
 #### Submodules: 0% #### 
@@ -67,7 +67,7 @@ Generally, I expect collaborators to create the pull request with new feature/im
 
 #### Someday in the future: 67% ####
 - [ ] specify Boundary conditions for 2D or 3D as a function f(x,y);
-- [ ] solve linear systems fully in parallel (OpenMP);
+- [ ] solve linear systems fully in parallel (Hybrid MP and MPI);
 - [ ] auto-calibration (MCMC-DREAM vs MCMC) influenced by LibBi(http://libbi.org/index.html);
 
 
