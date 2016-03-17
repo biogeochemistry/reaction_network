@@ -15,19 +15,19 @@ Generally, I expect collaborators to create the pull request with new feature/im
 - [x] 1D ODE module for advection-diffusion;
 - [x] Parallel comp: OpenMP for linear solver;
 - [x] 1D ode 6th order approximation of derivatives.;
-- [] Reaction parsing module: create parsing string mechanism for obtaining dC/Dt for all reactions. User can provide list of reactions with R values as a text file.;
-- [] 2D ODE extension;
+- [ ] Reaction parsing module: create parsing string mechanism for obtaining dC/Dt for all reactions. User can provide list of reactions with R values as a text file.;
+- [ ] 2D ODE extension;
 - [x] PDE 1D extension;
 - [x] Coupled PDE;
-- [] OpenCL test for small Ax=b problems;
-- [] The output of the model should include the concentrations and mass balances of all simulated substances, the magnitudes of all imposed and simulated parameters, and the mass fluxes of all simulated processes.;
-- [] Submodules;
-- [] Someday in the future;
-- [] Python wrappers;
+- [ ] OpenCL test for small Ax=b problems;
+- [ ] The output of the model should include the concentrations and mass balances of all simulated substances, the magnitudes of all imposed and simulated parameters, and the mass fluxes of all simulated processes.;
+- [ ] Submodules;
+- [ ] Someday in the future;
+- [ ] Python wrappers;
 
 #### Reaction parsing module: 0% ####
-- [] from ECO: model could be defined by means of an input file with a system definition (substances, processes and pertinent coefficients), a computational grid, an initial composition, timers, flow fields (a dynamic water balance), dispersion coefficients, loads and meteorological forcing. All input parameters in the model can be specified as constants or temporally and/or spatially varying parameters.;
-- [] Boost. RegExp;
+- [ ] from ECO: model could be defined by means of an input file with a system definition (substances, processes and pertinent coefficients), a computational grid, an initial composition, timers, flow fields (a dynamic water balance), dispersion coefficients, loads and meteorological forcing. All input parameters in the model can be specified as constants or temporally and/or spatially varying parameters.;
+- [ ] Boost. RegExp;
 
 #### pH module 100% ####
 - [x] Levenberg-Marquardt minimization algorithm;
@@ -46,8 +46,8 @@ Generally, I expect collaborators to create the pull request with new feature/im
 
 
 #### Submodules: 0% #### 
-- [] PHREEQC;
-- [] FABM;
+- [ ] PHREEQC;
+- [ ] FABM;
 
 
 #### 2D ODE extension: 58% ####
@@ -58,24 +58,24 @@ Generally, I expect collaborators to create the pull request with new feature/im
 - [x] Boundary conditions;
 - [x] formation of 2d grid + tests;
 - [x] assigning of the functions to 2D boundary + tests;
-- [] alpha betta gamma coefficients in 2D (North,West,South,East,Center nodes);
+- [ ] alpha betta gamma coefficients in 2D (North,West,South,East,Center nodes);
 - [x] Populate matrix + tests;
 - [x] Populate vector +tests;
-- [] apply solver + tests;
-- [] test on Poisson's eq with known solution;
+- [ ] apply solver + tests;
+- [ ] test on Poisson's eq with known solution;
 
 
 #### Someday in the future: 67% ####
-- [] specify Boundary conditions for 2D or 3D as a function f(x,y);
-- [] solve linear systems fully in parallel (OpenMP);
-- [] auto-calibration (MCMC-DREAM vs MCMC) influenced by LibBi(http://libbi.org/index.html);
+- [ ] specify Boundary conditions for 2D or 3D as a function f(x,y);
+- [ ] solve linear systems fully in parallel (OpenMP);
+- [ ] auto-calibration (MCMC-DREAM vs MCMC) influenced by LibBi(http://libbi.org/index.html);
 
 
 #### Python wrappers: 33%#####
 
-- [] cython;
+- [ ] cython;
 - [x] swig: node.hpp:10: Warning 325: Nested struct not currently supported (coordinates ignored);
-- [] boost.python;
+- [ ] boost.python;
 
 
 ##### The MIT License (MIT)
