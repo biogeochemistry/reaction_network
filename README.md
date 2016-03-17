@@ -2,7 +2,7 @@
 
 Prototype of the reaction network toolbox. This toolbox will give a modeler the possibility to easy specify chemical reactions and parameters in the text file. The main purpose of the toolbox is to solve the coupled nonlinear partial differential equations which represent the transport and reactions processes in the porous aqueous media:
  
- $$ \frac{\partial (\varepsilon C_i)}{\partial t} = \frac{\partial}{\partial x} \left(\varepsilon D_i \frac{\partial C_i}{\partial x} + \varepsilon D_{bio} \frac{\partial C_i}{\partial x}\right) - \frac{\partial}{\partial x} \left(\omega\varepsilon C_i\right) + \varepsilon\sum R(x,t,C_i,...)$$
+![equation](http://www.sciweavers.org/tex2img.php?eq=%5Cfrac%7B%5Cpartial%20%28%5Cvarepsilon%20C_i%29%7D%7B%5Cpartial%20t%7D%20%3D%20%5Cfrac%7B%5Cpartial%7D%7B%5Cpartial%20x%7D%20%5Cleft%28%5Cvarepsilon%20D_i%20%5Cfrac%7B%5Cpartial%20C_i%7D%7B%5Cpartial%20x%7D%20%2B%20%5Cvarepsilon%20D_%7Bbio%7D%20%5Cfrac%7B%5Cpartial%20C_i%7D%7B%5Cpartial%20x%7D%5Cright%29%20-%20%5Cfrac%7B%5Cpartial%7D%7B%5Cpartial%20x%7D%20%5Cleft%28%5Comega%5Cvarepsilon%20C_i%5Cright%29%20%2B%20%5Cvarepsilon%5Csum%20R%28x%2Ct%2CC_i%2C...%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
 
 
 #### The toolbox is still under the development and collaborators are really welcome!
