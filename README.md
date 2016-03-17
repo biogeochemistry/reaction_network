@@ -26,7 +26,7 @@ Generally, I expect collaborators to create the pull request with new feature/im
 - [ ] Python wrappers;
 
 #### Reaction parsing module: 0% ####
-- [ ] from ECO: model could be defined by means of an input file with a system definition (substances, processes and pertinent coefficients), a computational grid, an initial composition, timers, flow fields (a dynamic water balance), dispersion coefficients, loads and meteorological forcing. All input parameters in the model can be specified as constants or temporally and/or spatially varying parameters.;
+- [ ] model could be defined by means of an input file with a system definition (substances, processes and pertinent coefficients), a computational grid, an initial composition, timers, flow fields (a dynamic water balance), dispersion coefficients, loads and meteorological forcing. All input parameters in the model can be specified as constants or temporally and/or spatially varying parameters.;
 - [ ] Boost. RegExp;
 
 #### pH module 100% ####
